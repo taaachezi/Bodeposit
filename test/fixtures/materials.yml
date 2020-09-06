@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  genre_id: 
+  name: MyString
+  quantity: 1
+  carbohydrate: 1.5
+  protein: 1.5
+  fat: 1.5
+  calorie: 1.5
+
+two:
+  user_id: 
+  genre_id: 
+  name: MyString
+  quantity: 1
+  carbohydrate: 1.5
+  protein: 1.5
+  fat: 1.5
+  calorie: 1.5

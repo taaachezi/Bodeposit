@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bodeposit</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="background-image">
+    <div class="header navbar navbar-fixed-top">
+      <div class="header__screen" style="height: 200px; background-color: green;">
+      </div>
+      <div class=" header__logo nav navbar-left" style="position: absolute; top: 1px; left: 10px;">
+        <%= link_to "/" do %>
+        <%= image_tag "61979938-724c-4708-b857-6be04fbd8675_200x200.png",class: "img-responsive" %>
+        <% end %>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <nav>
+            <ul class="nav navbar-nav header__nav">
+              <% if user_signed_in? %>
+                <li class="header__nav--signin">
+                  <%= link_to "about", top_about_path %>
+                </li>
+                <li class="header__nav--signin">
+                  <%= link_to "レシピを探す", recipe_index_path %>
+                </li>
+                <li class="header__nav--signin">
+                  <%= link_to "マイページ", users_path %>
+                </li>
+                <li class="header__nav--signin">
+                  <%= link_to "ログアウト", destroy_user_session_path %>
+                </li>
+              <% else %>
+                <li class="header__nav--signout">
+                  <%= link_to "新規登録", new_user_registration_path %>
+                </li>
+                <li class="header__nav--signout">
+                  <%= link_to "ログイン", new_user_session_path %>
+                </li>
+                <li class="header__nav--signout">
+                  <%= link_to "about", top_about_path %>
+                </li>
+                <li class="header__nav--signout">
+                  <%= link_to "レシピを探す", recipe_index_path %>
+                </li>
+              <% end %>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <% if flash[:notice] %>
+    <div class= "alert alert-success row" style="text-align: center;">
+      <%= flash[:notice] %>
+    </div>
+    <% end %>
+    
+    <%= yield %>
+    </div>
+  </body>
+</html>
