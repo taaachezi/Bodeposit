@@ -1,7 +1,7 @@
 <div class="genre container">
 	<div class="row">
 		<div id="genre_new" class="genre__form col-md-6 offset-6">
-			<%= render "new", addgenre: @addgenre %>
+			<%= render "create", addgenre: @addgenre %>
 		</div>
 	</div>
 
@@ -13,7 +13,7 @@
 				<% end %>
 				<% @genres.each do |genre| %>
 					<p id="genre_index__list_<%= genre.id %>">
-					  <%= render "edit", genre: genre %>
+					  <%= render "update", genre: genre %>
 					</p>
 				<% end %>
 		</div>
