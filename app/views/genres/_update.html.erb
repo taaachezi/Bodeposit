@@ -1,8 +1,0 @@
-<%= form_for genre, url: users_genres_path(id: genre.id), method: :patch, remote: true do |f| %>
-	<p>
-	  	<%= f.text_field :name, autofocus: true %>
-	 	<%= f.radio_button :status, true %><span>表示</span>
-	  	<%= f.radio_button :status, false %><span>非表示</span>
-	  	<span><%= f.submit "設定を変更する", class: "btn btn-success" %></span>
-	</p>
-<% end %>
