@@ -1,21 +1,21 @@
-<div class="genre container">
+<div class="container">
+
 	<div class="row">
-		<div id="genre_new" class="genre__form col-md-6 offset-6">
-			<%= render "create", addgenre: @addgenre %>
+		<div id="genre_new" class="genre__form col-md-offset-4 col-md-8">
+		<%= render "genre_form", addgenre: @addgenre %>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="genre_index col-md-6 offset-6">
+		<div class="genre_index col-md-offset-4 col-md-8">
 			<h3>ジャンル一覧</h3>
-				<% if current_user.genres.count == 0 %>
+			<% if current_user.genres.count == 0 %>
 				<p>ジャンルを追加してください</p>
-				<% end %>
-				<% @genres.each do |genre| %>
-					<p id="genre_index__list_<%= genre.id %>">
-					  <%= render "update", genre: genre %>
-					</p>
-				<% end %>
+			<% end %>
+			<div id="genre_index__genres">
+			  <%= render "index", genres: @genres %>
+			</div>
 		</div>
 	</div>
+
 </div>

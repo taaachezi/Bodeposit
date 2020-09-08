@@ -4,15 +4,19 @@ Rails.application.routes.draw do
   get 'top/about' => 'top#about'
   get 'search/search' => 'search#search'
 
-  resource :users, only: [:edit, :show] do
+  resources :users, only: [:show, :update] do
     member do
       get :withdraw
-      get :unsubscribe
+      patch :unsubscribe
     end
-    resource :genres, only: [:new, :create, :update] do
-      resources :materials, only: [:create, :index, :update, :destroy] do
-        resources :eats, only: [:create, :destroy]
+  end
+
+  resource :genres, only: [:new, :create, :update] do
+    resources :materials, only: [:create, :index, :update, :destroy] do
+      collection do
+        get :search
       end
+      resources :eats, only: [:create, :destroy]
     end
   end
 

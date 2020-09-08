@@ -12,7 +12,8 @@
   <body>
     <div class="background-image">
     <div class="header navbar navbar-fixed-top">
-      <div class="header__screen" style="height: 200px; background-color: green;">
+      <div class="header__screen" style="height: 200px; background-color: skyblue;">
+        画面スライド
       </div>
       <div class=" header__logo nav navbar-left" style="position: absolute; top: 1px; left: 10px;">
         <%= link_to "/" do %>
@@ -32,7 +33,7 @@
                   <%= link_to "レシピを探す", recipe_index_path %>
                 </li>
                 <li class="header__nav--signin">
-                  <%= link_to "マイページ", users_path %>
+                  <%= link_to "マイページ", user_path(current_user.id) %>
                 </li>
                 <li class="header__nav--signin">
                   <%= link_to "ログアウト", destroy_user_session_path %>

@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :height, :weight, :level, :age, :sex,])
 	end
 
+	def calorie_fit(fat, protein, carbohydrate)
+		fat*9 + protein*4 + carbohydrate*4
+  	end
+
 end
