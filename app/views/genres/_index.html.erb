@@ -1,6 +1,6 @@
 <% genres.each do |genre| %>
   <p>
-	<%= form_for genre, url: users_genres_path(id: genre.id), method: :patch, remote: true do |f| %>
+	<%= form_for genre, url: genres_path(id: genre.id), method: :patch, remote: true do |f| %>
   	<%= f.text_field :name, autofocus: true %>
  	<%= f.radio_button :status, true %><span>表示</span>
   	<%= f.radio_button :status, false %><span>非表示</span>

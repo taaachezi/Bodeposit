@@ -1,2 +1,51 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<h3><%= current_user.name %>さんのマイページ</h3>
+			<%= form_for @user, url: user_path, method: :patch do |f| %>
+				<div class="field">
+					<%= f.label :ユーザ名 %><br />
+					<%= f.text_field :name, autofocus: true %>
+				</div>
+				<div class="field">
+					<%= f.label :メールアドレス %><br />
+					<%= f.text_field :email, autofocus: true %>
+				</div>
+				<div class="field">
+					<%= f.label :性別 %><br />
+					<%= f.radio_button :sex, true %>男
+					<%= f.radio_button :sex, false %>女
+				</div>
+				<div class="field">
+					<%= f.label :年齢 %><br />
+					<%= f.text_field :age, autofocus: true %>
+				</div>
+				<div class="field">
+					<%= f.label :身長（cm） %><br />
+					<%= f.text_field :height, autofocus: true %>
+				</div>
+				<div class="field">
+					<%= f.label :体重（kg） %><br />
+					<%= f.text_field :weight, autofocus: true %>
+				</div>
+				<div class="field">
+				    <%= f.label :運動頻度（意識的に運動している日／週） %><br />
+				    <%= f.radio_button :level, "多" %>多(週5~7日)
+				    <%= f.radio_button :level, "普通" %>普通(週2~4日)
+				    <%= f.radio_button :level, "少" %>少(週0~1日)
+			  	</div>
+			  	<div class="actions">
+			  		<%= f.submit "更新", class: "btn btn-success" %>
+			  		<span>
+			  			<%= link_to "退会する", withdraw_user_path, method: :get, class: "btn btn-danger" %>
+			  		</span>
+			  	</div>
+			  <% end %>
+		</div>
+
+		<div class="col-md-8">
+			<h3><%= current_user.name %>さんの投稿レシピ一覧</h3>
+		</div>
+	</div>
+</div>
+
