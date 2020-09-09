@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+	# devise
 	before_action :configure_permitted_parameters, if: :devise_controller?
 
 	def after_sign_up_path_for(resource)
@@ -17,9 +18,5 @@ class ApplicationController < ActionController::Base
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :height, :weight, :level, :age, :sex,])
 	end
-
-	def calorie_fit(fat, protein, carbohydrate)
-		fat*9 + protein*4 + carbohydrate*4
-  	end
 
 end
