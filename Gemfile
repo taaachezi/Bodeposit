@@ -63,7 +63,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'jquery-rails'
-gem 'bootstrap-sass', '~>3.3.6'
+gem 'bootstrap', '~>4.4.1'
 gem 'font-awesome-sass', '~>5.8.1'
 gem 'refile', require: "refile/rails", github: 'manfe/refile'
 gem 'refile-mini_magick'
@@ -74,6 +74,8 @@ gem 'omniauth-google-oauth2'
 gem 'paranoia'
 gem 'rails-i18n'
 gem 'chartkick'
+gem 'toastr-rails'
 group :production do
   gem 'mysql2'
 end
+
