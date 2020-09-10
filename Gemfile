@@ -74,3 +74,6 @@ gem 'omniauth-google-oauth2'
 gem 'paranoia'
 gem 'rails-i18n'
 gem 'chartkick'
+group :production do
+  gem 'mysql2'
+end

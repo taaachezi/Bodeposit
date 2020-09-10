@@ -27,7 +27,7 @@
 .background-image {
 	width: 100%;
 	min-height: 1000px;
-	background-image: url(background_image.jpg);
+	background-image: image-url("background_image.jpg");
 	background-size: cover;
 }
 .field {
