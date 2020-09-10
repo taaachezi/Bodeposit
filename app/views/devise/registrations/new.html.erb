@@ -29,8 +29,8 @@
 
   <div class="field">
     <%= f.label :性別 %><br />
-    <%= f.radio_button :age, true %>男性
-    <%= f.radio_button :age, false %>女性
+    <%= f.radio_button :sex, true %>男性
+    <%= f.radio_button :sex, false %>女性
   </div>
 
 
@@ -52,10 +52,10 @@
   </div>
 
   <div class="field">
-    <%= f.label :運動頻度 %><br />
+    <%= f.label :運動頻度（意識的に運動している日週） %><br />
     <%= f.radio_button :level, "多" %>多(週5~7日)
     <%= f.radio_button :level, "普通" %>普通(週2~4日)
-    <%= f.radio_button :level, "少" %>少(週2~4日)
+    <%= f.radio_button :level, "少" %>少(週0~1日)
   </div>
 
   <div class="actions">

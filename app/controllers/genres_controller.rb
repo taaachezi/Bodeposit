@@ -7,13 +7,11 @@ class GenresController < ApplicationController
   	@addgenre = Genre.new(params_genre)
   	@addgenre.user_id = current_user.id
   	@addgenre.save
-  	flash[:notice] = "ジャンルを追加しました"
   end
 
   def update
     @addgenre = Genre.new
   	@genre.update(params_genre)
-  	flash[:notice] = "ジャンルを変更しました"
   end
 
   private

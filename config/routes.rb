@@ -1,18 +1,22 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'top#top'
-  get 'top/about' => 'top#about'
+  get 'top/user_top' => 'top#user_top'
   get 'search/search' => 'search#search'
 
-  resource :users, only: [:edit, :show] do
+  resources :users, only: [:show, :update] do
     member do
       get :withdraw
-      get :unsubscribe
+      patch :unsubscribe
     end
-    resource :genres, only: [:new, :create, :update] do
-      resources :materials, only: [:create, :index, :update, :destroy] do
-        resources :eats, only: [:create, :destroy]
+  end
+
+  resource :genres, only: [:new, :create, :update] do
+    resources :materials, only: [:create, :index, :update, :destroy] do
+      collection do
+        get :search
       end
+      resources :eats, only: [:create, :destroy]
     end
   end
 
