@@ -13,18 +13,12 @@
  *= require_tree .
  *= require_self
  */
- @import "bootstrap-sprockets";
  @import "bootstrap";
  @import "font-awesome-sprockets";
  @import "font-awesome";
  @import "toastr";
 
-.header {
- 	position: relative;
- }
-.header__screen {
-	height: 200px;
-}
+
 .background-image {
 	width: 100%;
 	min-height: 1000px;
