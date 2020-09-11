@@ -1,4 +1,5 @@
 class MaterialsController < ApplicationController
+  before_action :authenticate_user!
   def index
   	@addmaterial = Material.new
   	@materials = current_user.materials.order("genre_id")

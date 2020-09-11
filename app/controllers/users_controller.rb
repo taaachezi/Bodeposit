@@ -3,15 +3,16 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
-    @user.calorie
+    if @user.calorie.present?
     @data = {"たんぱく質" => @user.protein.round(1), "脂質" => @user.fat.round(1), "炭水化物" => @user.carbohydrate.round(1)}
+  end
   end
 
   def update
-    @user.calorie = intake_nutorition(@user.height, @user.weight, @user.sex, @user.age, @user.level)
-    @user.protein = intake_protein(@user.weight)
-    @user.fat = intake_fat(@user.weight)
-    @user.carbohydrate = intake_carbo(@user.protein, @user.fat, @user.calorie)
+    @user.calorie = User.intake_nutorition(@user.height, @user.weight, @user.sex, @user.age, @user.level)
+    @user.protein = User.intake_protein(@user.weight)
+    @user.fat = User.intake_fat(@user.weight)
+    @user.carbohydrate = User.intake_carbo(@user.protein, @user.fat, @user.calorie)
     @user.update(params_users)
     redirect_back(fallback_location: root_path)
   end
