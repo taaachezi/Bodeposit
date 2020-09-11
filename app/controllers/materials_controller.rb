@@ -21,9 +21,12 @@ class MaterialsController < ApplicationController
 
   def search
   	@addmaterial = Material.new
-  	@genre = Genre.find_by(id: params[:genre_id])
-  	@materials = Material.where(user_id: current_user.id, genre_id: @genre.id)
- 	render "index"
+  	if @genre = Genre.find_by(id: params[:genre_id])
+    	@materials = Material.where(user_id: current_user.id, genre_id: @genre.id)
+   	  render "index"
+    else
+      redirect_back(fallback_location: root_path)
+    end
 
   end
 

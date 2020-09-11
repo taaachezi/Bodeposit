@@ -2,6 +2,6 @@ class TopController < ApplicationController
   def top
   end
 
-  def about
+  def user_top
   end
 end

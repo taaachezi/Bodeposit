@@ -58,10 +58,13 @@
       </div>
     </div>
 
-    <% if flash[:notice] %>
-    <div class= "alert alert-success row" style="text-align: center;">
-      <%= flash[:notice] %>
-    </div>
+    <% if flash.any? %>
+      <sciript type="text/javascript">
+        <% flash.each do |key, value| %>
+          <% key = "success" if key == "notice" %>
+          <% key = "error" if key == "alert" %>
+          toastr['<%= key %>']('<%= value %>');
+      </sciript>
     <% end %>
     
     <%= yield %>
