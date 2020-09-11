@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :recipe, except: [:edit] do
+  resources :recipes, except: [:edit] do
     resource :favorites, only: [:create, :destroy]
     resource :reviews, only: [:create, :destroy]
     resource :recipe_materials, only: [:create, :destroy]

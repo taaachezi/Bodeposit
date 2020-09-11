@@ -26,13 +26,13 @@
         <ul class="nav navbar-nav ml-auto header__nav">
           <% if user_signed_in? %>
             <li class="header__nav--signin nav-item">
-              <%= link_to "レシピを探す", recipe_index_path, class: "nav-link" %>
+              <%= link_to "レシピを探す", recipes_path, class: "nav-link" %>
             </li>
             <li class="header__nav--signin nav-item">
               <%= link_to "マイページ", user_path(current_user.id), class: "nav-link" %>
             </li>
             <li class="header__nav--signin nav-item">
-              <%= link_to "ログアウト", destroy_user_session_path, class: "nav-link" %>
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link" %>
             </li>
           <% else %>
             <li class="header__nav--signout nav-item">
@@ -42,7 +42,7 @@
               <%= link_to "ログイン", new_user_session_path, class: "nav-link" %>
             </li>
             <li class="header__nav--signout nav-item">
-              <%= link_to "レシピを探す", recipe_index_path, class: "nav-link" %>
+              <%= link_to "レシピを探す", recipes_path, class: "nav-link" %>
             </li>
           <% end %>
         </ul>
@@ -57,7 +57,7 @@
         <% end %>
       </sciript>
     <% end %>
-    <div style="padding-bottom: 200px;">
+    <div style="padding-bottom: 300px;">
       
     </div>
     <%= yield %>

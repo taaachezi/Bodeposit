@@ -42,7 +42,8 @@
 			  	</div>
 			<% end %>
 
-			<div class="user_calorie">
+			<!-- モーダルにしたい -->
+			<div class="user_calorie row" style="margin-top: 20px;">
 				<% if @user.calorie.blank? %>
 					<h3><%= @user.name %>さんの必要摂取マクロ</h3>
 					トップ画面の計算ボタンまたは、登録情報を変更すると出力されます
@@ -56,15 +57,15 @@
 						<tr>
 							<td class="active">栄養マクロ内訳</td>
 							<td>
-								たんぱく質<span><%= @user.protein %></span><br>
-								脂質<span><%= @user.fat %></span><br>
+								たんぱく質<span><%= @user.protein.round(1) %></span><br>
+								脂質<span><%= @user.fat.round(1) %></span><br>
 								炭水化物<span><%= @user.carbohydrate.round(1) %></span>
 							</td>
 						</tr>
 					</table>
-						<div class="cart">
-							<%= pie_chart @data %>
-						</div>
+					<div class="chart">
+						<%= pie_chart @data %>
+					</div>
 
 					<h3><%= @user.name %>さんの理想摂取カロリー</h3>
 					<table class="table table-bordered">
@@ -75,8 +76,8 @@
 						<tr>
 							<td>栄養マクロ内訳</td>
 							<td>
-								たんぱく質<span><%= @user.protein %></span><br>
-								脂質<span><%= @user.fat %></span><br>
+								たんぱく質<span><%= @user.protein.round(1) %></span><br>
+								脂質<span><%= @user.fat.round(1) %></span><br>
 								炭水化物<span><%= weight_gain(@user.calorie, @user.fat, @user.protein).round(1) %></span>
 							</td>
 						</tr>
@@ -87,8 +88,8 @@
 						<tr>
 							<td>栄養マクロ内訳</td>
 							<td>
-								たんぱく質<span><%= @user.protein %></span><br>
-								脂質<span><%= @user.fat %></span><br>
+								たんぱく質<span><%= @user.protein.round(1) %></span><br>
+								脂質<span><%= @user.fat.round(1) %></span><br>
 								炭水化物<span><%= weight_slim(@user.calorie, @user.fat, @user.protein).round(1) %></span>
 							</td>
 						</tr>
@@ -96,6 +97,7 @@
 				<% end %>
 			</div>
 		</div>
+		<!-- ここまでモーダル -->
 
 		<div class="col-md-6">
 			<h3><%= @user.name %>さんの投稿レシピ一覧</h3>

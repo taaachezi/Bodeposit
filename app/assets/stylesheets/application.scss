@@ -20,8 +20,8 @@
 
 
 .background-image {
-	width: 100%;
-	min-height: 1000px;
+	width: auto;
+	height: 1000vh;
 	background-image: image-url("background_image.jpg");
 	background-size: cover;
 }
