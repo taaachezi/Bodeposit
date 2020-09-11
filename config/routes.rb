@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'top#top'
-  get 'top/user_top' => 'top#user_top'
+  get 'user_top/:id' => 'top#user_top', as: "user_top"
   get 'search/search' => 'search#search'
 
   resources :users, only: [:show, :update] do
