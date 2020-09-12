@@ -8,7 +8,7 @@ class MaterialsController < ApplicationController
   def create
   	@addmaterial = Material.new(params_material)
   	@addmaterial.user_id = current_user.id
-  	@addmaterial.calorie = calorie_fit(@addmaterial.fat, @addmaterial.protein, @addmaterial.carbohydrate)
+  	@addmaterial.calorie = Material.calorie_fit(@addmaterial.fat, @addmaterial.protein, @addmaterial.carbohydrate)
   	@addmaterial.save
   	flash[:notice] = "材料を登録しました"
   	redirect_back(fallback_location: root_path)

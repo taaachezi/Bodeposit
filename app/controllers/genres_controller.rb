@@ -4,9 +4,11 @@ class GenresController < ApplicationController
   end
 
   def create
+    @genres = current_user.genres
   	@addgenre = Genre.new(params_genre)
   	@addgenre.user_id = current_user.id
   	@addgenre.save
+    redirect_back(fallback_location: root_path)
   end
 
   def update

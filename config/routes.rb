@@ -20,13 +20,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :recipes, except: [:edit] do
+  resources :recipes do
     resource :favorites, only: [:create, :destroy]
     resource :reviews, only: [:create, :destroy]
-    resource :recipe_materials, only: [:create, :destroy]
+    resources :recipe_materials, only: [:new, :create, :destroy]
   end
 
-  
+
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
