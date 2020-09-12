@@ -1,4 +1,4 @@
 class RecipeMaterial < ApplicationRecord
-	belongs_to :recipe
 	belongs_to :material
+	belongs_to :recipe
 end

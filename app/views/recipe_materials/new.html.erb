@@ -1,0 +1,39 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 justify-content-center">
+			<h3>レシピに使用する材料を入れてください</h3>
+				<%= form_with(model: @recipe_material, local: true, url: recipe_recipe_materials_path, method: :post) do |f| %>
+				<p>登録した材料から選択</p>
+					<div class="new-recipe-materials">
+						<%= f.label :材料名 %><br>
+						<%= f.collection_select :material_id, Material.where(user_id: current_user.id), :id, :name, include_blank: "材料選択" %>
+						<%= f.label :quantity, '数量（グラム）' %>
+						<%= f.text_field :quantity, autofocus: true %>g
+					</div>
+					<div class="recipe-materials-action">
+						<%= f.submit "材料をレシピに入れる", class: "btn btn-primary" %>
+						<%= link_to "材料を登録する", genres_materials_path %>
+					</div>
+				<% end %>
+
+			<div class="index-recipe-materials">
+				<h3>レシピ材料一覧</h3>
+					<% if @recipe_materials.count == 0 %>
+						<p>材料が登録されていません</p>
+					<% else %>
+						<% @recipe_materials.each do |recipe_material| %>
+						<p>
+								<%= recipe_material.material.name %>
+							</p>
+							<p>
+								<%= recipe_material.quantity %>
+							</p>
+							<p>
+								<%= link_to "削除", recipe_recipe_material_path(id: recipe_material.id), method: :delete, class: "btn btn-danger" %>
+							</p>
+						<% end %>
+					<% end %>
+			</div>
+		</div>
+	</div>
+</div>
