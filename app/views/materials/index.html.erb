@@ -1,43 +1,44 @@
 <div class="container" id="post_material">
 	<div class="row">
-		<div class="col-md-2">
-			<h3>材料登録</h3>
-			<strong>100g換算で入力してください<strong>
-			<%= form_for @addmaterial, url: genres_materials_path, method: :post do |f| %>
-			<div class="field">
-				<%= f.label :ジャンル %><br>
-				<%= f.collection_select :genre_id, Genre.where(status: true, user_id: current_user.id), :id, :name, include_blank: "ジャンル選択" %>
-			</div>
+		<div class="col-md-8 offset-md-2">
+			<h3>材料登録<strong>(※100g換算で入力してください)<strong></h3>
+				<%= form_for @addmaterial, url: genres_materials_path, method: :post do |f| %>
+					<div class="field">
+						<%= f.label :ジャンル %><br>
+						<%= f.collection_select :genre_id, Genre.where(status: true, user_id: current_user.id), :id, :name, include_blank: "ジャンル選択", class: "col-12" %>
+					</div>
 
-			<div class="field">
-				<%= f.label :材料名 %><br>
-				<%= f.text_field :name, autofocus: true, placeholder: "材料名を入力" %>
-			</div>
+					<div class="field">
+						<%= f.label :材料名 %><br>
+						<%= f.text_field :name, autofocus: true, placeholder: "材料名を入力", class: "col-md-12" %>
+					</div>
 
-			<div class="field">
-				<%= f.label :たんぱく質 %><br>
-				<%= f.text_field :protein, autofocus: true, placeholder: "たんぱく質を入力" %>
-			</div>
+					<div class="field">
+						<%= f.label :たんぱく質 %><br>
+						<%= f.text_field :protein, autofocus: true, placeholder: "たんぱく質を入力", class: "col-12" %>
+					</div>
 
-			<div class="field">
-				<%= f.label :炭水化物 %><br>
-				<%= f.text_field :carbohydrate, autofocus: true, placeholder: "炭水化物を入力" %>
-			</div>
+					<div class="field">
+						<%= f.label :炭水化物 %><br>
+						<%= f.text_field :carbohydrate, autofocus: true, placeholder: "炭水化物を入力", class: "col-12" %>
+					</div>
+					
+					<div class="field">
+						<%= f.label :脂質 %><br>
+						<%= f.text_field :fat, autofocus: true, placeholder: "脂質を入力", class: "col-12" %>
+					</div>
 
-			<div class="field">
-				<%= f.label :脂質 %><br>
-				<%= f.text_field :fat, autofocus: true, placeholder: "脂質を入力" %>
-			</div class="field">
+					<div class="field action">
+						<%= f.submit "登録", class: "btn btn-outline-primary col-12" %>
+					</div>
 
-			<%= f.submit "登録", class: "btn btn-primary" %>
-
-			<span>
-				<%= link_to "ジャンルを追加", new_genres_path,  class: "label label-primary" %>
-			</span>
-			<% end %>
+					<div class="field action">
+						<%= link_to "ジャンルを追加", new_genres_path,  class: "btn btn-outline-success col-12" %>
+					</div>
+				<% end %>
 		</div>
 
-		<div class="index_materials col-md-8">
+		<div class="index_materials col-md-12">
 			<% if @genre %>
 			<h3>登録した材料（ジャンル:<%= @genre.name %>で絞り込み）</h3>
 			<% else %>
@@ -47,15 +48,15 @@
 				<%= form_tag(search_genres_materials_path, method: :get) do %>
 					<%= select_tag "genre_id", options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name, 1), include_blank: "登録したジャンル選択" %>
 					<%= submit_tag "ジャンル絞り込み" %>
-					<span><%= link_to "全ての材料", genres_materials_path %></span>
+					<span><%= link_to "全ての材料", genres_materials_path, class: "btn btn-outline-info" %></span>
 				<% end %>
 			</div>
 			<div id="index_materials__edit">
 				<table class="table table">
 					<thead>
 						<tr>
-							<th style="width: 15%;">ジャンル</th>
-							<th style="width: 25%;">材料(100g)</th>
+							<th>ジャンル</th>
+							<th>材料(100g)</th>
 							<th>たんぱく質(100g/g)</th>
 							<th>炭水化物(100g/g)</th>
 							<th>脂質(100g/g)</th>
@@ -84,7 +85,7 @@
 								<%= material.calorie.round(1) %>kcal
 							</td>
 							<td>
-								<%= link_to "削除", genres_material_path(id: material.id, genre_id: material.genre_id), method: :delete, class: "btn btn-danger" %>
+								<%= link_to "削除", genres_material_path(id: material.id, genre_id: material.genre_id), method: :delete, class: "btn btn-outline-danger" %>
 							</td>
 						</tr>
 						<% end %>

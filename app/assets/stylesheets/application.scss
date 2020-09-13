@@ -19,12 +19,22 @@
  @import "toastr";
 
 
-.background-image {
-	width: auto;
-	height: 1000vh;
-	background-image: image-url("background_image.jpg");
+body {
+	font-family: 'Vollkorn', serif;
+	background-image: image-url("vegetable.jpg");
+	background-color: rgba(255,255,255,0.6);
+	background-blend-mode: lighten;
 	background-size: cover;
+	background-position: center;
+	min-height: 1000px;
+}
+.header {
+	background-color: rgba(0, 255, 255, 0.2);
+	height: 150px;
 }
 .field {
 	margin-bottom: 10px;
+}
+.table {
+	opacity: 0.8;
 }

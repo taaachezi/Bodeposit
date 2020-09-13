@@ -7,6 +7,7 @@ class GenresController < ApplicationController
     @genres = current_user.genres
   	@addgenre = Genre.new(params_genre)
   	@addgenre.user_id = current_user.id
+    byebug
   	@addgenre.save
     redirect_back(fallback_location: root_path)
   end
@@ -19,7 +20,7 @@ class GenresController < ApplicationController
   private
 
   def params_genre
-  	params.require(:genre).permit(:name, :status)
+  	params.require(:genre).permit(:name, :status, :user_id)
   end
 
   def set_method

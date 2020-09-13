@@ -3,9 +3,6 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
-    if @user.calorie.present?
-    @data = {"たんぱく質" => @user.protein.round(1), "脂質" => @user.fat.round(1), "炭水化物" => @user.carbohydrate.round(1)}
-  end
   end
 
   def update
@@ -14,7 +11,7 @@ class UsersController < ApplicationController
     @user.fat = User.intake_fat(@user.weight)
     @user.carbohydrate = User.intake_carbo(@user.protein, @user.fat, @user.calorie)
     @user.update(params_users)
-    redirect_back(fallback_location: root_path)
+    render :show
   end
 
   def unsubscribe
@@ -34,6 +31,5 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
-
 
 end

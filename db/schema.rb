@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_12_121211) do
+ActiveRecord::Schema.define(version: 2020_09_13_082100) do
 
   create_table "eats", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -40,10 +40,9 @@ ActiveRecord::Schema.define(version: 2020_09_12_121211) do
   end
 
   create_table "materials", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "genre_id", null: false
+    t.integer "user_id", null: false
+    t.integer "genre_id", null: false
     t.string "name", null: false
-    t.integer "quantity", default: 100, null: false
     t.float "carbohydrate", null: false
     t.float "protein", null: false
     t.float "fat", null: false

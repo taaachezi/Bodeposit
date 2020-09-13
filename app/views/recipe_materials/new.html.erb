@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-6 justify-content-center">
 			<h3>レシピに使用する材料を入れてください</h3>
-				<%= form_with(model: @recipe_material, local: true, url: recipe_recipe_materials_path, method: :post) do |f| %>
+				<%= form_with(model:  @recipe_material, local: true, url: recipe_recipe_materials_path, method: :post) do |f| %>
 				<p>登録した材料から選択</p>
 					<div class="new-recipe-materials">
 						<%= f.label :材料名 %><br>
@@ -33,6 +33,9 @@
 							</p>
 						<% end %>
 					<% end %>
+			</div>
+			<div class="recipe-action">
+				<%= link_to "レシピを確認する", recipe_path(@recipe.id) %>
 			</div>
 		</div>
 	</div>

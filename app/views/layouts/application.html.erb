@@ -7,60 +7,82 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <div class="background-image">
-      <nav class="navbar navbar-expand navbar-gray fixed-top header" style="z-index: -300px;">
+      <nav class="navbar navbar-expand navbar-light fixed-top header">
 
         <% if user_signed_in? %>
-          <%= link_to user_top_path(current_user.id) do %>
-            <%= image_tag "61979938-724c-4708-b857-6be04fbd8675_200x200.png",class: "img-responsive" %>
+          <%= link_to user_top_path(current_user.id), class: "navbar-brand d-inline-block align-top" do %>
+            <i class="fas fa-dumbbell" style="font-size: 30px;">Bodeposit</i>
           <% end %>
         <% else %>
-          <%= link_to "/" do %>
-            <%= image_tag "61979938-724c-4708-b857-6be04fbd8675_200x200.png",class: "img-responsive" %>
+          <%= link_to "/", class: "navbar-brand d-inline-block align-top" do %>
+            <i class="fas fa-dumbbell" style="font-size: 30px;">Bodeposit</i>
           <% end %>
         <% end %>
 
-        <ul class="nav navbar-nav ml-auto header__nav">
+        <ul class="header__nav navbar-nav mr-auto">
           <% if user_signed_in? %>
-            <li class="header__nav--signin nav-item">
-              <%= link_to "レシピを探す", recipes_path, class: "nav-link" %>
+            <li class="header__nav--signin nav-item active">
+              <%= link_to recipes_path, class: "nav-link" do %>
+                <i class="fas fa-search">レシピを探す</i>
+              <% end %>
             </li>
-            <li class="header__nav--signin nav-item">
-              <%= link_to "マイページ", user_path(current_user.id), class: "nav-link" %>
+            <li class="header__nav--signin nav-item active">
+              <%= link_to new_recipe_path, class: "nav-link" do %>
+                <i class="fas fa-utensils">レシピを投稿する</i>
+              <% end %>
             </li>
-            <li class="header__nav--signin nav-item">
-              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link" %>
+            <li class="header__nav--signin nav-item active">
+              <%= link_to user_path(current_user.id), class: "nav-link" do %>
+                <i class="fas fa-address-card">マイページ</i>
+              <% end %>
+            </li>
+            <li class="header__nav--signin nav-item active">
+              <%= link_to genres_materials_path, class: "nav-link" do %>
+                <i class="fas fa-apple-alt">材料登録</i>
+              <% end %>
+            </li>
+            <li class="header__nav--signin nav-item active">
+              <%= link_to destroy_user_session_path, method: :delete, class: "nav-link" do %>
+                <i class="fas fa-sign-out-alt">ログアウト</i>
+              <% end %>
             </li>
           <% else %>
-            <li class="header__nav--signout nav-item">
-              <%= link_to "新規登録", new_user_registration_path, class: "nav-link" %>
+            <li class="header__nav--signout nav-item active">
+              <%= link_to new_user_registration_path, class: "nav-link" do %>
+                <i class="fas fa-user-plus">新規登録</i>
+              <% end %>
             </li>
-            <li class="header__nav--signout nav-item">
-              <%= link_to "ログイン", new_user_session_path, class: "nav-link" %>
+            <li class="header__nav--signout nav-item active">
+              <%= link_to new_user_session_path, class: "nav-link" do %>
+                <i class="fas fa-sign-in-alt">ログイン</i>
+              <% end %>
             </li>
-            <li class="header__nav--signout nav-item">
-              <%= link_to "レシピを探す", recipes_path, class: "nav-link" %>
+            <li class="header__nav--signout nav-item active">
+              <%= link_to recipes_path, class: "nav-link" do %>
+                <i class="fas fa-utensils">レシピを探す</i>
+              <% end %>
             </li>
           <% end %>
         </ul>
       </nav>
 
-    <% if flash.any? %>
-      <sciript type="text/javascript">
-        <% flash.each do |key, value| %>
-          <% key = "success" if key == "notice" %>
-          <% key = "error" if key == "alert" %>
-          toastr['<%= key %>']('<%= value %>')
-        <% end %>
-      </sciript>
-    <% end %>
-    <div style="padding-bottom: 300px;">
-      
-    </div>
-    <%= yield %>
-    </div>
+      <% if flash.any? %>
+        <sciript type="text/javascript">
+          <% flash.each do |key, value| %>
+            <% key = "success" if key == "notice" %>
+            <% key = "error" if key == "alert" %>
+            toastr['<%= key %>']('<%= value %>');
+          <% end %>
+        </sciript>
+      <% end %>
+      <div style="padding-bottom: 200px;"></div>
+      <%= yield %>
   </body>
 </html>
