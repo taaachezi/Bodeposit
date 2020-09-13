@@ -1,8 +1,8 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<h3><%= current_user.name %>さんのマイページ</h3>
-			<%= form_for @user, url: user_path, method: :patch do |f| %>
+			<%= form_for @user, url: user_path(protein: @user.protein, fat: @user.fat, carbohydrate: @user.carbohydrate, calorie: @user.calorie), method: :patch do |f| %>
 				<div class="field">
 					<%= f.label :ユーザ名 %><br />
 					<%= f.text_field :name, autofocus: true %>
@@ -29,77 +29,118 @@
 					<%= f.text_field :weight, autofocus: true %>
 				</div>
 				<div class="field">
-				    <%= f.label :運動頻度（意識的に運動している日／週） %><br />
-				    <%= f.radio_button :level, "多" %>多(週5~7日)
-				    <%= f.radio_button :level, "普通" %>普通(週2~4日)
-				    <%= f.radio_button :level, "少" %>少(週0~1日)
+				    <%= f.label :"運動頻度(意識的に運動している日／週)" %><br />
+				    <%= f.radio_button :level, "多" %>多(週5~7日)<br>
+				    <%= f.radio_button :level, "普通" %>普通(週2~4日)<br>
+				    <%= f.radio_button :level, "少" %>少(週0~1日)<br>
 			  	</div>
-			  	<div class="actions">
-			  		<%= f.submit "更新", class: "btn btn-success" %>
-			  		<span>
-			  			<%= link_to "退会する", withdraw_user_path, method: :get, class: "btn btn-danger" %>
-			  		</span>
+			  	<div class="user_actions">
+			  		<%= f.submit "マクロ計算", class: "btn btn-outline-success col-12" %>
+			  		<%= link_to "退会する", withdraw_user_path, method: :get, class: "btn btn-outline-danger col-12" %>
 			  	</div>
 			<% end %>
-
-			<!-- モーダルにしたい -->
-			<div class="user_calorie row" style="margin-top: 20px;">
-				<% if @user.calorie.blank? %>
-					<h3><%= @user.name %>さんの必要摂取マクロ</h3>
-					トップ画面の計算ボタンまたは、登録情報を変更すると出力されます
-				<% else %>
-					<h3><%= @user.name %>さんの消費カロリー</h3>
-					<table class="table table-bordered">
-						<tr>
-							<td class="active" style="width: 20%;">消費カロリー</td>
-							<td><%= @user.calorie.round(1) %></td>
-						</tr>
-						<tr>
-							<td class="active">栄養マクロ内訳</td>
-							<td>
-								たんぱく質<span><%= @user.protein.round(1) %></span><br>
-								脂質<span><%= @user.fat.round(1) %></span><br>
-								炭水化物<span><%= @user.carbohydrate.round(1) %></span>
-							</td>
-						</tr>
-					</table>
-					<div class="chart">
-						<%= pie_chart @data %>
-					</div>
-
-					<h3><%= @user.name %>さんの理想摂取カロリー</h3>
-					<table class="table table-bordered">
-						<tr>
-							<td class="active">理想摂取カロリー（増量）</td>
-							<td><%= @user.calorie.round(1) + 500 %></td>
-						</tr>
-						<tr>
-							<td>栄養マクロ内訳</td>
-							<td>
-								たんぱく質<span><%= @user.protein.round(1) %></span><br>
-								脂質<span><%= @user.fat.round(1) %></span><br>
-								炭水化物<span><%= weight_gain(@user.calorie, @user.fat, @user.protein).round(1) %></span>
-							</td>
-						</tr>
-						<tr>
-							<td class="active" style="width: 20%;">理想摂取カロリー（減量）</td>
-							<td><%= @user.calorie.round(1) - 500 %></td>
-						</tr>
-						<tr>
-							<td>栄養マクロ内訳</td>
-							<td>
-								たんぱく質<span><%= @user.protein.round(1) %></span><br>
-								脂質<span><%= @user.fat.round(1) %></span><br>
-								炭水化物<span><%= weight_slim(@user.calorie, @user.fat, @user.protein).round(1) %></span>
-							</td>
-						</tr>
-					</table>
-				<% end %>
-			</div>
 		</div>
-		<!-- ここまでモーダル -->
 
-		<div class="col-md-6">
+		<div class="user_calorie col-md-8">
+			<% if @user.calorie.blank? %>
+				<h3><%= @user.name %>さんの必要摂取マクロ</h3>
+				<p class="btn btn-outline-success">マクロ計算</p><span>を押下してください</span>
+			<% else %>
+
+				<h3><%= @user.name %>さんの消費カロリー（体重維持）</h3>
+					<table class="table table-bordered table-success">
+						<tr>
+							<td style="width: 30%;">消費カロリー</td>
+							<td><%= @user.calorie.round(1) %>kcal</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="table-light"style="text-align: center;">栄養マクロ内訳</td>
+						</tr>
+						<tr>
+							<td>たんぱく質</td>
+							<td>
+								<%= @user.protein.round(1) %>g
+							</td>
+						</tr>
+						<tr>
+							<td>
+								脂質
+							</td>
+							<td>
+								<%= @user.fat.round(1) %>g
+							</td>
+						</tr>
+						<tr>
+							<td>炭水化物</td>
+							<td>
+								<%= @user.carbohydrate.round(1) %>g
+							</td>
+						</tr>
+					</table>
+
+				<h3>増量時の理想摂取カロリー</h3>
+					<table class="table table-bordered table-success">
+						<tr>
+							<td style="width: 30%;">理想摂取カロリー</td>
+							<td><%= @user.calorie.round(1) + 500 %>kcal</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="table-light"style="text-align: center;">栄養マクロ内訳</td>
+						</tr>
+						<tr>
+							<td>たんぱく質</td>
+							<td>
+								<%= @user.protein.round(1) %>g
+							</td>
+						</tr>
+						<tr>
+							<td>脂質</td>
+							<td>
+								<%= @user.fat.round(1) %>g
+							</td>
+						</tr>
+						<tr>
+							<td>炭水化物</td>
+							<td>
+								<%= weight_gain(@user.calorie, @user.fat, @user.protein).round(1) %>g
+							</td>
+						</tr>
+					</table>
+
+				<h3>減量時の理想摂取カロリー</h3>
+					<table class="table table-bordered table-success">
+						<tr>
+							<td style="width: 30%;">理想摂取カロリー</td>
+							<td><%= @user.calorie.round(1) - 500 %>kcal</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="table-light"style="text-align: center;">栄養マクロ内訳</td>
+						</tr>
+						<tr>
+							<td>たんぱく質</td>
+							<td>
+								<%= @user.protein.round(1) %>g
+							</td>
+						</tr>
+						<tr>
+							<td>脂質</td>
+							<td>
+								<%= @user.fat.round(1) %>g
+							</td>
+						</tr>
+						<tr>
+							<td>炭水化物</td>
+							<td>
+								<%= weight_slim(@user.calorie, @user.fat, @user.protein).round(1) %>g
+							</td>
+						</tr>
+					</table>
+			<% end %>
+		</div>
+	</div>
+		
+	<div class="row">
+		<div class="col">
 			<h3><%= @user.name %>さんの投稿レシピ一覧</h3>
 		</div>
 	</div>

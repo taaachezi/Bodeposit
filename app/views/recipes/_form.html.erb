@@ -1,0 +1,25 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-offset-3 col-md-6">
+			<h3>レシピ投稿</h3>
+			<p>レシピ名と手順を記入してください</p>
+			<%= form_for recipe, url: url do |f| %>
+				<div class="recipe-image">
+					<%= f.label :レシピ画像 %>
+					<%= f.attachment_field :image %>
+				</div>
+				<div class="recipe-name">
+					<%= f.label :レシピ名 %>
+					<%= f.text_field :name %>
+				</div>
+				<div class="recipe-text">
+					<%= f.label :レシピ手順 %>
+					<%= f.text_area :body %>
+				</div>
+				<div class="recipe-action">
+					<%= f.submit submit, class: "btn btn-primary" %>
+				</div>
+			<% end %>
+		</div>
+	</div>	
+</div>

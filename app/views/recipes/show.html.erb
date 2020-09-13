@@ -1,2 +1,51 @@
-<h1>Recipes#show</h1>
-<p>Find me in app/views/recipes/show.html.erb</p>
+<div class="container">
+	<div class="recipe-name">
+		<h3>レシピ詳細</h3>
+	</div>
+		<div class="row">
+			<div class="col-md-6 recipe-name">
+				<div class="recipe-name__title">
+					<h4><%= @recipe.name %></h4>
+				</div>
+				<div class="recipe-name__image">
+					<%= attachment_image_tag @recipe, :image, size: "300x300",fallback: "no_image.jpg", size: "300x300" %>
+				</div>
+			</div>
+			<div class="col-md-6 recipe-name__body">
+				<%= @recipe.body %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4 recipe-show">
+				<div class="redipe-show__nutorition">
+					脂質<%= @recipe.fat %><br>
+					たんぱく質<%= @recipe.protein %><br>
+					炭水化物<%= @recipe.carbohydrate %><br>
+					カロリー<%= @recipe.calorie %>
+				</div>
+			</div>
+			<div class="col-md-4 recipe-show__materials">
+				<h5>材料一覧</h5>
+					<% @recipe_materials.each do |recipe_material| %>
+						<%= recipe_material.material.name %>
+						<%= recipe_material.quantity %>
+					<% end %>
+			</div>
+			<div class="col-md-4 recipe-show__date">
+				<%= pie_chart @data %>
+			</div>
+		</div>
+
+		<div class="row justify-content-around">
+			<div class="col">
+				<%= link_to "投稿一覧を見る", recipes_path, class: "btn btn-primary" %>
+			</div>
+			<div class="col">
+				<%= link_to "レシピを修正する", edit_recipe_path(@recipe.id), method: :get, class: "btn btn-success" %>
+			</div>
+			<div class="col">
+				<%= link_to "レシピを廃棄する", recipe_path(@recipe.id), method: :delete, class: "btn btn-danger" %>
+			</div>
+		</div>
+</div>
