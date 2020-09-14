@@ -7,7 +7,6 @@ class GenresController < ApplicationController
     @genres = current_user.genres
   	@addgenre = Genre.new(params_genre)
   	@addgenre.user_id = current_user.id
-    byebug
   	@addgenre.save
     redirect_back(fallback_location: root_path)
   end
