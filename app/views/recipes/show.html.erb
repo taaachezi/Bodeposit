@@ -1,51 +1,79 @@
-<div class="container">
-	<div class="recipe-name">
-		<h3>レシピ詳細</h3>
+<div class="recipe-show container">
+
+	<div class="recipe-show__title row justify-content-center col-12">
+		<h2><%= @recipe.name %></h2>
 	</div>
-		<div class="row">
-			<div class="col-md-6 recipe-name">
-				<div class="recipe-name__title">
-					<h4><%= @recipe.name %></h4>
-				</div>
-				<div class="recipe-name__image">
-					<%= attachment_image_tag @recipe, :image, size: "300x300",fallback: "no_image.jpg", size: "300x300" %>
-				</div>
+
+	<div class="recipe-show__link row justify-content-around">
+		<%= link_to "このレシピを消費する", genres_material_eats_path(material_id: @recipe.id), class: "btn btn-outline-info" %>
+		<%= link_to "投稿一覧を見る", recipes_path, class: "btn btn-outline-primary" %>
+		<% if @recipe.user_id == current_user.id %>
+			<%= link_to "レシピを修正する", edit_recipe_path(@recipe.id), method: :get, class: "btn btn-outline-success" %>
+			<%= link_to "レシピを廃棄する", recipe_path(@recipe.id), method: :delete, class: "btn btn-outline-danger" %>
+		<% end %>
+	</div>
+	
+	<div class="recipe-show__content recipe-content row justify-content-center">
+		<div class="recipe-content__image col-md-6">
+			<%= attachment_image_tag @recipe, :image, size: "300x300",fallback: "no_image.jpg", size: "300x300", class: "recipe-content__image" %>
+		</div>
+		<div class="recipe-content__text col-md-6">
+			<div class="row justify-content-center col-12">
+				<h5>〜　作り方　〜</h5>
 			</div>
-			<div class="col-md-6 recipe-name__body">
-				<%= @recipe.body %>
+			<!-- textareaの形式を維持して表示 -->
+			<%= safe_join(@recipe.body.split("\n"),tag(:br)) %>
+		</div>
+	</div>
+
+	<div class="recipe-show__macro macro row justify-content-around">
+		<div class="macro__nutorition nutorition col-md-3">
+			<div class="nutorition__title row justify-content-center col-12">
+				<h5>栄養マクロ一覧</h5>
 			</div>
+			<table class="macro__nutorition table">
+				<tr>
+					<th>カロリー</th>
+					<td><%= @recipe.calorie %>kcal</td>
+				</tr>
+				<tr>
+					<th>脂質</th>
+					<td><%= @recipe.fat %>g</td>
+				</tr>
+				<tr>
+					<th>たんぱく質</th>
+					<td><%= @recipe.protein %>g</td>
+				</tr>
+				<tr>
+					<th>炭水化物</th>
+					<td><%= @recipe.carbohydrate %>g</td>
+				</tr>
+			</table>
 		</div>
 
-		<div class="row">
-			<div class="col-md-4 recipe-show">
-				<div class="redipe-show__nutorition">
-					脂質<%= @recipe.fat %><br>
-					たんぱく質<%= @recipe.protein %><br>
-					炭水化物<%= @recipe.carbohydrate %><br>
-					カロリー<%= @recipe.calorie %>
-				</div>
-			</div>
-			<div class="col-md-4 recipe-show__materials">
+		<div class="macro__material material col-md-3">
+			<div class="material__title row justify-content-center col-12">
 				<h5>材料一覧</h5>
-					<% @recipe_materials.each do |recipe_material| %>
-						<%= recipe_material.material.name %>
-						<%= recipe_material.quantity %>
-					<% end %>
 			</div>
-			<div class="col-md-4 recipe-show__date">
-				<%= pie_chart @data %>
-			</div>
+			<% @recipe_materials.each do |recipe_material| %>
+				<table class="material__index table">
+					<tr>
+						<th>
+							<%= recipe_material.material.name %>
+						</th>
+						<td>
+							<%= recipe_material.quantity %>g
+						</td>
+					</tr>
+				</table>
+			<% end %>
 		</div>
 
-		<div class="row justify-content-around">
-			<div class="col">
-				<%= link_to "投稿一覧を見る", recipes_path, class: "btn btn-primary" %>
+		<div class="macro__chart chart col-md-3">
+			<div class="chart__title　row justify-content-center col-12">
+				<h5>栄養マクログラフ</h5>
 			</div>
-			<div class="col">
-				<%= link_to "レシピを修正する", edit_recipe_path(@recipe.id), method: :get, class: "btn btn-success" %>
-			</div>
-			<div class="col">
-				<%= link_to "レシピを廃棄する", recipe_path(@recipe.id), method: :delete, class: "btn btn-danger" %>
-			</div>
+			<%= pie_chart @data %>
 		</div>
+	</div>
 </div>
