@@ -26,7 +26,7 @@ body {
 	background-blend-mode: lighten;
 	background-size: cover;
 	background-position: center;
-	min-height: 1000px;
+	min-height: 1100px;
 }
 .header {
 	background-color: rgba(0, 255, 255, 0.2);
@@ -37,4 +37,24 @@ body {
 }
 .table {
 	opacity: 0.8;
+}
+.index__contents--content {
+	background-color: rgba(255, 255, 255, 0.5);
+	margin: 5px;
+	border-radius: 15px;
+}
+.content__image,
+.recipe-content__image {
+	width: 100%;
+}
+.recipe-show__content,
+.recipe-show__macro,
+.recipe-show__link {
+	margin-bottom: 50px;
+}
+.macro__nutorition,
+.macro__material,
+.macro__chart {
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 15px;
 }

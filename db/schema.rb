@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_082100) do
+ActiveRecord::Schema.define(version: 2020_09_14_095236) do
 
   create_table "eats", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -92,7 +92,6 @@ ActiveRecord::Schema.define(version: 2020_09_13_082100) do
     t.integer "weight", null: false
     t.integer "level", default: 0, null: false
     t.integer "age", null: false
-    t.boolean "sex", default: true, null: false
     t.float "fat"
     t.float "carbohydrate"
     t.float "protein"
@@ -100,6 +99,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_082100) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.integer "sex", default: 0
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

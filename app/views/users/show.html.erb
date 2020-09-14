@@ -1,7 +1,9 @@
 <div class="container">
 	<div class="row">
+		<div class="row justify-content-center col-12">
+			<h2><%= @user.name %>さんのマイページ</h2>
+		</div>
 		<div class="col-md-4">
-			<h3><%= current_user.name %>さんのマイページ</h3>
 			<%= form_for @user, url: user_path(protein: @user.protein, fat: @user.fat, carbohydrate: @user.carbohydrate, calorie: @user.calorie), method: :patch do |f| %>
 				<div class="field">
 					<%= f.label :ユーザ名 %><br />
@@ -13,8 +15,8 @@
 				</div>
 				<div class="field">
 					<%= f.label :性別 %><br />
-					<%= f.radio_button :sex, true %>男
-					<%= f.radio_button :sex, false %>女
+					<%= f.radio_button :sex, "true" %>男
+					<%= f.radio_button :sex, "false" %>女
 				</div>
 				<div class="field">
 					<%= f.label :年齢 %><br />
