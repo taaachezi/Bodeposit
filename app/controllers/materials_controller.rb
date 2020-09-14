@@ -7,6 +7,7 @@ class MaterialsController < ApplicationController
 
   def create
   	@addmaterial = Material.new(params_material)
+    @addmaterial.genre_id = @addmaterial.genre.id
   	@addmaterial.user_id = current_user.id
   	@addmaterial.calorie = Material.calorie_fit(@addmaterial.fat, @addmaterial.protein, @addmaterial.carbohydrate)
   	@addmaterial.save

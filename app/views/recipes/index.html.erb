@@ -1,2 +1,30 @@
-<h1>Recipes#index</h1>
-<p>Find me in app/views/recipes/index.html.erb</p>
+<div class="index container">
+	<div class="index__title row justify-content-center col-12">
+		<h2>レシピ一覧</h2>
+	</div>
+	<div class="index__contents row justify-content-around">
+		<% if @recipes.count == 0 %>
+			<div class="index__contents--none">
+				<p>投稿レシピはありません</p>
+			</div>
+		<% end %>
+		<% @recipes.each do |recipe| %>
+			<div class="index__contents--content col-3">
+					<div class="content__image">
+						<%= link_to recipe_path(recipe.id) do %>
+						<%= attachment_image_tag recipe, :image, size: "300x300",fallback: "no_image.jpg", size: "300x300",class: "content__image" %>
+					</div>
+					<div class="content__title">
+						<%= recipe.name %>
+					</div>
+					<div class="content__calorie">
+						<p><%= recipe.calorie.to_f.round(1) %>kcal</p>
+						<p><%= recipe.protein.to_f.round(1) %>g</p>
+						<p><%= recipe.fat.to_f.round(1) %>g</p>
+						<p><%= recipe.carbohydrate.to_f.round(1) %>g</p>
+					</div>
+						<% end %>
+			</div>
+		<% end %>
+	</div>
+</div>
