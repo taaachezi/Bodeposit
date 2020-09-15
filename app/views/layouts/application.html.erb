@@ -23,7 +23,7 @@
           <% end %>
         <% end %>
 
-        <ul class="header__nav navbar-nav mr-auto">
+        <ul class="header__nav navbar-nav ml-auto">
           <% if user_signed_in? %>
             <li class="header__nav--signin nav-item active">
               <%= link_to recipes_path, class: "nav-link" do %>
@@ -79,7 +79,6 @@
           <% end %>
         </sciript>
       <% end %>
-      <div style="padding-bottom: 200px;"></div>
       <%= yield %>
   </body>
 </html>
