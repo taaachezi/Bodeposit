@@ -1,3 +1,59 @@
-<h1>Top#top</h1>
-<p>Find me in app/views/top/top.html.erb</p>
-<%= link_to "材料を登録する", genres_materials_path %>
+<div class="top-video">
+	<%= video_tag("top.mp4", autoplay: true, loop: true, muted: true, width: "100%", class: "top-video") %>
+		<div class="signin-btn">
+ 			<%= link_to "さっそく始める", new_user_session_path, class: "signin-btn btn btn-outline-light rounded-pill btn-lg" %>
+ 		</div>
+</div>
+
+<div class="about row justify-content-center col-12">
+	<h1>~ Bodepositの特徴 ~</h1>
+</div>
+
+<div class="top-content row">
+	<div class="top-content__image col-md-6">
+		<%= image_tag("nutrition1.jpg", width: "100%", class: "image-circle" ) %>
+	</div>
+	<div class="top-content__text col-md-6">
+		<div class="text__title">
+			<h3>①１日の理想摂取カロリーを自動計算</h3>
+			<p>
+				以下のデータ(カロリー・栄養マクロ)を計算します <br>
+				・消費量 <br>
+				・増量したい時の理想摂取量 <br>
+				・減量したい時の理想摂取量 <br>
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="top-content row">
+	<div class="top-content__text col-md-6">
+		<div class="text__title">
+			<h3>②カロリー管理をサポート</h3>
+			<p>
+				・摂取した食べ物を記録できます <br>
+				・1日の残りの摂取カロリーが自動計算されます <br>
+				・体重維持、増量、減量別に表示されるので用途に分けて管理できます<br>
+			</p>
+		</div>
+	</div>
+	<div class="top-content__image col-md-6">
+		<%= image_tag("nutrition2.jpg", width: "100%", height: "80%", class: "image-circle" ) %>
+	</div>
+</div>
+
+<div class="top-content row">
+	<div class="top-content__image col-md-6">
+		<%= image_tag("cook.jpg", width: "100%", class: "image-circle" ) %>
+	</div>
+	<div class="top-content__text col-md-6">
+		<div class="text__title">
+			<h3>③レシピを自由に投稿、閲覧</h3>
+			<p>
+				・マクロ栄養素に特化したレシピを共有できます<br>
+				・選んだレシピのカロリーを直接記録できます<br>
+				・検索、ブックマーク機能により、理想のレシピを簡単に探せます
+			</p>
+		</div>
+	</div>
+</div>
