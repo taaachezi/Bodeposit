@@ -14,7 +14,7 @@
 				</div>
 				<div class="recipe-text">
 					<%= f.label :レシピ手順 %>
-					<%= f.text_area :body %>
+					<%= f.text_area :body, placeholder: "改行・段落がそのまま反映されます&#10;例)&#13;①手順1&#10;②手順2&#13;・&#10;・&#13;・".html_safe %>
 				</div>
 				<div class="recipe-action">
 					<%= f.submit submit, class: "btn btn-primary" %>

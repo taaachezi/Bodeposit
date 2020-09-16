@@ -1,0 +1,45 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    	<div class="container-fluid">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">コメント投稿</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+	      <div class="modal-body row">
+	        <%= form_with(model: [@recipe, @review], url: recipe_reviews_path(recipe_id: @recipe.id), method: :post) do |f| %>
+	        <div class="form-group" id="star">
+	        	<%= f.label :"評価(5段階)" %>
+	        	<%= f.hidden_field :rate, id: :review_star %>
+	        </div>
+	        <div class="form-group">
+	        	<%= f.text_area :body, class: "col-12" %>
+	        </div>
+	      </div>
+
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">戻る</button>
+	        <div class="form-action">
+	      		<%= f.submit "投稿する", class: "btn btn-outline-success" %>
+	      	</div>
+	      	<% end %>
+	      </div>
+	  	</div>
+    </div>
+  </div>
+</div>
+
+<script>
+	$('#star').raty({
+		size: 36,
+		starOff: "<%= asset_path('star-off.png') %>",
+		starOn: "<%= asset_path('star-on.png') %>",
+		starHalf: "<%= asset_path('star-half.png') %>",
+		scoreName: 'review[rate]',
+		half: true,
+	});
+</script>

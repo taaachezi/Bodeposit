@@ -18,11 +18,6 @@
  @import "font-awesome";
  @import "toastr";
 
- * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
 
 body {
 	font-family: 'Vollkorn', serif;
@@ -31,17 +26,27 @@ body {
 	background-blend-mode: lighten;
 	background-size: cover;
 	background-position: center;
-	min-height: 1100px;
+	min-height: 2000px;
+
+}
+.field {
+	margin-bottom: 10px;
+}
+.table {
+	opacity: 0.8;
 }
 .header {
 	height: 120px;
 	transition: 2s;
-	padding: 0;
 }
 .header:hover {
 	background-color: rgba(255, 255, 255, 0.4);
 	height: 130px;
 	font-size: 20px;
+}
+.btn:hover {
+	font-size: 20px;
+	transition: 1s;
 }
 .container {
 	margin-top: 150px;
@@ -101,26 +106,15 @@ body {
 		transition: 1s;
 	}
 }
-.field {
-	margin-bottom: 10px;
+.recipe-content {
+	opacity: 0.9;
 }
-.table {
-	opacity: 0.8;
+.recipe-content:hover {
+	position:relative;
+	top: -20px;
+	opacity: 1;
 }
-.index__contents--content {
-	background-color: rgba(255, 255, 255, 0.5);
-	margin: 5px;
-	border-radius: 15px;
-}
-.content__image,
-.recipe-content__image {
-	width: 100%;
-}
-.recipe-show__content,
-.recipe-show__macro,
-.recipe-show__link {
-	margin-bottom: 50px;
-}
+
 .macro__nutorition,
 .macro__material,
 .macro__chart {
