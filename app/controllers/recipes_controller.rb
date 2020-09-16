@@ -18,6 +18,8 @@ class RecipesController < ApplicationController
   end
 
   def show
+    @review = Review.new
+    @reviews = @recipe.reviews
     @recipe_materials = @recipe.recipe_materials
     @recipe.fat = 0
     @recipe.protein = 0
