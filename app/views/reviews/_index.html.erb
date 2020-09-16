@@ -1,0 +1,41 @@
+<div class="reipe-show__reviews row ">
+	<% reviews.each do |review| %>
+		<div class="reviews__content col-12 bg-light shadow p-3 m-2 rounded">
+			<div class="m-2 border-bottom row">
+				<div>
+					<%= review.user.name %>さんのレビュー
+				</div>
+				<div class="ml-4" id="star_rate_<%= review.id %>">
+					<script>
+						$('#star_rate_<%= review.id %>').raty({
+							size: 36,
+							starOff: "<%= asset_path('star-off.png') %>",
+							starOn: "<%= asset_path('star-on.png') %>",
+							starHalf: "<%= asset_path('star-half.png') %>",
+							readOnly: true,
+							half: true,
+							score: <%= review.rate %>
+						});
+					</script>
+				</div>
+				<div>(<%= review.rate %>/5)</div>
+				<div class="ml-auto">
+					<%= review.created_at.strftime("%Y/%m/%d") %>
+				</div>
+			</div>
+
+			<div class="ml-3 row">
+				<div class="col-10">
+					<%= review.body %>
+				</div>
+				<% if review.user_id == current_user.id %>
+					<div class="col-2">
+						<%= link_to "取り消す", recipe_reviews_path(recipe_id: review.recipe.id), method: :delete, class: "btn btn-outline-danger" %>
+					</div>
+				<% end %>
+			</div>
+
+		</div>
+	<% end %>
+</div>
+

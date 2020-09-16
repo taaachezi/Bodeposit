@@ -1,0 +1,24 @@
+<div class="ml-4 rate-average">
+	<div class="row font-italic rate-average__text">
+		総合評価(<%= recipe.reviews.average(:rate).to_f.round(1) %>/5)
+	</div>
+	<div class="rate-average__star row">
+		<div id="star_rate_<%= recipe.id %>">
+		</div>
+		<div class="font-italic">
+			レビュー<%= recipe.reviews.count %>件
+		</div>
+	</div>
+</div>
+
+<script>
+	$('#star_rate_<%= recipe.id %>').raty({
+	size: 36,
+	starOff: "<%= asset_path('star-off.png') %>",
+	starOn: "<%= asset_path('star-on.png') %>",
+	starHalf: "<%= asset_path('star-half.png') %>",
+	readOnly: true,
+	half: true,
+	score: <%= recipe.reviews.average(:rate).to_f.round(1) %>
+	});
+</script>
