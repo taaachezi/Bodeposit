@@ -35,7 +35,7 @@ class MaterialsController < ApplicationController
   private
 
   def params_material
-  	params.require(:material).permit(:name, :genre_id, :fat, :protein, :carbohydrate, :calorie)
+  	params.require(:material).permit(:user_id, :name, :genre_id, :fat, :protein, :carbohydrate, :calorie)
   end
  
 end

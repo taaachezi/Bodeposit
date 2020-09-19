@@ -14,10 +14,36 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = Recipe.all
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @recipes = @user.favorite_recipes
+    elsif params[:name]
+      @search = params[:name]
+      @recipes = Recipe.where("name LIKE?", "%#{params[:name]}%")
+    else
+      @recipes = Recipe.all
+    end
+
+    if params[:option] == "new"
+      @recipes = Recipe.order("created_at DESC")
+    elsif params[:option] == "low_calorie"
+      @recipes = Recipe.order("calorie ASC")
+    elsif params[:option] == "high_rate"
+      @recipes = Recipe.order("average_rate DESC")
+    elsif params[:option] == "high_protein"
+      @recipes = Recipe.order("protein DESC")
+    elsif params[:option] == "high_carbo"
+      @recipes = Recipe.order("carbohydrate DESC")
+    elsif params[:option] == "low_fat"
+      @recipes = Recipe.order("fat ASC")
+    elsif params[:option] == "all"
+      @recipes = Recipe.all
+    end
   end
 
+
   def show
+    @eat = current_user.eats.new
     @review = Review.new
     @reviews = @recipe.reviews
     @recipe_materials = @recipe.recipe_materials

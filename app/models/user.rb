@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :materials, dependent: :destroy
   has_many :recipes, dependent: :destroy
   has_many :genres, dependent: :destroy
+  has_many :favorite_recipes, through: :favorites, source: :recipe
 
   with_options presence: true do
     validates :name
@@ -33,6 +34,8 @@ class User < ApplicationRecord
     true: 0,
     false: 1
   }
+
+
 
   # 消費カロリー計算
   def self.intake_nutorition(height, weight, sex, age, level)

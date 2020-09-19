@@ -3,9 +3,10 @@ class Recipe < ApplicationRecord
 	has_many :recipe_materials, dependent: :destroy
 	has_many :favorites, dependent: :destroy
 	has_many :reviews, dependent: :destroy
+	has_many :eats, dependent: :destroy
 	attachment :image
 
-	def is_favorite(user)
+	def has_favorite(user)
 		favorites.where(user_id: user.id).exists?
 	end
 end
