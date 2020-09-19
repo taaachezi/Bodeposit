@@ -6,8 +6,8 @@
 	</div>
 
 	<div class="recipe-show__link row justify-content-around mb-3">
-		<%= link_to "このレシピを消費する", genres_material_eats_path(material_id: @recipe.id), class: "btn btn-outline-primary" %>
-		<% if @recipe.is_favorite(current_user) %>
+		<%= link_to "このレシピを摂取する", user_eats_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post, class: "btn btn-outline-primary" %>
+		<% if @recipe.has_favorite(current_user) %>
 			<%= link_to "お気に入りを外す", recipe_favorites_path(recipe_id: @recipe.id), method: :delete, class: "btn btn-outline-info active", "aria-pressed":true %>
 		<% else %>
 			<%= link_to "お気に入りに登録 ", recipe_favorites_path(recipe_id: @recipe.id), method: :post, class: "btn btn-outline-info" %>
@@ -39,19 +39,19 @@
 			<table class="macro__nutorition table">
 				<tr>
 					<th>カロリー</th>
-					<td><%= @recipe.calorie %>kcal</td>
+					<td><%= @recipe.calorie.round(1) %>kcal</td>
 				</tr>
 				<tr>
 					<th>脂質</th>
-					<td><%= @recipe.fat %>g</td>
+					<td><%= @recipe.fat.round(1) %>g</td>
 				</tr>
 				<tr>
 					<th>たんぱく質</th>
-					<td><%= @recipe.protein %>g</td>
+					<td><%= @recipe.protein.round(1) %>g</td>
 				</tr>
 				<tr>
 					<th>炭水化物</th>
-					<td><%= @recipe.carbohydrate %>g</td>
+					<td><%= @recipe.carbohydrate.round(1) %>g</td>
 				</tr>
 			</table>
 		</div>
@@ -81,13 +81,17 @@
 			<%= pie_chart @data %>
 		</div>
 	</div>
-	<%= render "reviews/index", reviews: @reviews  %>
+	<div class="reipe-show__reviews ">
+		<%= render "reviews/index", reviews: @reviews  %>
+	</div>
 	<% if user_signed_in? %>
-		<div class="recipe-show__comment row justify-content-end">
-			<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
-			  コメントを投稿する
-			</button>
-		</div>
+		<% unless @recipe.reviews.exists?(user_id: current_user.id) %>
+			<div class="recipe-show__comment row justify-content-end">
+				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+				  コメントを投稿する
+				</button>
+			</div>
+		<% end %>
 	<% end %>
 	<%= render "reviews/modal", recipe: @recipe, review: @review %>
 

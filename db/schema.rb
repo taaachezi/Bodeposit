@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_095236) do
+ActiveRecord::Schema.define(version: 2020_09_12_060527) do
 
   create_table "eats", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "material_id", null: false
+    t.bigint "material_id"
     t.float "fat"
     t.float "carbohydrate"
     t.float "protein"
     t.float "calorie", null: false
-    t.integer "quantity", null: false
+    t.integer "quantity"
+    t.bigint "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -32,16 +33,16 @@ ActiveRecord::Schema.define(version: 2020_09_14_095236) do
   end
 
   create_table "genres", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.string "name", null: false
     t.boolean "status", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
   end
 
   create_table "materials", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "genre_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "genre_id", null: false
     t.string "name", null: false
     t.float "carbohydrate", null: false
     t.float "protein", null: false
@@ -60,16 +61,17 @@ ActiveRecord::Schema.define(version: 2020_09_14_095236) do
   end
 
   create_table "recipes", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "name", null: false
     t.text "body", null: false
+    t.string "image_id", null: false
+    t.float "fat"
+    t.float "protein"
+    t.float "carbohydrate"
+    t.float "calorie"
+    t.float "average_rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "image_id"
-    t.float "fat"
-    t.float "carbohydrate"
-    t.float "protein"
-    t.float "calorie"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -91,15 +93,15 @@ ActiveRecord::Schema.define(version: 2020_09_14_095236) do
     t.integer "height", null: false
     t.integer "weight", null: false
     t.integer "level", default: 0, null: false
+    t.integer "sex", default: 0, null: false
     t.integer "age", null: false
+    t.datetime "deleted_at"
     t.float "fat"
     t.float "carbohydrate"
     t.float "protein"
     t.float "calorie"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
-    t.integer "sex", default: 0
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

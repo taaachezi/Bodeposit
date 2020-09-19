@@ -11,7 +11,7 @@
   </head>
 
   <body>
-      <nav class=" header navbar navbar-expand navbar-light fixed-top mx-0">
+      <nav class="header navbar navbar-expand navbar-light fixed-top mx-0">
 
         <% if user_signed_in? %>
           <%= link_to user_top_path(current_user.id), class: "navbar-brand d-inline-block align-top" do %>
@@ -70,15 +70,16 @@
         </ul>
       </nav>
 
-      <% if flash.any? %>
-        <sciript type="text/javascript">
-          <% flash.each do |key, value| %>
-            <% key = "success" if key == "notice" %>
-            <% key = "error" if key == "alert" %>
-            toastr['<%= key %>']('<%= value %>');
-          <% end %>
-        </sciript>
-      <% end %>
       <%= yield %>
+
+      <% if flash.any? %>
+        <script type="text/javascript">
+          <% flash.each do |key, value| %>
+            <% type = key.to_s.gsub('alert', 'error').gsub('notice', 'success') %>
+            toastr.<%= type %>('<%= value %>')
+          <% end %>
+        </script>
+      <% end %>
+
   </body>
 </html>

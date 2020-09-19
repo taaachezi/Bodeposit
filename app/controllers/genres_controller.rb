@@ -8,6 +8,7 @@ class GenresController < ApplicationController
   	@addgenre = Genre.new(params_genre)
   	@addgenre.user_id = current_user.id
   	@addgenre.save
+    flash[:notice] = "登録しました"
     redirect_back(fallback_location: root_path)
   end
 

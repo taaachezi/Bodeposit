@@ -7,12 +7,21 @@ class ReviewsController < ApplicationController
 		@review.user_id = current_user.id
 		@review.recipe_id = @recipe.id
 		@review.save
-		redirect_back(fallback_location: root_path)
+		@average_rate = @recipe.reviews.average(:rate).round(1).to_f
+		@recipe.update(average_rate: @average_rate)
+		redirect_to recipe_path(@recipe.id)
 	end
 
 	def destroy
-		Review.find_by(user_id: current_user.id, recipe_id: @recipe.id).destroy
-		redirect_back(fallback_location: root_path)
+		@review = Review.find_by(user_id: current_user.id, recipe_id: @recipe.id)
+		@review.destroy
+		if @recipe.reviews.blank?
+			@recipe.update(average_rate: 0.0)
+		else
+			@average_rate = @recipe.reviews.average(:rate).round(1).to_f
+			@recipe.update(average_rate: @average_rate)
+		end
+		redirect_to recipe_path(@recipe.id)
 	end
 	private
 	def params_reviews

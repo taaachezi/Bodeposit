@@ -1,2 +1,4 @@
+<div class="container">
 <h3><%= @recipe.name %>の編集</h3>
 <%= render "form", recipe: @recipe, url: recipe_path(@recipe.id), method: :patch, submit:"更新" %>
+</div>
