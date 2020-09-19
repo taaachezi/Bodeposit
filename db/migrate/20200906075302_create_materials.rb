@@ -4,7 +4,6 @@ class CreateMaterials < ActiveRecord::Migration[5.2]
       t.bigint :user_id, null: false
       t.bigint :genre_id, null: false
       t.string :name, null: false
-      t.integer :quantity, null:false, default: 100
       t.float :carbohydrate, null:false
       t.float :protein, null:false
       t.float :fat, null:false

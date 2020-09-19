@@ -1,11 +1,58 @@
 <div class="index container">
 	<div class="index__title row justify-content-center col-12">
-		<h2>レシピ一覧(全<%= @recipes.count %>件)</h2>
-	</div>
+
+		<h2>
+			<% if params[:option] == "new" %>
+			   新着順
+			<% elsif params[:option] == "low_calorie" %>
+			   カロリーが低い順
+			<% elsif params[:option] == "high_rate" %>
+			   評価が高い順
+			<% elsif params[:option] == "high_protein" %>
+			   たんぱく質が多い順
+			<% elsif params[:option] == "high_carbo" %>
+			   炭水化物が多い順
+			<% elsif params[:option] == "low_fat" %>
+			   脂質が少ない順
+			<% elsif @search %>
+				「<%= @search %>」の検索結果
+			<% elsif @user %>
+			   <%= @user.name %>さんのお気に入りレシピ
+			<% else %>
+    		　　レシピ一覧
+    	    <% end %>
+    	    (全<%= @recipes.count %>件)
+    	</h2>
+    		<p class="ml-auto">並び替え：</p>
+			<span class="sort-box">
+		        <select name="search" onChange="myfunc(this.value)" id="sort-select">
+		          <option value=""></option>
+		          <option value="all">並び替え解除</option>
+		          <option value="new">新着順</option>
+		          <option value="low_calorie">カロリーが低い順</option>
+		          <option value="high_rate">評価が高い順</option>
+		          <option value="high_protein">たんぱく質が多い順</option>
+		          <option value="high_carbo">炭水化物が多い順</option>
+		          <option value="low_fat">脂質が低い順</option>
+		        </select>
+		    </span>
+  	</div>
+
+  	<div class="row">
+  		<div class="col-3 offset-8 search__form">
+          <%= form_tag(recipes_path, method: :get) do %>
+            <%= text_field_tag :name,"", placeholder: "レシピを検索" %>
+            <%= button_tag do %>
+            	<i class="fas fa-search"></i>
+            <% end %>
+          <% end %>
+        </div>
+  	</div>
+
 	<div class="index__contents row">
 		<% if @recipes.count == 0 %>
 			<div class="index__contents--none">
-				<p>投稿レシピはありません</p>
+				<p>レシピはありません</p>
 			</div>
 		<% end %>
 		<div class="row d-flex justify-content-around">
@@ -17,8 +64,11 @@
 					</div>
 				<% end %>
 				<table class="content__title table">
+					<tr colspan>
+						<th colspan="2"><%= recipe.name %></th>
+					</tr>
 					<tr>
-						<th><%= recipe.name %></th>
+						<th colspan="2"><%= render "reviews/average_rate", recipe: recipe %></th>
 					</tr>
 					<tr>
 						<td>カロリー</td>

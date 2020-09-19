@@ -10,39 +10,34 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require toastr
 //= require chartkick
 //= require Chart.bundle
-//= require jquery3
+//= require jquery
 //= require jquery_ujs
 //= require rails-ujs
 //= require activestorage
 //= require popper
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require toastr
 //= require_tree .
 
+// モーダル表示
 $(function (){
-	// モーダル表示
 	$('#myModal').on('shown.bs.modal', function () {
   		$('#myInput').trigger('focus');
 	});
 
 });
 
-$(function (){
-	$("#recipe-index_<%= recipe.id %>").hover(
-		function(){
-			$(this).css("width","200px");
-		},
-		function(){
-			$(this).css("width","100%");
-		});
-});
-	// 星評価
+// ソート機能
+function myfunc(value) {
+      window.location.replace('/recipes/?option=' + value);
+    }
+
+// 星評価
 (function($) {
   'use strict';
-
   var methods = {
     init: function(options) {
       return this.each(function() {

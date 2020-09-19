@@ -35,19 +35,20 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.integer :height, null: false
       t.integer :weight, null: false
       t.integer :level, null: false, default: 0
+      t.integer :sex, null: false, default: 0
       t.integer :age, null: false
-      t.boolean :sex, null: false, default: true
+      t.datetime :deleted_at
       t.float :fat
       t.float :carbohydrate
       t.float :protein
       t.float :calorie
-      t.boolean :status, null: false, default: true
 
 
 
       t.timestamps null: false
     end
 
+    add_index :users, :deleted_at
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true

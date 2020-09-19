@@ -3,12 +3,15 @@ Rails.application.routes.draw do
   root 'top#top'
   get 'user_top/:id' => 'top#user_top', as: "user_top"
   get 'search/search' => 'search#search'
+  # recipe_material/new.html ジャンル選択後のurlに対応
+  get '/recipes/:recipe_id/recipe_materials' => "recipe_materials#new"
 
   resources :users, only: [:show, :update] do
     member do
       get :withdraw
       patch :unsubscribe
     end
+    resources :eats, only: [:create, :destroy]
   end
 
   resource :genres, only: [:new, :create, :update] do
@@ -16,7 +19,6 @@ Rails.application.routes.draw do
       collection do
         get :search
       end
-      resources :eats, only: [:create, :destroy]
     end
   end
 
