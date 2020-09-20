@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
-    @recipes = current_user.recipes.all
+    @recipes = current_user.recipes
   end
 
   def update
@@ -14,8 +14,13 @@ class UsersController < ApplicationController
     @user.protein = User.intake_protein(@user.weight)
     @user.fat = User.intake_fat(@user.weight)
     @user.carbohydrate = User.intake_carbo(@user.protein, @user.fat, @user.calorie)
-    @user.update(params_users)
-    redirect_back(fallback_location: root_path)
+    if @user.update(params_users)
+      redirect_back(fallback_location: root_path)
+    else flash[:error] = "入力に誤りがあります"
+      @recipes = current_user.recipes
+      set_user
+      render :show
+    end
   end
 
   def unsubscribe

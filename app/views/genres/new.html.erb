@@ -11,7 +11,7 @@
 			<% if current_user.genres.count == 0 %>
 				<p>ジャンルを追加してください</p>
 			<% end %>
-			<div id="genre_index__genres">
+			<div class="col-12" id="genre_index__genres">
 			  <%= render "index", genres: @genres %>
 			</div>
 		</div>
