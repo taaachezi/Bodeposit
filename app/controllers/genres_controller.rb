@@ -1,5 +1,6 @@
 class GenresController < ApplicationController
-  before_action :set_method
+  before_action :set_genre
+  before_action :authenticate_user!
   def new
   end
 
@@ -8,8 +9,6 @@ class GenresController < ApplicationController
   	@addgenre = Genre.new(params_genre)
   	@addgenre.user_id = current_user.id
   	@addgenre.save
-    flash[:notice] = "登録しました"
-    redirect_back(fallback_location: root_path)
   end
 
   def update
@@ -23,7 +22,7 @@ class GenresController < ApplicationController
   	params.require(:genre).permit(:name, :status, :user_id)
   end
 
-  def set_method
+  def set_genre
     @genre = Genre.find_by(id: params[:id])
     @genres = current_user.genres
     @addgenre = Genre.new

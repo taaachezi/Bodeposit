@@ -79,6 +79,7 @@ gem 'paranoia'
 gem 'rails-i18n'
 gem 'chartkick'
 gem 'toastr-rails'
+gem 'devise-i18n'
 group :production do
   gem 'mysql2'
 end

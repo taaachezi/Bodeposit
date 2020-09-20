@@ -1,4 +1,5 @@
 class RecipeMaterialsController < ApplicationController
+	before_action :authenticate_user!
 
 	def new
 		@recipe = Recipe.find(params[:recipe_id])
@@ -19,15 +20,29 @@ class RecipeMaterialsController < ApplicationController
 			render :new
 		else
 			@recipe = Recipe.find(params[:recipe_id])
-			if params_recipe_material
-				@recipe_material = RecipeMaterial.new(params_recipe_material)
-			else
-				@recipe_material = RecipeMaterial.new(material_id: params[material_id], quantity: params[quantity])
+			# if params_recipe_material
+			@recipe_material = RecipeMaterial.new(params_recipe_material)
+			# else
+			# 	@recipe_material = RecipeMaterial.new(material_id: params[material_id], quantity: params[quantity])
+			# end
+			material = params[:recipe_material][:material_id]
+			if material == ""
+				flash[:error] = "材料が選択されていません"
+				redirect_back(fallback_location: root_path)
 			end
-			@recipe_material.recipe_id = @recipe.id
-			@recipe_material.material_id = @recipe_material.material.id
-			@recipe_material.save
-			redirect_to new_recipe_recipe_material_path
+			recipe = @recipe.recipe_materials.pluck(:material_id)
+			if recipe.include?(material.to_i)
+			    flash[:error] = "登録済の材料です"
+			    redirect_back(fallback_location: root_path)
+			else
+				@recipe_material.recipe_id = @recipe.id
+				@recipe_material.material_id = @recipe_material.material.id
+				if @recipe_material.save
+					redirect_to new_recipe_recipe_material_path
+				else flash[:error] = "数量が選択されていません"
+					redirect_back(fallback_location: root_path)
+				end
+			end
 		end
 	end
 

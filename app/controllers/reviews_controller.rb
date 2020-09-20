@@ -1,15 +1,19 @@
 class ReviewsController < ApplicationController
 
 	before_action :set_recipe
+	before_action :authenticate_user!
 
 	def create
 		@review = Review.new(params_reviews)
 		@review.user_id = current_user.id
 		@review.recipe_id = @recipe.id
-		@review.save
-		@average_rate = @recipe.reviews.average(:rate).round(1).to_f
-		@recipe.update(average_rate: @average_rate)
-		redirect_to recipe_path(@recipe.id)
+		if @review.save
+			@average_rate = @recipe.reviews.average(:rate).round(1).to_f
+			@recipe.update(average_rate: @average_rate)
+			redirect_to recipe_path(@recipe.id)
+		else flash[:error] = "評価またはコメントがありません"
+			redirect_back(fallback_location: root_path)
+		end
 	end
 
 	def destroy
