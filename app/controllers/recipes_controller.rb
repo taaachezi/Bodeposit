@@ -9,8 +9,13 @@ class RecipesController < ApplicationController
   def create
   	@recipe = Recipe.new(params_recipe)
   	@recipe.user_id = current_user.id
-  	@recipe.save
-  	redirect_to  new_recipe_recipe_material_path(recipe_id: @recipe.id)
+  	if @recipe.save
+      flash[:notice] = "レシピが投稿されました"
+  	  redirect_to  new_recipe_recipe_material_path(recipe_id: @recipe.id)
+    else flash[:error] = "全て記入してください"
+      set_recipe
+      render :new
+    end
   end
 
   def index
@@ -43,7 +48,9 @@ class RecipesController < ApplicationController
 
 
   def show
-    @eat = current_user.eats.new
+    if user_signed_in?
+      @eat = current_user.eats.new
+    end
     @review = Review.new
     @reviews = @recipe.reviews
     @recipe_materials = @recipe.recipe_materials
@@ -64,8 +71,12 @@ class RecipesController < ApplicationController
   end
 
   def update
-    @recipe.update(params_recipe)
-    redirect_to new_recipe_recipe_material_path(recipe_id: @recipe.id)
+    if @recipe.update(params_recipe)
+      redirect_to new_recipe_recipe_material_path(recipe_id: @recipe.id)
+    else flash[:error] = "全て記入してください"
+      set_recipe
+      render :edit
+    end
   end
 
   def destroy

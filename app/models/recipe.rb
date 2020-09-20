@@ -6,6 +6,12 @@ class Recipe < ApplicationRecord
 	has_many :eats, dependent: :destroy
 	attachment :image
 
+	with_options presence: true do
+		validates :body
+		validates :name
+		validates :image
+	end
+
 	def has_favorite(user)
 		favorites.where(user_id: user.id).exists?
 	end

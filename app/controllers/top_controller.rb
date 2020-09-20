@@ -1,4 +1,6 @@
 class TopController < ApplicationController
+  before_action :authenticate_user!, only: [:user_top]
+
   def top
   end
 
