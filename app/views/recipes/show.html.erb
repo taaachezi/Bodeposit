@@ -14,7 +14,7 @@
 			<% end %>
 			<% if @recipe.user_id == current_user.id %>
 				<%= link_to "レシピを修正する", edit_recipe_path(@recipe.id), method: :get, class: "btn btn-outline-secondary" %>
-				<%= link_to "レシピを廃棄する", recipe_path(@recipe.id), method: :delete, class: "btn btn-outline-danger" %>
+				<%= link_to "レシピを廃棄する", recipe_path(@recipe.id), method: :delete, data: {confirm: "レシピを削除しますか？"}, class: "btn btn-outline-danger" %>
 			<% end %>
 		</div>
 	<% end %>
