@@ -25,6 +25,11 @@
 
         <ul class="header__nav navbar-nav ml-auto">
           <% if user_signed_in? %>
+          <li class="header__nav--signin nav-item active">
+              <%= link_to how_use_path, class: "nav-link" do %>
+                <i class="fas fa-user-cog">使い方</i>
+              <% end %>
+            </li>
             <li class="header__nav--signin nav-item active">
               <%= link_to recipes_path, class: "nav-link" do %>
                 <i class="fas fa-search">レシピを探す</i>
@@ -36,13 +41,13 @@
               <% end %>
             </li>
             <li class="header__nav--signin nav-item active">
-              <%= link_to user_path(current_user.id), class: "nav-link" do %>
-                <i class="fas fa-address-card">マイページ</i>
+              <%= link_to genres_materials_path, class: "nav-link" do %>
+                <i class="fas fa-apple-alt">材料登録</i>
               <% end %>
             </li>
             <li class="header__nav--signin nav-item active">
-              <%= link_to genres_materials_path, class: "nav-link" do %>
-                <i class="fas fa-apple-alt">材料登録</i>
+              <%= link_to user_path(current_user.id), class: "nav-link" do %>
+                <i class="fas fa-address-card">マイページ</i>
               <% end %>
             </li>
             <li class="header__nav--signin nav-item active">
@@ -80,6 +85,5 @@
           <% end %>
         </script>
       <% end %>
-
   </body>
 </html>

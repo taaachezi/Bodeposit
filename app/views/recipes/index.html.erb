@@ -48,47 +48,5 @@
           <% end %>
         </div>
   	</div>
-
-	<div class="index__contents row">
-		<% if @recipes.count == 0 %>
-			<div class="index__contents--none">
-				<p>レシピはありません</p>
-			</div>
-		<% end %>
-		<div class="row d-flex justify-content-around">
-		<% @recipes.each do |recipe| %>
-			<div class="recipe-content col-md-3 col-sm-12 m-3 bg-light shadow rounded">
-				<%= link_to recipe_path(recipe.id) do %>
-					<div class="content__image">
-						<%= attachment_image_tag recipe, :image, height: "200", width: "100%", fallback: "no_image.jpg", class: "content__image rounded m-auto" %>
-					</div>
-				<% end %>
-				<table class="content__title table">
-					<tr colspan>
-						<th colspan="2"><%= recipe.name %></th>
-					</tr>
-					<tr>
-						<th colspan="2"><%= render "reviews/average_rate", recipe: recipe %></th>
-					</tr>
-					<tr>
-						<td>カロリー</td>
-						<td><%= recipe.calorie.to_f.round(1) %>kcal</td>
-					</tr>
-					<tr>
-						<td>たんぱく質</td>
-						<td><%= recipe.protein.to_f.round(1) %>g</td>
-					</tr>
-					<tr>
-						<td>脂質</td>
-						<td><%= recipe.fat.to_f.round(1) %>g</td>
-					</tr>
-					<tr>
-						<td>炭水化物</td>
-						<td><%= recipe.carbohydrate.to_f.round(1) %>g</td>
-					</tr>
-				</table>
-			</div>
-		<% end %>
-	</div>
-	</div>
+  	<%= render "recipe_index", recipes: @recipes %>
 </div>

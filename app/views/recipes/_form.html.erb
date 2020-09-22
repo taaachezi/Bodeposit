@@ -1,22 +1,21 @@
 <div class="row">
-	<div class="col-md-offset-3 col-md-6">
-		<p>レシピ名と手順を記入してください</p>
-		<%= form_for recipe, url: url do |f| %>
-			<div class="recipe-image">
-				<%= f.label :レシピ画像 %>
-				<%= f.attachment_field :image %>
-			</div>
-			<div class="recipe-name">
-				<%= f.label :レシピ名 %>
-				<%= f.text_field :name %>
-			</div>
-			<div class="recipe-text">
-				<%= f.label :レシピ手順 %>
-				<%= f.text_area :body, placeholder: "改行・段落がそのまま反映されます&#10;例)&#13;①手順1&#10;②手順2&#13;・&#10;・&#13;・".html_safe %>
-			</div>
-			<div class="recipe-action">
-				<%= f.submit submit, class: "btn btn-primary" %>
-			</div>
-		<% end %>
-	</div>
-</div>	
+	<%= form_for recipe, url: url do |f| %>
+		<div class="recipe-image row justify-content-center">
+			<%= attachment_image_tag recipe, :image, class: "recipe_preview", fallback: "no_image.jpg", width: "1000", height: "500" %>
+		</div>
+		<div class="row">
+			<%= f.attachment_field :image, id: "recipe_img" %>
+		</div>
+		<div class="col-12 w-100 recipe-name mt-4">
+			<%= f.label :name, "レシピ名" %>
+			<%= f.text_field :name, size: "100%" %>
+		</div>
+		<div class="col-12 w-100 recipe-text">
+			<%= f.label :body, "レシピ手順" %>
+			<%= f.text_area :body, placeholder: "改行・段落がそのまま反映されます&#10;例)&#13;①手順１ サンプルテキストサンプルテキスト&#10;②手順２ サンプルテキストサンプルテキストサンプルテキストサンプルテキストサンプルテキスト&#13;③手順３ サンプルテキストサンプルテキストサンプルテキスト&#10;④手順４ サンプルテキストサンプルテキストサンプルテキストサンプルテキスト&#13;⑤手順５ サンプルテキストサンプルテキストサンプルテキスト".html_safe, size: "100%", height: "200px" %>
+		</div>
+		<div class="recipe-action">
+			<%= f.submit submit, class: "btn btn-primary" %>
+		</div>
+	<% end %>
+</div>

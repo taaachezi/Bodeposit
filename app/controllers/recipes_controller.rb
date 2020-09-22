@@ -13,7 +13,6 @@ class RecipesController < ApplicationController
       flash[:notice] = "レシピが投稿されました"
   	  redirect_to  new_recipe_recipe_material_path(recipe_id: @recipe.id)
     else flash[:error] = "全て記入してください"
-      set_recipe
       render :new
     end
   end
@@ -91,6 +90,6 @@ class RecipesController < ApplicationController
   end
 
   def set_recipe
-    @recipe = Recipe.find(params[:id])
+     @recipe = Recipe.find(params[:id])
   end
 end
