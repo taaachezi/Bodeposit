@@ -80,6 +80,7 @@ gem 'rails-i18n'
 gem 'chartkick'
 gem 'toastr-rails'
 gem 'devise-i18n'
+gem 'whenever', require: false
 group :production do
   gem 'mysql2'
 end

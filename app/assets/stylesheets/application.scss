@@ -30,24 +30,29 @@ body {
 	min-height: 100vh;
 
 }
+ul {
+	list-style: none;
+}
 .field {
 	margin-bottom: 10px;
 }
-.table {
+.table,
+.recipe-content {
 	opacity: 0.8;
 }
 .header {
 	height: 120px;
-	transition: 2s;
+	transition: 1s;
 }
 .header:hover {
 	background-color: rgba(255, 255, 255, 0.4);
 	height: 130px;
+}
+.nav-item:hover {
 	font-size: 20px;
 }
 .btn:hover {
 	font-size: 20px;
-	transition: 1s;
 }
 .container {
 	margin-top: 150px;
@@ -107,10 +112,18 @@ body {
 		transition: 1s;
 	}
 }
-.recipe-content {
+.answer {
+	display: none;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+.plus {
+	font-size: 40px;
+}
+.eat__target {
 	opacity: 0.9;
 }
-.recipe-content:hover {
+.recipe-content:hover,
+.eat__target:hover {
 	position:relative;
 	top: -20px;
 	opacity: 1;

@@ -4,6 +4,9 @@ class TopController < ApplicationController
   def top
   end
 
+  def how_use
+  end
+
   def user_top
     if params[:genre_id].present?
       @genre = Genre.find(params[:genre_id])

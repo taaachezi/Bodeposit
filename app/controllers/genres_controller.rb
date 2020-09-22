@@ -16,6 +16,11 @@ class GenresController < ApplicationController
   	@genre.update(params_genre)
   end
 
+  def destroy
+    @genre.destroy
+    redirect_back(fallback_location: root_path)
+  end
+
   private
 
   def params_genre

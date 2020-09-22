@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root 'top#top'
   get 'user_top/:id' => 'top#user_top', as: "user_top"
+  get 'how_use' => 'top#how_use', as: "how_use"
   get 'search/search' => 'search#search'
   # recipe_material/new.html ジャンル選択後のurlに対応
   get '/recipes/:recipe_id/recipe_materials' => "recipe_materials#new"
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
     resources :eats, only: [:create, :destroy]
   end
 
-  resource :genres, only: [:new, :create, :update] do
+  resource :genres, only: [:new, :create, :update, :destroy] do
     resources :materials, only: [:create, :index, :update, :destroy] do
       collection do
         get :search

@@ -13,7 +13,6 @@
 //= require chartkick
 //= require Chart.bundle
 //= require jquery
-//= require jquery_ujs
 //= require rails-ujs
 //= require activestorage
 //= require popper
@@ -22,18 +21,44 @@
 //= require toastr
 //= require_tree .
 
-// モーダル表示
+// モーダル
 $(function (){
 	$('#myModal').on('shown.bs.modal', function () {
   		$('#myInput').trigger('focus');
 	});
-
 });
 
-// ソート機能
+// ソート
 function myfunc(value) {
       window.location.replace('/recipes/?option=' + value);
     }
+
+// 画像プレビュー
+$(function (){
+  $("#recipe_img").on('change', function (e){
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $(".recipe_preview").attr("src", e.target.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  });
+});
+
+$(function(){
+  $(".accordion__item").click('turbolinks: load', function(){
+    var $answer = $(this).children(".answer");
+
+    if($answer.hasClass('open')) {
+      $answer.removeClass('open');
+      $answer.slideUp();
+      $(this).children('span').text('+');
+    } else {
+      $answer.addClass('open');
+      $answer.slideDown();
+      $(this).children('span').text('-');
+    };
+  });
+});
 
 // 星評価
 (function($) {
