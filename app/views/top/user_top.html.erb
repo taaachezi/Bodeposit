@@ -1,6 +1,4 @@
 <div class="eat container">
-	<%= link_to "お気に入りのレシピ", recipes_path(user_id: current_user.id), class: "btn btn-outline-success" %>
-	
 	<div class=" row justify-content-between p-4">
 		<% unless current_user.calorie.present? %>
 			<%= link_to "カロリーを計算する", user_path(current_user.id), class: "btn btn-outline-primary" %>
@@ -12,11 +10,11 @@
 			<% end %>
 					<h3 class="pt-4">
 						増量目標<span class="ml-5"><%= weight_gain_calorie(current_user.calorie).round(1) %>kcal</span></h3>
-						<div class="gain__target">
+						<div class="gain__target text-left">
 							<h4>あと<%= target_calorie_gain(@eat_calorie, current_user.calorie).round(1)  %>kcal</h4>
-							<p class="border-bottom m-auto w-50">たんぱく質　<%= target_protein(@eat_protein, current_user.protein).round(1)  %>g</p>
-							<p class="border-bottom m-auto w-50">炭水化物　<%= target_carbo_gain(@eat_carbo, current_user.calorie, current_user.fat, current_user.protein).round(1)  %>g</p>
-							<p class="border-bottom m-auto w-50">脂質 <%= target_fat(@eat_fat, current_user.fat).round(1)  %>g</p>
+							<p class="border-bottom w-50">たんぱく質　<%= target_protein(@eat_protein, current_user.protein).round(1)  %>g</p>
+							<p class="border-bottom w-50">炭水化物　<%= target_carbo_gain(@eat_carbo, current_user.calorie, current_user.fat, current_user.protein).round(1)  %>g</p>
+							<p class="border-bottom w-50">脂質 <%= target_fat(@eat_fat, current_user.fat).round(1)  %>g</p>
 						</div>
 				</div>
 			<% if weight_slim_calorie(current_user.calorie) < @eat_calorie %>
@@ -27,11 +25,12 @@
 				<h3 class="pt-4">減量目標<span class="ml-5"><%= weight_slim_calorie(current_user.calorie).round(1)  %>kcal</span></h3>
 					<div class="gain__target text-left">
 						<h4>あと<%= target_calorie_slim(@eat_calorie, current_user.calorie).round(1)  %>kcal</h4>
-						<p class="border-bottom m-auto w-50">たんぱく質　<%= target_protein(@eat_protein, current_user.protein).round(1)  %>g</p>
-						<p class="border-bottom m-auto w-50">炭水化物　<%= target_carbo_slim(@eat_carbo, current_user.calorie, current_user.fat, current_user.protein).round(1)  %>g</p>
-						<p class="border-bottom m-auto w-50">脂質 <%= target_fat(@eat_fat, current_user.fat).round(1)  %>g</p>
+						<p class="border-bottom w-50">たんぱく質　<%= target_protein(@eat_protein, current_user.protein).round(1)  %>g</p>
+						<p class="border-bottom w-50">炭水化物　<%= target_carbo_slim(@eat_carbo, current_user.calorie, current_user.fat, current_user.protein).round(1)  %>g</p>
+						<p class="border-bottom w-50">脂質 <%= target_fat(@eat_fat, current_user.fat).round(1)  %>g</p>
 					</div>
 			    </div>
+		<% end %>
 	</div>
 
 	<div class="eat__sum row mt-5">
@@ -64,75 +63,86 @@
 		</div>
 	<% else %>
 		<div class="row mt-5">
-			<h4>材料摂取</h4>
-		</div>
-		<div class="row eat__action">
-			<%= form_tag(user_top_path(current_user), method: :get) do %>
-				<% if @genre %>
-					<%= select_tag "genre_id", options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name ), include_blank: "#{@genre.name}で絞り込み" %>
-				<% else %>
-					<%= select_tag "genre_id", options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name ), include_blank: "ジャンル選択" %>
-				<% end %>
-				<%= submit_tag "ジャンル絞り込み" %>
-			<% end %>
-		</div>
+			<div class="col-12">
+				<h4>材料摂取</h4>
+				<div class="row eat__action">
+					<%= form_tag(user_top_path(current_user), method: :get) do %>
+						<% if @genre %>
+							<%= select_tag "genre_id", options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name ), include_blank: "#{@genre.name}で絞り込み" %>
+						<% else %>
+							<%= select_tag "genre_id", options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name ), include_blank: "ジャンル選択" %>
+						<% end %>
+						<%= submit_tag "ジャンル絞り込み" %>
+					<% end %>
+				</div>
 
-		<div class="row eat__action">
-			<%= form_with(model: @eat, url: user_eats_path(user_id: current_user.id), method: :post, local: true) do |f| %>
-				<% if @genre %>
-					<%= f.collection_select :material_id, current_user.materials.where(genre_id: @genre).order("name DESC"), :id, :name, include_blank: "材料選択" %>
-				<% else %>
-					<%= f.collection_select :material_id, current_user.materials.order("name DESC"), :id, :name, include_blank: "材料選択" %>
-				<% end %>
-				<%= f.label :"数量" %>
-				<%= f.text_field :quantity, autofocus: true %>g
-				<%= f.submit "摂取する", class: "btn btn-outline-primary" %>
-			<% end %>
-		</div>
-		<% end %>
-
-		<div class="eat__index row mt-5">
-			<% if current_user.eats.blank? %>
-				<p>摂取したアイテムはありません</p>
-			<% else %>
-				<table class="table">
-					<thead>
-						<tr>
-							<th>材料 or レシピ</th>
-							<th>カロリー(kcal)</th>
-							<th>たんぱく質(g)</th>
-							<th>炭水化物(g)</th>
-							<th>脂質(g)</th>
-							<th>数量(g)</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% current_user.eats.each do |eat| %>
-							<tr>
-								<td>
-									<% if eat.material.present? %>
-										<%= eat.material.name %>
-									<% elsif eat.recipe.present? %>
-										<%= eat.recipe.name %>
-									<% end %>
-								</td>
-								<td><%= eat.calorie %></td>
-								<td><%= eat.protein %></td>
-								<td><%= eat.carbohydrate %></td>
-								<td><%= eat.fat %></td>
-								<td><%= eat.quantity %></td>
-								<td>
-									<% unless eat.calorie.nil? %>
-									<%= link_to "削除", user_eat_path(user_id: current_user.id, eat_id: eat.id), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-outline-danger" %>
-									<% end %>
-									</td>
-							</tr>
-							<% end %>
-					</tbody>
-				</table>
-			<% end %>
+				<div class="row eat__action">
+					<%= form_with(model: @eat, url: user_eats_path(user_id: current_user.id), method: :post, local: true) do |f| %>
+						<% if @genre %>
+							<%= f.collection_select :material_id, current_user.materials.where(genre_id: @genre).order("name DESC"), :id, :name, include_blank: "材料選択" %>
+						<% else %>
+							<%= f.collection_select :material_id, current_user.materials.order("name DESC"), :id, :name, include_blank: "材料選択" %>
+						<% end %>
+						<%= f.label :"数量" %>
+						<%= f.text_field :quantity, autofocus: true %>g
+						<%= f.submit "摂取する", class: "btn btn-outline-primary" %>
+					<% end %>
+				</div>
+			</div>
 		</div>
 	<% end %>
 
+	<div class="eat__index row mt-5">
+		<% if current_user.eats.blank? %>
+			<p>摂取したアイテムはありません</p>
+		<% else %>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>材料 or レシピ</th>
+						<th>カロリー(kcal)</th>
+						<th>たんぱく質(g)</th>
+						<th>炭水化物(g)</th>
+						<th>脂質(g)</th>
+						<th>数量(g)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% current_user.eats.each do |eat| %>
+						<tr>
+							<td>
+								<% if eat.material.present? %>
+									<%= eat.material.name %>
+								<% elsif eat.recipe.present? %>
+									<%= eat.recipe.name %>
+								<% end %>
+							</td>
+							<td><%= eat.calorie %></td>
+							<td><%= eat.protein %></td>
+							<td><%= eat.carbohydrate %></td>
+							<td><%= eat.fat %></td>
+							<td><%= eat.quantity %></td>
+							<td>
+								<% unless eat.calorie.nil? %>
+								<%= link_to "削除", user_eat_path(user_id: current_user.id, eat_id: eat.id), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-outline-danger" %>
+								<% end %>
+								</td>
+						</tr>
+						<% end %>
+				</tbody>
+			</table>
+		<% end %>
+	</div>
+	
+	<div class="d-flex justify-content-center">
+		<%= paginate @eats %>
+	</div>
+
+	<div class="col-12 text-center">
+		<h3>人気レシピ〜トップ３〜</h3>
+	</div>
 	<%= render "recipes/recipe_index", recipes: @recipes %>
+	<div class="row justify-content-end">
+		<%= link_to "もっと見る", recipes_path %>
+	</div>
 </div>

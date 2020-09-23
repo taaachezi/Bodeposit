@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row">
-		<div class="row justify-content-center col-12">
+		<div class="row justify-content-center col-12 mb-4">
 			<h2><%= @user.name %>さんのマイページ</h2>
 		</div>
 		<div class="col-md-4">
@@ -49,7 +49,7 @@
 				<p>フォーム下の<span class="btn btn-outline-success">マクロ計算</span>を押下してください</p>
 			<% else %>
 
-				<h3><%= @user.name %>さんの消費カロリー（体重維持）</h3>
+				<h3>消費カロリー（体重維持）</h3>
 					<table class="table table-bordered table-success">
 						<tr>
 							<td style="width: 30%;">消費カロリー</td>
@@ -140,30 +140,7 @@
 			<% end %>
 		</div>
 	</div>
-		
-	<div class="row">
-		<div class="col-12">
-			<h3><%= @user.name %>さんの投稿レシピ一覧</h3>
-		</div>
-		<div class="row justify-content-around">
-			<% @recipes.each do |recipe| %>
-				<div class="col-3">
-					<div>
-						<h3><%= recipe.name %></h3>
-					</div>
-					<div>
-						<%= link_to recipe_path(recipe) do %>
-							<%= attachment_image_tag recipe, :image, width: "100%", fallback: "no_image.jpg", class: "recipe-content__image rounded h-25" %>
-						<% end %>
-					</div>
-					<div>
-						<h4>
-							<%= render "reviews/average_rate", recipe: recipe %>
-						</h4>
-					</div>
-				</div>
-			<% end %>
-		</div>
-	</div>
+	<h3 class="col-12 text-center m-4"><%= current_user.name %>さんの投稿一覧</h3>
+	<%= render "recipes/recipe_index", recipes: @recipes %>
 </div>
 

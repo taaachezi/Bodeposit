@@ -60,7 +60,7 @@ class MaterialsController < ApplicationController
 
   def set_material
     @addmaterial = Material.new
-    @materials = current_user.materials.order("genre_id")
+    @materials = current_user.materials.order("genre_id").page(params[:page]).per(6)
   end
 
 end

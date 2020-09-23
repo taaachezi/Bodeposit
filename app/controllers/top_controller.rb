@@ -17,13 +17,14 @@ class TopController < ApplicationController
       @eat_protein = 0
       @eat_carbo = 0
       @eat_fat = 0
-      current_user.eats.each do |eat|
+      @eats = current_user.eats.page(params[:page]).per(5)
+      @eats.each do |eat|
         @eat_calorie += eat.calorie.to_f
         @eat_protein += eat.protein.to_f
         @eat_carbo += eat.carbohydrate.to_f
         @eat_fat += eat.fat.to_f
       end
-    @recipes = Recipe.order("average_rate DESC")
+    @recipes = Recipe.order("average_rate DESC").page(params[:page]).per(3)
   end
 
 end

@@ -1,4 +1,7 @@
 module ApplicationHelper
+	def recipe_material_calorie(calorie, quantity)
+		calorie * quantity/100
+	end
 	def weight_gain_calorie(calorie)
 		calorie.to_f + 500
 	end

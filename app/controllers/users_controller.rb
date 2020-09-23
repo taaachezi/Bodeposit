@@ -3,23 +3,29 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
-    @recipes = current_user.recipes
+    @recipes = current_user.recipes.page(params[:page]).per(6)
   end
 
   def update
     # フォームからの情報を一度更新
-    @user.update(params_users)
-    # 更新された情報で再度マクロを計算し、マクロ情報を更新
-    @user.calorie = User.intake_nutorition(@user.height, @user.weight, @user.sex, @user.age, @user.level)
-    @user.protein = User.intake_protein(@user.weight)
-    @user.fat = User.intake_fat(@user.weight)
-    @user.carbohydrate = User.intake_carbo(@user.protein, @user.fat, @user.calorie)
-    if @user.update(params_users)
-      redirect_back(fallback_location: root_path)
-    else flash[:error] = "入力に誤りがあります"
-      @recipes = current_user.recipes
-      set_user
+    if @user.update(params_users) == false
+      flash[:error] = "入力に誤りがあります"
+      @recipes = current_user.recipes.page(params[:page]).per(6)
       render :show
+    else
+    # 更新された情報で再度マクロを計算し、マクロ情報を更新
+      @user.calorie = User.intake_nutorition(@user.height, @user.weight, @user.sex, @user.age, @user.level)
+      @user.protein = User.intake_protein(@user.weight)
+      @user.fat = User.intake_fat(@user.weight)
+      @user.carbohydrate = User.intake_carbo(@user.protein, @user.fat, @user.calorie)
+      if @user.update(params_users)
+        flash[:notice] = "情報を更新しました"
+        redirect_back(fallback_location: root_path)
+      else flash[:error] = "入力に誤りがあります"
+        @recipes = current_user.recipes
+        set_user
+        render :show
+      end
     end
   end
 

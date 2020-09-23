@@ -81,6 +81,7 @@ gem 'chartkick'
 gem 'toastr-rails'
 gem 'devise-i18n'
 gem 'whenever', require: false
+gem 'bootstrap4-kaminari-views'
 group :production do
   gem 'mysql2'
 end
