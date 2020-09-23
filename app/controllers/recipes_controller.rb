@@ -20,28 +20,28 @@ class RecipesController < ApplicationController
   def index
     if params[:user_id]
       @user = User.find(params[:user_id])
-      @recipes = @user.favorite_recipes
+      @recipes = @user.favorite_recipes.page(params[:page]).per(9)
     elsif params[:name]
       @search = params[:name]
-      @recipes = Recipe.where("name LIKE?", "%#{params[:name]}%")
+      @recipes = Recipe.where("name LIKE?", "%#{params[:name]}%").page(params[:page]).per(9)
     else
-      @recipes = Recipe.all
+      @recipes = Recipe.page(params[:page]).per(9)
     end
 
     if params[:option] == "new"
-      @recipes = Recipe.order("created_at DESC")
+      @recipes = Recipe.order("created_at DESC").page(params[:page]).per(9)
     elsif params[:option] == "low_calorie"
-      @recipes = Recipe.order("calorie ASC")
+      @recipes = Recipe.order("calorie ASC").page(params[:page]).per(9)
     elsif params[:option] == "high_rate"
-      @recipes = Recipe.order("average_rate DESC")
+      @recipes = Recipe.order("average_rate DESC").page(params[:page]).per(9)
     elsif params[:option] == "high_protein"
-      @recipes = Recipe.order("protein DESC")
+      @recipes = Recipe.order("protein DESC").page(params[:page]).per(9)
     elsif params[:option] == "high_carbo"
-      @recipes = Recipe.order("carbohydrate DESC")
+      @recipes = Recipe.order("carbohydrate DESC").page(params[:page]).per(9)
     elsif params[:option] == "low_fat"
-      @recipes = Recipe.order("fat ASC")
+      @recipes = Recipe.order("fat ASC").page(params[:page]).per(9)
     elsif params[:option] == "all"
-      @recipes = Recipe.all
+      @recipes = Recipe.all.page(params[:page]).per(9)
     end
   end
 
@@ -51,7 +51,7 @@ class RecipesController < ApplicationController
       @eat = current_user.eats.new
     end
     @review = Review.new
-    @reviews = @recipe.reviews
+    @reviews = @recipe.reviews.page(params[:page]).per(5)
     @recipe_materials = @recipe.recipe_materials
     @recipe.fat = 0
     @recipe.protein = 0
