@@ -4,7 +4,12 @@ class RecipeMaterialsController < ApplicationController
 	def new
 		@recipe = Recipe.find(params[:recipe_id])
 		@recipe_material = RecipeMaterial.new
-		@recipe_materials = @recipe.recipe_materials.all
+		@recipe_materials = @recipe.recipe_materials.page(params[:page]).per(5)
+		@sum_calorie = 0
+		@recipe_materials.each do |recipe_material|
+			@sum_calorie += recipe_material.quantity * recipe_material.material.calorie/100
+		end
+
 	end
 	
 

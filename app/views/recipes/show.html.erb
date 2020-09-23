@@ -23,7 +23,7 @@
 		<div class="recipe-content__image col-md-6">
 			<%= attachment_image_tag @recipe, :image, width: "100%", height: "80%", fallback: "no_image.jpg", class: "recipe-content__image rounded" %>
 		</div>
-		<div class="recipe-content__text col-md-6">
+		<div class="recipe-content__text col-md-6 text-break">
 			<div class="row justify-content-center col-12">
 				<h5>〜　作り方　〜</h5>
 			</div>
@@ -88,13 +88,15 @@
 	<% if user_signed_in? %>
 		<% unless @recipe.reviews.exists?(user_id: current_user.id) %>
 			<div class="recipe-show__comment row justify-content-end">
-				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+				<button type="button" class="btn btn-outline-primary m-4" data-toggle="modal" data-target="#exampleModal">
 				  コメントを投稿する
 				</button>
 			</div>
 		<% end %>
 	<% end %>
 	<%= render "reviews/modal", recipe: @recipe, review: @review %>
-
+	<div class="d-flex justify-content-center">
+		<%= paginate @reviews %>
+	</div>
 </div>
 

@@ -34,31 +34,55 @@ function myfunc(value) {
     }
 
 // 画像プレビュー
-$(function (){
-  $("#recipe_img").on('change', function (e){
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      $(".recipe_preview").attr("src", e.target.result);
-    };
-    reader.readAsDataURL(e.target.files[0]);
+document.addEventListener("turbolinks:load",function (){
+  $(function (){
+    $("#recipe_img").on('change', function (e){
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $(".recipe_preview").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    });
   });
 });
 
-$(function(){
-  $(".accordion__item").click('turbolinks: load', function(){
-    var $answer = $(this).children(".answer");
+//how_use
+document.addEventListener("turbolinks:load",function (){
+  $(function(){
+    $(".accordion__item").click('turbolinks: load', function(){
+      var $answer = $(this).children(".answer");
 
-    if($answer.hasClass('open')) {
-      $answer.removeClass('open');
-      $answer.slideUp();
-      $(this).children('span').text('+');
-    } else {
-      $answer.addClass('open');
-      $answer.slideDown();
-      $(this).children('span').text('-');
-    };
+      if($answer.hasClass('open')) {
+        $answer.removeClass('open');
+        $answer.slideUp();
+        $(this).children('span').text('+');
+      } else {
+        $answer.addClass('open');
+        $answer.slideDown();
+        $(this).children('span').text('-');
+      };
+    });
   });
 });
+
+//ページトップスクロール
+document.addEventListener("turbolinks:load",function (){
+  $(function() {
+    var pagetop = $('.pagetop');
+      $(window).scroll(function () {
+         if ($(this).scrollTop() > 300) {
+              pagetop.fadeIn();
+         } else {
+              pagetop.fadeOut();
+              }
+         });
+         pagetop.click(function () {
+             $('body, html').animate({ scrollTop: 0 }, 500);
+                return false;
+     });
+  });
+});
+
 
 // 星評価
 (function($) {
@@ -812,3 +836,4 @@ $(function(){
     targetType:   'hint'
   };
 })(jQuery);
+// });
