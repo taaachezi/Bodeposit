@@ -63,10 +63,6 @@ group :test do
   gem 'chromedriver-helper'
 end
 
-group :production do
-  gem 'mysql2', '~>0.4.4'
-end
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
@@ -87,3 +83,6 @@ gem 'devise-i18n'
 gem 'whenever', require: false
 gem 'bootstrap4-kaminari-views'
 gem 'rubocop-airbnb'
+group :production do
+  gem 'mysql2', '~>0.4.4'
+end
