@@ -1,19 +1,18 @@
 class RecipesController < ApplicationController
-
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
   def new
-  	@recipe = Recipe.new
+    @recipe = Recipe.new
   end
 
   def create
-  	@recipe = Recipe.new(params_recipe)
-  	@recipe.user_id = current_user.id
-  	if @recipe.save
+    @recipe = Recipe.new(params_recipe)
+    @recipe.user_id = current_user.id
+    if @recipe.save
       flash[:notice] = "レシピが投稿されました"
-  	  redirect_to  new_recipe_recipe_material_path(recipe_id: @recipe.id)
+      redirect_to new_recipe_recipe_material_path(recipe_id: @recipe.id)
     else flash[:error] = "全て記入してください"
-      render :new
+         render :new
     end
   end
 
@@ -45,7 +44,6 @@ class RecipesController < ApplicationController
     end
   end
 
-
   def show
     if user_signed_in?
       @eat = current_user.eats.new
@@ -57,13 +55,13 @@ class RecipesController < ApplicationController
     @recipe.protein = 0
     @recipe.carbohydrate = 0
     @recipe_materials.each do |recipe_material|
-      @recipe.fat += recipe_material.material.fat * recipe_material.quantity/100
-      @recipe.protein += recipe_material.material.protein * recipe_material.quantity/100
-      @recipe.carbohydrate += recipe_material.material.carbohydrate * recipe_material.quantity/100
+      @recipe.fat += recipe_material.material.fat * recipe_material.quantity / 100
+      @recipe.protein += recipe_material.material.protein * recipe_material.quantity / 100
+      @recipe.carbohydrate += recipe_material.material.carbohydrate * recipe_material.quantity / 100
     end
     @recipe.calorie = Material.calorie_fit(@recipe.fat, @recipe.protein, @recipe.carbohydrate)
     @recipe.update(fat: @recipe.fat, protein: @recipe.protein, carbohydrate: @recipe.carbohydrate, calorie: @recipe.calorie)
-    @data = {"たんぱく質" => @recipe.protein.round(1), "脂質" => @recipe.fat.round(1), "炭水化物" => @recipe.carbohydrate.round(1)}
+    @data = { "たんぱく質" => @recipe.protein.round(1), "脂質" => @recipe.fat.round(1), "炭水化物" => @recipe.carbohydrate.round(1) }
   end
 
   def edit
@@ -73,8 +71,8 @@ class RecipesController < ApplicationController
     if @recipe.update(params_recipe)
       redirect_to new_recipe_recipe_material_path(recipe_id: @recipe.id)
     else flash[:error] = "全て記入してください"
-      set_recipe
-      render :edit
+         set_recipe
+         render :edit
     end
   end
 
@@ -86,10 +84,10 @@ class RecipesController < ApplicationController
   private
 
   def params_recipe
-  	params.require(:recipe).permit(:name, :body, :image)
+    params.require(:recipe).permit(:name, :body, :image)
   end
 
   def set_recipe
-     @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.find(params[:id])
   end
 end

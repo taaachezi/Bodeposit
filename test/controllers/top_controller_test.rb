@@ -10,5 +10,4 @@ class TopControllerTest < ActionDispatch::IntegrationTest
     get top_about_url
     assert_response :success
   end
-
 end

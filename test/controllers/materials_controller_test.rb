@@ -5,5 +5,4 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     get materials_index_url
     assert_response :success
   end
-
 end

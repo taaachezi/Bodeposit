@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_action :set_user
 
   def show
@@ -13,7 +12,7 @@ class UsersController < ApplicationController
       @recipes = current_user.recipes.page(params[:page]).per(6)
       render :show
     else
-    # 更新された情報で再度マクロを計算し、マクロ情報を更新
+      # 更新された情報で再度マクロを計算し、マクロ情報を更新
       @user.calorie = User.intake_nutorition(@user.height, @user.weight, @user.sex, @user.age, @user.level)
       @user.protein = User.intake_protein(@user.weight)
       @user.fat = User.intake_fat(@user.weight)
@@ -22,9 +21,9 @@ class UsersController < ApplicationController
         flash[:notice] = "情報を更新しました"
         redirect_back(fallback_location: root_path)
       else flash[:error] = "入力に誤りがあります"
-        @recipes = current_user.recipes
-        set_user
-        render :show
+           @recipes = current_user.recipes
+           set_user
+           render :show
       end
     end
   end
@@ -46,6 +45,4 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
-
-
 end
