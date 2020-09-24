@@ -6,14 +6,14 @@ class GenresController < ApplicationController
 
   def create
     @genres = current_user.genres
-  	@addgenre = Genre.new(params_genre)
-  	@addgenre.user_id = current_user.id
-  	@addgenre.save
+    @addgenre = Genre.new(params_genre)
+    @addgenre.user_id = current_user.id
+    @addgenre.save
   end
 
   def update
     @addgenre = Genre.new
-  	@genre.update(params_genre)
+    @genre.update(params_genre)
   end
 
   def destroy
@@ -24,7 +24,7 @@ class GenresController < ApplicationController
   private
 
   def params_genre
-  	params.require(:genre).permit(:name, :status, :user_id)
+    params.require(:genre).permit(:name, :status, :user_id)
   end
 
   def set_genre
@@ -32,6 +32,4 @@ class GenresController < ApplicationController
     @genres = current_user.genres
     @addgenre = Genre.new
   end
-
 end
-

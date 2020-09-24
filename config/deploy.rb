@@ -5,9 +5,9 @@ set :application, "Bodeposit"
 set :repo_url, "git@github.com:taaachezi/Bodeposit.git"
 set :deploy_to, "/home/ec2-user/Bodeposit"
 set :rbenv_ruby, '2.5.7'
-set :linked_files, %w{config/master.key .env}
-set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}"}
-set :whenever_roles, ->{:batch}
+set :linked_files, %w(config/master.key .env)
+set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
+set :whenever_roles, -> { :batch }
 append :linked_dirs, "log", "public", "tmp"
 
 # Default branch is :master
