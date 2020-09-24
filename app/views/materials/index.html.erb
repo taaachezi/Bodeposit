@@ -38,11 +38,11 @@
 				<% end %>
 		</div>
 
-		<div class="index_materials col-md-12">
+		<div class="index_materials col-md-12 justify-content-cneter">
 			<% if @genre %>
-			<h3>登録した材料（ジャンル:<%= @genre.name %>で絞り込み）</h3>
+			<h3 class="text-center">登録した材料（ジャンル:<%= @genre.name %>で絞り込み）</h3>
 			<% else %>
-			<h3>登録した材料</h3>
+			<h3 class="text-center">登録した材料</h3>
 			<% end %>
 			<div class="index_materials__search">
 				<%= form_tag(search_genres_materials_path, method: :get) do %>

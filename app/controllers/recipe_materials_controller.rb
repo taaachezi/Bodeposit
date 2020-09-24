@@ -18,7 +18,7 @@ class RecipeMaterialsController < ApplicationController
         @genre = Genre.find(params[:genre_id])
       end
       @recipe = Recipe.find(params[:recipe_id])
-      @recipe_materials = @recipe.recipe_materials.all
+      @recipe_materials = @recipe.recipe_materials.all.page(params[:page]).per(6)
       @recipe_material = RecipeMaterial.new
       render :new
     else
