@@ -10,7 +10,7 @@
 	      </div>
 
 	      <div class="modal-body row">
-	        <%= form_with(model: [@recipe, @review], url: recipe_reviews_path(recipe_id: @recipe.id), method: :post) do |f| %>
+	        <%= form_with(model: [@recipe, @review], url: recipe_reviews_path(recipe_id: @recipe.id), method: :post, remote: true )do |f| %>
 	        <div class="form-group" id="star">
 	        	<%= f.label :"評価(5段階)" %>
 	        	<%= f.hidden_field :rate, id: :review_star %>
@@ -23,7 +23,7 @@
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">戻る</button>
 	        <div class="form-action">
-	      		<%= f.submit "投稿する", class: "btn btn-outline-success" %>
+	      		<%= f.submit "投稿する", class: "btn btn-outline-primary" %>
 	      	</div>
 	      	<% end %>
 	      	</div>

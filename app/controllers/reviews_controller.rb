@@ -6,25 +6,26 @@ class ReviewsController < ApplicationController
     @review = Review.new(params_reviews)
     @review.user_id = current_user.id
     @review.recipe_id = @recipe.id
+    review = @recipe.reviews.pluck(:user_id)
     if @review.save
       @average_rate = @recipe.reviews.average(:rate).round(1).to_f
       @recipe.update(average_rate: @average_rate)
-      redirect_to recipe_path(@recipe.id)
-    else flash[:error] = "評価またはコメントがありません"
-         redirect_back(fallback_location: root_path)
+      flash[:notice] = "レビューを投稿しました"
+    else 
+      flash[:error] = "評価またはコメントがありません"
     end
   end
 
   def destroy
     @review = Review.find_by(user_id: current_user.id, recipe_id: @recipe.id)
     @review.destroy
+    flash[:notice] = "レビューを削除しました"
     if @recipe.reviews.blank?
       @recipe.update(average_rate: 0.0)
     else
       @average_rate = @recipe.reviews.average(:rate).round(1).to_f
       @recipe.update(average_rate: @average_rate)
     end
-    redirect_to recipe_path(@recipe.id)
   end
 
   private
@@ -35,5 +36,6 @@ class ReviewsController < ApplicationController
 
   def set_recipe
     @recipe = Recipe.find(params[:recipe_id])
+    @reviews = @recipe.reviews.page(params[:page]).per(5)
   end
 end

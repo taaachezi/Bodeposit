@@ -6,12 +6,10 @@
 	</div>
 	<% if user_signed_in? %>
 		<div class="recipe-show__link row justify-content-around mb-3">
-			<%= link_to "このレシピを摂取する", user_eats_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post, class: "btn btn-outline-primary" %>
-			<% if @recipe.has_favorite(current_user) %>
-				<%= link_to "お気に入りを外す", recipe_favorites_path(recipe_id: @recipe.id), method: :delete, class: "btn btn-outline-info active", "aria-pressed":true %>
-			<% else %>
-				<%= link_to "お気に入りに登録 ", recipe_favorites_path(recipe_id: @recipe.id), method: :post, class: "btn btn-outline-info" %>
-			<% end %>
+			<%= link_to "このレシピを摂取する", user_eats_path(user_id: current_user.id, recipe_id: @recipe.id), method: :post, class: "btn btn-outline-success" %>
+			<span id="recipe_favorite_<%= @recipe.id %>">
+			 <%= render "favorites/favorite", recipe: @recipe %>
+			</span>
 			<% if @recipe.user_id == current_user.id %>
 				<%= link_to "レシピを修正する", edit_recipe_path(@recipe.id), method: :get, class: "btn btn-outline-secondary" %>
 				<%= link_to "レシピを廃棄する", recipe_path(@recipe.id), method: :delete, data: {confirm: "レシピを削除しますか？"}, class: "btn btn-outline-danger" %>
@@ -82,18 +80,9 @@
 			<%= pie_chart @data %>
 		</div>
 	</div>
-	<div class="reipe-show__reviews ">
-		<%= render "reviews/index", reviews: @reviews  %>
+	<div class="reipe-show__reviews" id="review_index">
+		<%= render "reviews/index", reviews: @reviews, recipe: @recipe  %>
 	</div>
-	<% if user_signed_in? %>
-		<% unless @recipe.reviews.exists?(user_id: current_user.id) %>
-			<div class="recipe-show__comment row justify-content-end">
-				<button type="button" class="btn btn-outline-primary m-4" data-toggle="modal" data-target="#exampleModal">
-				  コメントを投稿する
-				</button>
-			</div>
-		<% end %>
-	<% end %>
 	<%= render "reviews/modal", recipe: @recipe, review: @review %>
 	<div class="d-flex justify-content-center">
 		<%= paginate @reviews %>

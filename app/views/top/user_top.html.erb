@@ -1,7 +1,7 @@
 <div class="eat container">
 	<div class=" row justify-content-between p-4">
 		<% unless current_user.calorie.present? %>
-			<%= link_to "カロリーを計算する", user_path(current_user.id), class: "btn btn-outline-primary" %>
+			<%= link_to "#{current_user.name}さんのカロリーを計算する", user_path(current_user.id), class: "col-12 btn btn-outline-primary btn-lg rounded-pill shadow-lg " %>
 		<% else %>
 			<% if weight_gain_calorie(current_user.calorie) < @eat_calorie %>
 				<div class="eat__target rounded bg-danger col-5 text-center">
@@ -85,7 +85,7 @@
 						<% end %>
 						<%= f.label :"数量" %>
 						<%= f.text_field :quantity, autofocus: true %>g
-						<%= f.submit "摂取する", class: "btn btn-outline-primary" %>
+						<%= f.submit "摂取する", class: "btn btn-outline-success" %>
 					<% end %>
 				</div>
 			</div>

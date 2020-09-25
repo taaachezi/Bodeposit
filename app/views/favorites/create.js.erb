@@ -1,0 +1,1 @@
+$("#recipe_favorite_<%= @recipe.id %>").html("<%= escape_javascript(render 'favorite', recipe: @recipe) %>");

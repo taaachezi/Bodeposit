@@ -3,8 +3,12 @@
 		<h3>ジャンル登録</h3>
 	</div>
 	<div class="row justify-content-center">
-		<div id="genre_new" class="genre__form col-md-offset-4 col-md-8">
-			<%= render "genre_form", addgenre: @addgenre %>
+		<div id="genre_new" class="genre__form">
+			<%= form_for @addgenre, url: genres_path, method: :post, remote: true do |f| %>
+				<%= f.label :ジャンル名 %>
+				<%= f.text_field :name, autofocus: true, placeholder: "ジャンル名を入力" %>
+				<%= f.submit "登録", class: "btn btn-outline-primary" %>
+			<% end %>
 		</div>
 	</div>
 
@@ -12,10 +16,7 @@
 		<h3>ジャンル一覧</h3>
 	</div>
 	<div class="row justify-content-center">
-		<div class="genre_index col-md-offset-4 col-md-8">
-			<% if current_user.genres.count == 0 %>
-				<p>ジャンルを追加してください</p>
-			<% end %>
+		<div class="genre_index">
 			<div class="col-12" id="genre_index__genres">
 			  <%= render "index", genres: @genres %>
 			</div>

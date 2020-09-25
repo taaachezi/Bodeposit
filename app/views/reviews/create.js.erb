@@ -1,0 +1,4 @@
+$("textarea").val("");
+$("#star").val("");
+$("#exampleModal").modal("hide");
+$("#review_index").html("<%= escape_javascript(render 'index', reviews: @reviews, recipe: @recipe) %>" );

@@ -1,14 +1,26 @@
+<% if current_user.genres.count == 0 %>
+	<p>ジャンルを追加してください</p>
+<% end %>
 <% genres.each do |genre| %>
   <p>
-	<%= form_for genre, url: genres_path(id: genre.id), method: :patch, remote: true do |f| %>
-  	<%= f.text_field :name, autofocus: true %>
- 	<%= f.radio_button :status, true %><span>表示</span>
-  	<%= f.radio_button :status, false %><span>非表示</span>
-  	<span>
-  		<%= f.submit "設定を変更する", class: "btn btn-outline-success" %>
-  		<%= link_to "削除する", genres_path(id: genre.id), method: :delete, class: "btn btn-outline-danger" %>
-  	</span>
+	<%= form_with(model: genre, url: genres_path(id: genre.id), method: :patch, remote: true) do |f| %>
+	  	<span class="mr-3"><%= genre.name %></span>
+	 	<%= f.radio_button :status, true %><span>表示</span>
+	  	<%= f.radio_button :status, false %><span>非表示</span>
+	  	<span class="ml-4">
+	  		<%= f.submit "設定を変更する", class: "btn btn-outline-success" %>
+	  		<%= link_to "削除する", genres_path(id: genre.id), method: :delete, class: "btn btn-outline-danger ml-4", remote: true %>
+	  	</span>
 
  	<% end %>
   </p>
+<% end %>
+
+<% if flash.any? %>
+	<script type="text/javascript">
+	  <% flash.each do |key, value| %>
+	    <% type = key.to_s.gsub('alert', 'error').gsub('notice', 'success') %>
+	    toastr.<%= type %>('<%= value %>')
+	  <% end %>
+	</script>
 <% end %>

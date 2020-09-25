@@ -1,0 +1,14 @@
+<% if recipe.has_favorite(current_user) %>
+	<%= link_to "お気に入りを外す", recipe_favorites_path(recipe_id: recipe.id), method: :delete, class: "btn btn-outline-info active", "aria-pressed":true, remote: true %>
+<% else %>
+	<%= link_to "お気に入りに登録 ", recipe_favorites_path(recipe_id: recipe.id), method: :post, class: "btn btn-outline-info", remote:true %>
+<% end %>
+
+<% if flash.any? %>
+	<script type="text/javascript">
+	  <% flash.each do |key, value| %>
+	    <% type = key.to_s.gsub('alert', 'error').gsub('notice', 'success') %>
+	    toastr.<%= type %>('<%= value %>')
+	  <% end %>
+	</script>
+<% end %>

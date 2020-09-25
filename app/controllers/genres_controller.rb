@@ -5,20 +5,28 @@ class GenresController < ApplicationController
   end
 
   def create
-    @genres = current_user.genres
     @addgenre = Genre.new(params_genre)
     @addgenre.user_id = current_user.id
-    @addgenre.save
+    genre_name = current_user.genres.pluck(:name)
+    if genre_name.include?(params[:genre][:name])
+      flash[:error] = "登録済です"
+      set_genre
+    elsif @addgenre.save == false
+      flash[:error] = "空欄です"
+    else 
+      @addgenre.save
+      flash[:notice] = "登録しました"
+    end
   end
 
   def update
-    @addgenre = Genre.new
-    @genre.update(params_genre)
+      @addgenre.update(params_genre)
+      flash[:notice] = "変更しました"
   end
 
   def destroy
     @genre.destroy
-    redirect_back(fallback_location: root_path)
+    flash[:notice] = "削除しました"
   end
 
   private
