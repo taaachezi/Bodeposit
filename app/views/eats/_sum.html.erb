@@ -1,0 +1,20 @@
+
+	<h4><%= current_user.name %>さんの累計摂取量</h4>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>カロリー</th>
+				<th>たんぱく質</th>
+				<th>炭水化物</th>
+				<th>脂質</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><%= eat_calorie.round(1) %>kcal</td>
+				<td><%= eat_protein.round(1) %>g</td>
+				<td><%= eat_carbo.round(1) %>g</td>
+				<td><%= eat_fat.round(1) %>g</td>
+			</tr>
+		</tbody>
+	</table>

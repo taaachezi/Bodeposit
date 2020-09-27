@@ -1,0 +1,43 @@
+<% if current_user.eats.blank? %>
+	<p>摂取したアイテムはありません</p>
+<% else %>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>材料 or レシピ</th>
+				<th>カロリー(kcal)</th>
+				<th>たんぱく質(g)</th>
+				<th>炭水化物(g)</th>
+				<th>脂質(g)</th>
+				<th>数量(g)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% current_user.eats.each do |eat| %>
+				<tr>
+					<td>
+						<% if eat.material.present? %>
+							<%= eat.material.name %>
+						<% elsif eat.recipe.present? %>
+							<%= eat.recipe.name %>
+						<% end %>
+					</td>
+					<td><%= eat.calorie %></td>
+					<td><%= eat.protein %></td>
+					<td><%= eat.carbohydrate %></td>
+					<td><%= eat.fat %></td>
+					<td><%= eat.quantity %></td>
+					<td>
+						<% unless eat.calorie.nil? %>
+						<%= link_to "削除", user_eat_path(user_id: current_user.id, id: eat.id), method: :delete, data: {confirm: "削除しますか？"}, class: "btn btn-outline-danger" %>
+						<% end %>
+						</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+
+<div class="d-flex justify-content-center">
+	<%= paginate eats %>
+</div>

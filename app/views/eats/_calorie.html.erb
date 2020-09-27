@@ -1,0 +1,34 @@
+
+	<% unless current_user.calorie.present? %>
+		<%= link_to "#{current_user.name}さんのカロリーを計算する", user_path(current_user.id), class: "col-12 btn btn-outline-primary btn-lg rounded-pill shadow-lg " %>
+	<% else %>
+		<% if weight_gain_calorie(current_user.calorie) < eat_calorie %>
+			<div class="eat__target rounded bg-danger col-5 text-center position-relative">
+				<h1 class="position-absolute text-warning" style="top: 100px; left: 100px;">食べ過ぎです！</h1>
+		<% else %>
+			<div class="eat__target rounded bg-light col-5">
+		<% end %>
+				<h3 class="pt-4">
+					増量目標<span class="ml-5"><%= weight_gain_calorie(current_user.calorie).round(1) %>kcal</span></h3>
+					<div class="gain__target text-left">
+						<h4>あと<%= target_calorie_gain(eat_calorie, current_user.calorie).round(1)  %>kcal</h4>
+						<p class="border-bottom w-50">たんぱく質　<%= target_protein(eat_protein, current_user.protein).round(1)  %>g</p>
+						<p class="border-bottom w-50">炭水化物　<%= target_carbo_gain(eat_carbo, current_user.calorie, current_user.fat, current_user.protein).round(1)  %>g</p>
+						<p class="border-bottom w-50">脂質 <%= target_fat(eat_fat, current_user.fat).round(1)  %>g</p>
+					</div>
+			</div>
+		<% if weight_slim_calorie(current_user.calorie) < eat_calorie %>
+			<div class="eat__target position-relative rounded bg-danger col-5 text-center">
+				<h1 class="position-absolute text-warning" style="top: 100px; left: 100px;">食べ過ぎです！</h1>
+		<% else %>
+			<div class="eat__target rounded bg-light col-5">
+		<% end %>
+			<h3 class="pt-4">減量目標<span class="ml-5"><%= weight_slim_calorie(current_user.calorie).round(1)  %>kcal</span></h3>
+				<div class="gain__target text-left">
+					<h4>あと<%= target_calorie_slim(eat_calorie, current_user.calorie).round(1)  %>kcal</h4>
+					<p class="border-bottom w-50">たんぱく質　<%= target_protein(eat_protein, current_user.protein).round(1)  %>g</p>
+					<p class="border-bottom w-50">炭水化物　<%= target_carbo_slim(eat_carbo, current_user.calorie, current_user.fat, current_user.protein).round(1)  %>g</p>
+					<p class="border-bottom w-50">脂質 <%= target_fat(@eat_fat, current_user.fat).round(1)  %>g</p>
+				</div>
+		    </div>
+	<% end %>

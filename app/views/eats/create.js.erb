@@ -1,0 +1,5 @@
+$("#eat_material_id").val("");
+$("#eat_quantity").val("");
+$(".eat__calorie").html("<%= escape_javascript(render 'calorie', eat_protein: @eat_protein, eat_calorie: @eat_calorie, eat_fat: @eat_fat, eat_carbo: @eat_carbo) %>");
+$(".eat__sum").html("<%= escape_javascript(render 'sum', eat: @eat, eat_calorie: @eat_calorie, eat_protein: @eat_protein, eat_carbo: @eat_carbo, eat_fat: @eat_fat) %>");
+$(".eat__index").html("<%= escape_javascript(render 'index', eats: @eats) %>");

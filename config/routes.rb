@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       get :withdraw
       patch :unsubscribe
     end
-    resources :eats, only: [:create, :destroy]
+    resources :eats, only: [:create, :destroy] do
   end
 
   resource :genres, only: [:new, :create, :update, :destroy] do
