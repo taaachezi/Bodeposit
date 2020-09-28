@@ -14,17 +14,17 @@
 					</div>
 
 					<div class="field">
-						<%= f.label :たんぱく質 %><br>
+						<%= f.label :"たんぱく質(g)" %><br>
 						<%= f.text_field :protein, autofocus: true, placeholder: "たんぱく質を入力", class: "col-12" %>
 					</div>
 
 					<div class="field">
-						<%= f.label :炭水化物 %><br>
+						<%= f.label :"炭水化物(g)" %><br>
 						<%= f.text_field :carbohydrate, autofocus: true, placeholder: "炭水化物を入力", class: "col-12" %>
 					</div>
 					
 					<div class="field">
-						<%= f.label :脂質 %><br>
+						<%= f.label :"脂質(g)" %><br>
 						<%= f.text_field :fat, autofocus: true, placeholder: "脂質を入力", class: "col-12" %>
 					</div>
 
@@ -42,15 +42,18 @@
 				<% end %>
 		</div>
 
-		<div class="index_materials col-md-12 justify-content-cneter">
+		<div class="index_materials col-md-8 offset-2 mt-3">
 			<% if @genre %>
-			<h3 class="text-center">登録した材料（ジャンル:<%= @genre.name %>で絞り込み）</h3>
+			<h3 class="text-center">登録材料（ジャンル:<%= @genre.name %>で絞り込み）</h3>
 			<% else %>
-			<h3 class="text-center">登録した材料</h3>
+			<h3 class="text-center">登録材料</h3>
 			<% end %>
+		</div>
+
+		<div class="index_materials row justify-content-center">
 			<div class="index_materials__search">
 				<%= form_tag(search_genres_materials_path, method: :get) do %>
-					<%= select_tag "genre_id", options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name, 1), include_blank: "登録したジャンル選択" %>
+					<%= select_tag "genre_id", options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name), include_blank: "登録したジャンル選択" %>
 					<%= submit_tag "ジャンル絞り込み" %>
 					<span><%= link_to "全ての材料", genres_materials_path, class: "btn btn-outline-info" %></span>
 				<% end %>
@@ -77,13 +80,13 @@
 								<%= material.name %>
 							</td>
 							<td>
-								<%= material.protein %>
+								<%= material.protein %>g
 							</td>
 							<td>
-								<%= material.carbohydrate %>
+								<%= material.carbohydrate %>g
 							</td>
 							<td>
-								<%= material.fat %>
+								<%= material.fat %>g
 							</td>
 							<td>
 								<%= material.calorie.round(1) %>kcal
@@ -98,6 +101,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="d-flex justify-content-center">
 		<%= paginate @materials %>
 	</div>
