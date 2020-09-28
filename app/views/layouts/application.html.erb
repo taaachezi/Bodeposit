@@ -11,19 +11,24 @@
   </head>
 
   <body>
-      <nav class="header navbar navbar-expand navbar-light fixed-top mx-0">
+      <nav class="header navbar navbar-expand-lg navbar-light fixed-top mx-0">
 
         <% if user_signed_in? %>
-          <%= link_to user_top_path(current_user.id), class: "navbar-brand d-inline-block align-top" do %>
+          <%= link_to user_top_path(current_user.id), class: "navbar-brand d-inline-block align-top navbar-brand" do %>
             <i class="fas fa-dumbbell" style="font-size: 30px;">Bodeposit</i>
           <% end %>
         <% else %>
-          <%= link_to "/", class: "navbar-brand d-inline-block align-top" do %>
+          <%= link_to "/", class: "navbar-brand d-inline-block align-top navbar-brand" do %>
             <i class="fas fa-dumbbell" style="font-size: 30px;">Bodeposit</i>
           <% end %>
         <% end %>
 
-        <ul class="header__nav navbar-nav ml-auto">
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="header__nav navbar-nav ml-auto ">
           <% if user_signed_in? %>
           <li class="header__nav--signin nav-item active">
               <%= link_to how_use_path, class: "nav-link" do %>
@@ -78,6 +83,7 @@
             </li>
           <% end %>
         </ul>
+      </div>
       </nav>
 
       <%= yield %>

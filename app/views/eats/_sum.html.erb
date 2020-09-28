@@ -11,10 +11,10 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><%= eat_calorie.round(1) %>kcal</td>
-				<td><%= eat_protein.round(1) %>g</td>
-				<td><%= eat_carbo.round(1) %>g</td>
-				<td><%= eat_fat.round(1) %>g</td>
+				<td><%= eat_calorie.to_f.round(1) %>kcal</td>
+				<td><%= eat_protein.to_f.round(1) %>g</td>
+				<td><%= eat_carbo.to_f.round(1) %>g</td>
+				<td><%= eat_fat.to_f.round(1) %>g</td>
 			</tr>
 		</tbody>
 	</table>
