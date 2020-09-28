@@ -27,7 +27,7 @@
 			<div class="col-10">
 				<%= review.body %>
 			</div>
-			<% if review.user_id == current_user.id %>
+			<% if user_signed_in? && review.user_id == current_user.id %>
 				<div class="col-2">
 					<%= link_to "取り消す", recipe_reviews_path(recipe_id: review.recipe.id), method: :delete, class: "btn btn-outline-danger", remote: true %>
 				</div>
