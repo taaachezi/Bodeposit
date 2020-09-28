@@ -37,7 +37,7 @@
 
 	<div class="index-recipe-materials row mt-4">
 		<h3 class="col-4 offset-4 text-center">レシピ材料一覧</h3>
-		<span class="col-4">総カロリー<%= @sum_calorie %>kcal</span>
+		<span class="col-4">総カロリー<%= @sum_calorie.round(1) %>kcal</span>
 		<div class="index-recipe-materials__items col-12">
 			<% if @recipe_materials.count == 0 %>
 				<p>材料が登録されていません</p>
