@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-8 offset-md-2">
 			<h3>材料登録<strong>(※100g換算で入力してください)<strong></h3>
-				<%= form_for @addmaterial, url: genres_materials_path, method: :post do |f| %>
+				<%= form_with(model: @addmaterial, url: genres_materials_path, method: :post, remote: true) do |f| %>
 					<div class="field">
 						<%= f.label :ジャンル %><br>
 						<%= f.collection_select :genre_id, Genre.where(status: true, user_id: current_user.id), :id, :name, include_blank: "ジャンル選択", class: "col-12" %>
@@ -58,52 +58,11 @@
 					<span><%= link_to "全ての材料", genres_materials_path, class: "btn btn-outline-info" %></span>
 				<% end %>
 			</div>
-			<div id="index_materials__edit">
-				<table class="table table">
-					<thead>
-						<tr>
-							<th>ジャンル</th>
-							<th>材料(100g)</th>
-							<th>たんぱく質(100g/g)</th>
-							<th>炭水化物(100g/g)</th>
-							<th>脂質(100g/g)</th>
-							<th>カロリー(100g/kcal)</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% @materials.each do |material| %>
-						<tr>
-							<td>
-								<%= material.genre.name %>
-							</td>
-							<td>
-								<%= material.name %>
-							</td>
-							<td>
-								<%= material.protein %>g
-							</td>
-							<td>
-								<%= material.carbohydrate %>g
-							</td>
-							<td>
-								<%= material.fat %>g
-							</td>
-							<td>
-								<%= material.calorie.round(1) %>kcal
-							</td>
-							<td>
-								<%= link_to "削除", genres_material_path(id: material.id, genre_id: material.genre_id), method: :delete, data: {confirm: "#{material.name}を削除します"}, class: "btn btn-outline-danger" %>
-							</td>
-						</tr>
-						<% end %>
-					</tbody>
-				</table>
+			<div id="index_materials__contents">
+				<%= render "index", materials: @materials %>
 			</div>
 		</div>
-	</div>
 
-	<div class="d-flex justify-content-center">
-		<%= paginate @materials %>
 	</div>
 </div>
 
