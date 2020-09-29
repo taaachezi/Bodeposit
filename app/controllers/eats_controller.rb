@@ -17,8 +17,8 @@ class EatsController < ApplicationController
       # materialを摂取する
       @eat = current_user.eats.new(params_eat)
       if params[:eat][:material_id].empty? || params[:eat][:quantity].empty?
+        set_calorie
         flash[:error] = "材料または数量が選択されていません"
-        redirect_back(fallback_location: root_path)
       else
         @eat.material_id = @eat.material.id
         @eat.protein = @eat.material.protein * @eat.quantity / 100
@@ -26,8 +26,7 @@ class EatsController < ApplicationController
         @eat.carbohydrate = @eat.material.carbohydrate * @eat.quantity / 100
         @eat.calorie = Material.calorie_fit(@eat.fat, @eat.protein, @eat.carbohydrate)
         @eat.save
-        params_calorie
-        flash[:notice] = "#{@eat.material.name}を摂取しました"
+        set_calorie
       end
     end
   end
@@ -36,8 +35,7 @@ class EatsController < ApplicationController
     eat = Eat.find_by(id: params[:id])
     eat.destroy
     @eat = current_user.eats.new
-    params_calorie
-    flash[:notice] = "削除しました"
+    set_calorie
   end
 
   private
@@ -46,7 +44,7 @@ class EatsController < ApplicationController
     params.require(:eat).permit(:material_id, :protein, :fat, :carbohydrate, :calorie, :quantity)
   end
 
-  def params_calorie
+  def set_calorie
     @eat_calorie = 0
     @eat_protein = 0
     @eat_carbo = 0

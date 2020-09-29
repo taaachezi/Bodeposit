@@ -19,8 +19,10 @@ class GenresController < ApplicationController
     end
   end
 
-  def update
-      @addgenre.update(params_genre)
+  def update 
+      genre = Genre.find(params[:id])
+      genre.update(status: params[:genre][:status])
+      set_genre
       flash[:notice] = "変更しました"
   end
 

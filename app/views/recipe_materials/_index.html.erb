@@ -1,0 +1,41 @@
+<h3 class="col-4 offset-4 text-center">レシピ材料一覧</h3>
+<span class="col-4">総カロリー<%= sum_calorie.to_f.round(1) %>kcal</span>
+
+<div class="index-recipe-materials__items col-12">
+	<% if recipe_materials.count == 0 %>
+		<p>材料が登録されていません</p>
+	<% else %>
+		<table class="table col-12">
+			<thead>
+				<tr>
+					<th>材料名</th>
+					<th>数量</th>
+					<th>カロリー</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% recipe_materials.each do |recipe_material| %>
+					<tr>
+						<td><%= recipe_material.material.name %></td>
+						<td><%= recipe_material.quantity %>g</td>
+						<td><%= recipe_material_calorie(recipe_material.material.calorie, recipe_material.quantity) %>kcal</td>
+						<td><%= link_to "削除", recipe_recipe_material_path(id: recipe_material.id), method: :delete, remote: true, class: "btn btn-outline-danger border-0" %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
+</div>
+
+<div class="d-flex justify-content-center">
+	<%= paginate recipe_materials %>
+</div>
+
+<% if flash.any? %>
+	<script type="text/javascript">
+	  <% flash.each do |key, value| %>
+	    <% type = key.to_s.gsub('alert', 'error').gsub('notice', 'success') %>
+	    toastr.<%= type %>('<%= value %>')
+	  <% end %>
+	</script>
+<% end %>

@@ -2,13 +2,8 @@ class RecipeMaterialsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @recipe = Recipe.find(params[:recipe_id])
     @recipe_material = RecipeMaterial.new
-    @recipe_materials = @recipe.recipe_materials.page(params[:page]).per(5)
-    @sum_calorie = 0
-    @recipe_materials.each do |recipe_material|
-      @sum_calorie += recipe_material.quantity * recipe_material.material.calorie / 100
-    end
+    set_recipe_material
   end
 
   def create
@@ -27,19 +22,20 @@ class RecipeMaterialsController < ApplicationController
       material = params[:recipe_material][:material_id]
       recipe = @recipe.recipe_materials.pluck(:material_id)
       if material == ""
+        set_recipe_material
         flash[:error] = "材料が選択されていません"
-        redirect_back(fallback_location: root_path)
       elsif recipe.include?(material.to_i)
+        set_recipe_material
         flash[:error] = "登録済の材料です"
-        redirect_back(fallback_location: root_path)
       else
         @recipe_material.recipe_id = @recipe.id
         @recipe_material.material_id = @recipe_material.material.id
         if @recipe_material.save
-          redirect_to new_recipe_recipe_material_path
+          set_recipe_material
+          flash[:notice] = "材料を登録しました"
         else
+          set_recipe_material
           flash[:error] = "数量が選択されていません"
-          redirect_back(fallback_location: root_path)
          end
       end
     end
@@ -48,12 +44,22 @@ class RecipeMaterialsController < ApplicationController
   def destroy
     @recipe_material = RecipeMaterial.find(params[:id])
     @recipe_material.destroy
-    redirect_back(fallback_location: root_path)
+    set_recipe_material
+    flash[:notice] = "削除しました"
   end
 
   private
 
   def params_recipe_material
     params.require(:recipe_material).permit(:material_id, :quantity)
+  end
+
+  def set_recipe_material
+    @recipe = Recipe.find(params[:recipe_id])
+    @recipe_materials = @recipe.recipe_materials.page(params[:page]).per(5)
+    @sum_calorie = 0
+    @recipe_materials.each do |recipe_material|
+      @sum_calorie += recipe_material.quantity * recipe_material.material.calorie / 100
+    end
   end
 end
