@@ -1,18 +1,18 @@
 module ApplicationHelper
   def recipe_material_calorie(calorie, quantity)
-    calorie.to_f * quantity / 100
+    calorie * quantity / 100
   end
 
   def weight_gain_calorie(calorie)
-    calorie.to_f + 500
+    calorie + 500
   end
 
   def weight_slim_calorie(calorie)
-    calorie.to_f - 500
+    calorie - 500
   end
 
   def weight_gain_carbo(calorie, fat, protein)
-    calorie.to_f += 500
+    calorie += 500
     (calorie - (protein * 4 + fat * 9)) / 4
   end
 
