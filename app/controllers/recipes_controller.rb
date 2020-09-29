@@ -9,7 +9,6 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(params_recipe)
     @recipe.user_id = current_user.id
     if @recipe.save
-      flash[:notice] = "レシピが投稿されました"
       redirect_to new_recipe_recipe_material_path(recipe_id: @recipe.id)
     else flash[:error] = "全て記入してください"
          render :new
