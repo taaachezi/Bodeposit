@@ -4,6 +4,7 @@ class Recipe < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :eats, dependent: :destroy
+  has_many :tags, dependent: :destroy
   attachment :image
 
   with_options presence: true do
