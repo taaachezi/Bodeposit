@@ -2,6 +2,9 @@
 
 	<div class="recipe-show__title row justify-content-center col-12">
 		<h2><%= @recipe.name %></h2>
+		<% @recipe.tags.each do |tag| %>
+			<span class="label"><%= tag.name %></span>
+		<% end %>
 		<%= render "reviews/average_rate", recipe: @recipe %>
 	</div>
 	<% if user_signed_in? %>

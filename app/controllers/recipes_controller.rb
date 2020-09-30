@@ -6,12 +6,20 @@ class RecipesController < ApplicationController
   end
 
   def create
-    @recipe = Recipe.new(params_recipe)
-    @recipe.user_id = current_user.id
-    if @recipe.save
-      redirect_to new_recipe_recipe_material_path(recipe_id: @recipe.id)
+    recipe = Recipe.new(params_recipe)
+    recipe.user_id = current_user.id
+    # 画像認識
+
+    if recipe.save
+      tags = Vision.get_image_data(recipe.image)
+      #recipe.tags.destroy_all
+      tags.each do |tag|
+        recipe.tags.create(name: tag)
+      end
+      redirect_to new_recipe_recipe_material_path(recipe_id: recipe.id)
     else flash[:error] = "全て記入してください"
-         render :new
+      @recipe = Recipe.new
+      render :new
     end
   end
 
