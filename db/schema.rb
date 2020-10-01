@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_12_060527) do
+ActiveRecord::Schema.define(version: 2020_09_30_095404) do
 
   create_table "eats", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -79,6 +79,14 @@ ActiveRecord::Schema.define(version: 2020_09_12_060527) do
     t.bigint "recipe_id", null: false
     t.text "body", null: false
     t.float "rate", default: 0.0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "score", precision: 5, scale: 3
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.bigint "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

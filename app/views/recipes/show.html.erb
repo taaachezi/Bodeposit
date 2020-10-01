@@ -83,9 +83,15 @@
 	<div class="reipe-show__reviews" id="review_index">
 		<%= render "reviews/index", reviews: @reviews, recipe: @recipe  %>
 	</div>
+
 	<%= render "reviews/modal", recipe: @recipe, review: @review %>
 	<div class="d-flex justify-content-center">
 		<%= paginate @reviews %>
+	</div>
+
+	<div class="recipe-recomend">
+		<h3>このレシピに類似するレシピ</h3>
+		<%= render "recipe_index", recipes: @recipes %>
 	</div>
 </div>
 

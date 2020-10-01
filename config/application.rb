@@ -10,10 +10,10 @@ module Bodeposit
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
+    config.paths.add 'lib', eager_load: true
     config.action_view.automatically_disable_submit_tag = false
     config.i18n.default_locale = :ja
-    # バッチ処理
-    config.paths.add 'lib', eager_load: true
+    
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
