@@ -20,13 +20,25 @@
 			<div>(<%= review.rate %>/5)</div>
 			<div class="ml-auto">
 				<%= review.created_at.strftime("%Y/%m/%d") %>
-				感情分析スコア<%= review.score %>
 			</div>
 		</div>
 
 		<div class="ml-3 row">
 			<div class="col-10">
-				<%= review.body %>
+				<% if review.score.to_f < 0 %>
+					<% unless current_user == review.user %>
+						<p>コメントはありません</p>
+					<% else %>
+						<%= review.body %>
+						<div class="review-warning">
+							<strong class="text-danger">ネガティブな表現が使われている可能性があります。 <br>
+							※このコメントは<%= review.user.name %>さん以外表示されません
+							</strong>
+						</div>
+					<% end %>
+				<% else %>
+					<%= review.body %>
+				<% end %>
 			</div>
 			<% if user_signed_in? && review.user_id == current_user.id %>
 				<div class="col-2">
