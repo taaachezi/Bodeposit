@@ -6,7 +6,6 @@ class ReviewsController < ApplicationController
     @review.user_id = current_user.id
     @review.recipe_id = @recipe.id
     @review.score = Language.get_data(params_reviews[:body])
-    review = @recipe.reviews.pluck(:user_id)
     if @review.save
       @average_rate = @recipe.reviews.average(:rate).round(1).to_f
       @recipe.update(average_rate: @average_rate)

@@ -2,9 +2,6 @@
 
 	<div class="recipe-show__title row justify-content-center col-12">
 		<h2><%= @recipe.name %></h2>
-		<% @recipe.tags.each do |tag| %>
-			<span class="label"><%= tag.name %></span>
-		<% end %>
 		<%= render "reviews/average_rate", recipe: @recipe %>
 	</div>
 	<% if user_signed_in? %>
@@ -86,9 +83,15 @@
 	<div class="reipe-show__reviews" id="review_index">
 		<%= render "reviews/index", reviews: @reviews, recipe: @recipe  %>
 	</div>
+
 	<%= render "reviews/modal", recipe: @recipe, review: @review %>
 	<div class="d-flex justify-content-center">
 		<%= paginate @reviews %>
+	</div>
+
+	<div class="recipe-recomend">
+		<h3>このレシピに類似するレシピ</h3>
+		<%= render "recipe_index", recipes: @recipes %>
 	</div>
 </div>
 
