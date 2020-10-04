@@ -6,11 +6,11 @@
 		<div class="eat__target rounded-pill">
 			<h2 class="text-center pt-3">〜　増量　〜</h2>
 			<% if weight_gain_calorie(current_user.calorie).to_f < eat_calorie.to_f %>
-				<h3 class="pt-2 pb-4 text-center text-danger">食べ過ぎです！</h3>
+				<h1 class="pt-2 pb-4 text-center text-danger">食べ過ぎです！</h1>
 			<% else %>
-				<h3 class="pt-2 pb-4 text-center">
+				<h1 class="pt-2 pb-4 text-center">
 					あと<%= target_calorie_gain(eat_calorie, current_user.calorie).to_f.round(1)  %>kcal
-				</h3>
+				</h1>
 			<% end %>
 				<div class="gain__target text-center">
 					<h4>目標摂取<span class="ml-5"><%= weight_gain_calorie(current_user.calorie).round(1) %>kcal</span></h4>
@@ -23,11 +23,11 @@
 		<div class="eat__target rounded-pill">
 			<h2 class="text-center pt-3">〜　減量　〜</h2>
 			<% if weight_slim_calorie(current_user.calorie).to_f < eat_calorie.to_f %>
-				<h3 class="pt-2 pb-4 text-center text-danger">食べ過ぎです！</h3>
+				<h1 class="pt-2 pb-4 text-center text-danger">食べ過ぎです！</h1>
 			<% else %>
-				<h3 class="pt-2 pb-4 text-center">
+				<h1 class="pt-2 pb-4 text-center">
 					あと<%= target_calorie_slim(eat_calorie, current_user.calorie).to_f.round(1)  %>kcal
-				</h3>
+				</h1>
 			<% end %>
 				<div class="gain__target text-center">
 					<h4>目標摂取<span class="ml-5"><%= weight_slim_calorie(current_user.calorie).round(1) %>kcal</span></h4>

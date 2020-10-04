@@ -10,7 +10,6 @@ class RecipesController < ApplicationController
     recipe.user_id = current_user.id
     # 画像認識
     if recipe.save
-      p recipe.image
       tags = Vision.get_image_data(recipe.image)
       #recipe.tags.destroy_all
       tags.each do |tag|
@@ -60,10 +59,10 @@ class RecipesController < ApplicationController
     @reviews = @recipe.reviews.page(params[:page]).per(5)
     @recipe_materials = @recipe.recipe_materials
     # 同じタグを持つレシピを取り出す
-    recipe_tags = @recipe.tags #.where.not(name: ["Cuisine", "Food", "Dish"])
+    recipe_tags = @recipe.tags.where.not(name: ["Cuisine", "Food", "Dish"])
     recipe_tags = recipe_tags.pluck(:name)
     same_tags = Tag.where(name: recipe_tags).pluck(:recipe_id)
-    @recipes = Recipe.where.not(id: @recipe).where(id: same_tags)
+    @recipes = Recipe.where.not(id: @recipe).where(id: same_tags).page(params[:page]).per(3)
     # レシピのマクロ栄養素計算
     @recipe.fat = 0
     @recipe.protein = 0
