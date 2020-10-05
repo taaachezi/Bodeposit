@@ -1,9 +1,9 @@
 <div class="eat container">
-	<div class="eat__calorie flex-xl-row justify-content-xl-between p-4">
+	<div class="eat__calorie flex-xl-row justify-content-xl-between">
 		<%= render "eats/calorie", eat_protein: @eat_protein, eat_calorie: @eat_calorie, eat_fat: @eat_fat, eat_carbo: @eat_carbo %>
 	</div>
 
-	<div class="eat__sum row mt-5">
+	<div class="eat__sum flex-xl-row justify-content-xl-between">
 		<%= render "eats/sum", eat: @eat, eat_calorie: @eat_calorie, eat_protein: @eat_protein, eat_carbo: @eat_carbo, eat_fat: @eat_fat %>
 	</div>
 
@@ -40,7 +40,7 @@
 	</div>
 
 	<div class="col-12 text-center">
-		<h3>人気レシピ〜トップ３〜</h3>
+		<h3>〜人気のレシピ〜</h3>
 	</div>
 	<%= render "recipes/recipe_index", recipes: @recipes %>
 	<div class="row justify-content-end">

@@ -116,7 +116,13 @@ ul {
 	}
 }
 .eat__target {
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.1);
+	transition: 1s;
+}
+.eat__target:hover {
+	color: white;
+	background-color: rgba(0, 0, 0, 0.8);
+	transform: rotateX(360deg);
 }
 .answer {
 	display: none;
@@ -125,15 +131,15 @@ ul {
 .plus {
 	font-size: 40px;
 }
-.eat__target {
-	opacity: 0.9;
+.recipe-content {
+	opacity: 0.7;
 }
-.recipe-content:hover,
-.eat__target:hover {
-	position:relative;
-	top: -20px;
+.recipe-content:hover {
 	opacity: 1;
+	transform: rotateY(360deg);
+	transition: 1s;
 }
+
 .macro__nutorition,
 .macro__material,
 .macro__chart {

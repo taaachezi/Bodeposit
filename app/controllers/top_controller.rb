@@ -24,6 +24,6 @@ class TopController < ApplicationController
       @eat_carbo += eat.carbohydrate.to_f
       @eat_fat += eat.fat.to_f
     end
-    @recipes = Recipe.order("average_rate DESC").page(params[:page]).per(3)
+    @recipes = Recipe.order("average_rate DESC").limit(3).page(params[:page]).per(3)
   end
 end

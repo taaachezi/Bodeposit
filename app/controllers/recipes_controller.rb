@@ -24,6 +24,7 @@ class RecipesController < ApplicationController
   end
 
   def index
+    empty_material_in_recipe
     if params[:user_id]
       @user = User.find(params[:user_id])
       @recipes = @user.favorite_recipes.page(params[:page]).per(9)
@@ -82,7 +83,7 @@ class RecipesController < ApplicationController
 
   def update
     if @recipe.update(params_recipe)
-      # タグの更新　一度タグを削除した後再度作成
+      # タグの更新一度タグを削除した後再度作成
       tags = Vision.get_image_data(@recipe.image)
       tags.each do |tag|
         @recipe.tags.destroy_all
@@ -109,4 +110,13 @@ class RecipesController < ApplicationController
   def set_recipe
     @recipe = Recipe.find(params[:id])
   end
+
+  def empty_material_in_recipe
+    Recipe.all.each do |recipe|
+      if recipe.recipe_materials.empty?
+        recipe.destroy
+      end
+    end
+  end
+
 end
