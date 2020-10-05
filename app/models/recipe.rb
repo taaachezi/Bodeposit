@@ -16,4 +16,6 @@ class Recipe < ApplicationRecord
   def has_favorite(user)
     favorites.where(user_id: user.id).exists?
   end
+
+
 end

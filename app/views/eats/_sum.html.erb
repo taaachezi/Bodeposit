@@ -1,20 +1,13 @@
 
-	<h4><%= current_user.name %>さんの累計摂取量</h4>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>カロリー</th>
-				<th>たんぱく質</th>
-				<th>炭水化物</th>
-				<th>脂質</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><%= eat_calorie.to_f.round(1) %>kcal</td>
-				<td><%= eat_protein.to_f.round(1) %>g</td>
-				<td><%= eat_carbo.to_f.round(1) %>g</td>
-				<td><%= eat_fat.to_f.round(1) %>g</td>
-			</tr>
-		</tbody>
-	</table>
+<div class="eat__target rounded shadow-lg">
+	<h2 class="text-center pt-3"><%= current_user.name %>さんの累計摂取量</h2>
+		<h1 class="pt-2 pb-4 text-center">
+			<%= eat_calorie.to_f.round(1) %>kcal
+		</h1>
+		<div class="gain__target text-center">
+			<h4>マクロ内訳</h4>
+			<p class="">たんぱく質　<%= eat_protein.to_f.round(1) %>g</p>
+			<p class="">炭水化物　<%= eat_carbo.to_f.round(1) %>g</p>
+			<p class="">脂質 <%= eat_fat.to_f.round(1) %>g</p>
+		</div>
+</div>
