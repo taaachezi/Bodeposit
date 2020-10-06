@@ -18,7 +18,6 @@ class RecipesController < ApplicationController
       redirect_to new_recipe_recipe_material_path(recipe_id: recipe.id)
     else flash[:error] = "全て記入してください"
       @recipe = Recipe.new
-      set_recipe
       render :new
     end
   end
