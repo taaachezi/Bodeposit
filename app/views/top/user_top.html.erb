@@ -7,33 +7,32 @@
 		<%= render "eats/sum", eat: @eat, eat_calorie: @eat_calorie, eat_protein: @eat_protein, eat_carbo: @eat_carbo, eat_fat: @eat_fat %>
 	</div>
 
-	<div class="row mt-5">
-		<div class="col-12">
-			<h4>材料摂取</h4>
-			<div class="row eat__action">
-				<%= form_tag(user_top_path(current_user), method: :get) do %>
-					<% if @genre %>
-						<%= select_tag "genre_id",options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name ), include_blank: "#{@genre.name}で絞り込み" %>
-					<% else %>
-						<%= select_tag "genre_id", options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name ), include_blank: "ジャンル選択" %>
-					<% end %>
-					<%= submit_tag "ジャンル絞り込み" %>
-				<% end %>
-			</div>
-			<div class="row eat__action">
-				<%= form_with(model: @eat, url: user_eats_path(user_id: current_user.id), method: :post, remote: true) do |f| %>
-					<% if @genre %>
-						<%= f.collection_select :material_id, current_user.materials.where(genre_id: @genre).order("name DESC"), :id, :name, include_blank: "材料選択" %>
-					<% else %>
-						<%= f.collection_select :material_id, current_user.materials.order("name DESC"), :id, :name, include_blank: "材料選択" %>
-					<% end %>
-				<%= f.label :"数量" %>
-				<%= f.text_field :quantity, autofocus: true %>g
-				<%= f.submit "摂取する", class: "btn btn-outline-success" %>
-				<% end %>
-			</div>
-		</div>
+	<div class="col-12 text-center mt-5">
+		<h3>〜材料摂取〜</h3>
 	</div>
+	<div class="row eat__action justify-content-center">
+		<%= form_tag(user_top_path(current_user), method: :get) do %>
+			<% if @genre %>
+				<%= select_tag "genre_id",options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name ), include_blank: "#{@genre.name}で絞り込み" %>
+			<% else %>
+				<%= select_tag "genre_id", options_from_collection_for_select(Genre.where(status: true, user_id: current_user.id), :id, :name ), include_blank: "ジャンル選択" %>
+			<% end %>
+			<%= submit_tag "ジャンル絞り込み" %>
+		<% end %>
+	</div>
+	<div class="row eat__action mt-3 justify-content-center">
+		<%= form_with(model: @eat, url: user_eats_path(user_id: current_user.id), method: :post, remote: true) do |f| %>
+			<% if @genre %>
+				<%= f.collection_select :material_id, current_user.materials.where(genre_id: @genre).order("name DESC"), :id, :name, include_blank: "材料選択" %>
+			<% else %>
+				<%= f.collection_select :material_id, current_user.materials.order("name DESC"), :id, :name, include_blank: "材料選択" %>
+			<% end %>
+		<%= f.label :"数量" %>
+		<%= f.text_field :quantity, autofocus: true %>g
+		<%= f.submit "Eat!", class: "button rounded-pill ml-4" %>
+		<% end %>
+	</div>
+	
 
 	<div class="eat__index row mt-5">
 		<%= render "eats/index", eats: @eats %>

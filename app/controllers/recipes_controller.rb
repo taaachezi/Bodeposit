@@ -16,7 +16,8 @@ class RecipesController < ApplicationController
         recipe.tags.create(name: tag)
       end
       redirect_to new_recipe_recipe_material_path(recipe_id: recipe.id)
-    else flash[:error] = "全て記入してください"
+    else
+      flash[:error] = "全て記入してください"
       @recipe = Recipe.new
       render :new
     end
