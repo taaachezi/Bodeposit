@@ -10,6 +10,7 @@ class Material < ApplicationRecord
     validates :fat
     validates :carbohydrate
     validates :protein
+    validates :calorie
   end
 
   # カロリー計算

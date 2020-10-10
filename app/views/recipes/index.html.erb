@@ -49,4 +49,7 @@
 		</div>
   	</div>
   	<%= render "recipe_index", recipes: @recipes %>
+	<div class="col-4 offset-4">
+		<%= paginate @recipes %>
+	</div>
 </div>
