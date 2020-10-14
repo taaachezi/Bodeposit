@@ -64,6 +64,7 @@ class RecipesController < ApplicationController
     recipe_tags = recipe_tags.pluck(:name)
     same_tags = Tag.where(name: recipe_tags).pluck(:recipe_id)
     @recipes = Recipe.where.not(id: @recipe).where(id: same_tags).page(params[:page]).per(3)
+
     # レシピのマクロ栄養素計算
     @recipe.fat = 0
     @recipe.protein = 0
@@ -73,6 +74,7 @@ class RecipesController < ApplicationController
       @recipe.protein += recipe_material.material.protein * recipe_material.quantity / 100
       @recipe.carbohydrate += recipe_material.material.carbohydrate * recipe_material.quantity / 100
     end
+
     @recipe.calorie = Material.calorie_fit(@recipe.fat, @recipe.protein, @recipe.carbohydrate)
     @recipe.update(fat: @recipe.fat, protein: @recipe.protein, carbohydrate: @recipe.carbohydrate, calorie: @recipe.calorie)
     @data = { "たんぱく質" => @recipe.protein.round(1), "脂質" => @recipe.fat.round(1), "炭水化物" => @recipe.carbohydrate.round(1) }
@@ -83,9 +85,10 @@ class RecipesController < ApplicationController
 
   def update
     if @recipe.update(params_recipe)
-      # タグの更新一度タグを削除した後再度作成
+      # vision_api
       tags = Vision.get_image_data(@recipe.image)
       tags.each do |tag|
+      # タグを一度削除し再度作成
         @recipe.tags.destroy_all
         @recipe.tags.create(name: tag)
       end

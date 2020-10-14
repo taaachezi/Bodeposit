@@ -12,7 +12,6 @@ class UsersController < ApplicationController
       @recipes = current_user.recipes.page(params[:page]).per(6)
       render :show
     else
-      # 更新された情報で再度マクロを計算し、マクロ情報を更新
       @user.calorie = User.intake_nutorition(@user.height, @user.weight, @user.sex, @user.age, @user.level)
       @user.protein = User.intake_protein(@user.weight)
       @user.fat = User.intake_fat(@user.weight)

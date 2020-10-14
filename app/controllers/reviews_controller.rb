@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
       @average_rate = @recipe.reviews.average(:rate).round(1).to_f
       @recipe.update(average_rate: @average_rate)
       flash[:notice] = "レビューを投稿しました"
-    else 
+    else
       flash[:error] = "評価またはコメントがありません"
     end
   end

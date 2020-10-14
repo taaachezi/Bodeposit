@@ -14,7 +14,7 @@ class EatsController < ApplicationController
       flash[:notice] = "#{recipe.name}を摂取しました"
       redirect_to user_top_path(current_user.id)
     else
-      # materialを摂取する
+    # materialを摂取する
       @eat = current_user.eats.new(params_eat)
       if params[:eat][:material_id].empty? || params[:eat][:quantity].empty?
         set_calorie

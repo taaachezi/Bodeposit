@@ -13,13 +13,13 @@ class GenresController < ApplicationController
       set_genre
     elsif @addgenre.save == false
       flash[:error] = "空欄です"
-    else 
+    else
       @addgenre.save
       flash[:notice] = "登録しました"
     end
   end
 
-  def update 
+  def update
       genre = Genre.find(params[:id])
       genre.update(status: params[:genre][:status])
       set_genre

@@ -7,7 +7,7 @@ class RecipeMaterialsController < ApplicationController
   end
 
   def create
-    # genre.materialsで選択可能にする
+    # genre.materialsの展開
     if params[:genre_id]
       if params[:genre_id].present?
         @genre = Genre.find(params[:genre_id])
@@ -17,6 +17,7 @@ class RecipeMaterialsController < ApplicationController
       @recipe_material = RecipeMaterial.new
       render :new
     else
+
       @recipe = Recipe.find(params[:recipe_id])
       @recipe_material = RecipeMaterial.new(params_recipe_material)
       material = params[:recipe_material][:material_id]
