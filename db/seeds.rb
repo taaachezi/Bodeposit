@@ -51,7 +51,8 @@ User.create!(
 			level: 0,
 			age: 53,
 			sex: 0,
-		},{
+		},
+		{
 			id: 5,
 			name: "北川雅美",
 			email: "e@e",
@@ -61,6 +62,18 @@ User.create!(
 			level: 1,
 			age: 33,
 			sex: 1,
+		},
+		{
+			id: 6,
+			name: "管理者",
+			email: "f@f",
+			password: "11angus16",
+			height: 173,
+			weight: 73,
+			level: 0,
+			age: 26,
+			sex: 0,
+			admin: true,
 		},
   	]
 )

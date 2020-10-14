@@ -11,6 +11,7 @@ class TopController < ApplicationController
     if params[:genre_id].present?
       @genre = Genre.find(params[:genre_id])
     end
+    @users = User.all
     @eat = current_user.eats.new
     # current_userの累計摂取量
     @eat_calorie = 0
@@ -26,4 +27,5 @@ class TopController < ApplicationController
     end
     @recipes = Recipe.order("average_rate DESC").limit(3)
   end
+  
 end
