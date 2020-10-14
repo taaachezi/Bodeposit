@@ -1,16 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user
+  after_action :set_user
 
   def show
-    @recipes = current_user.recipes.page(params[:page]).per(6)
   end
 
   def update
-    # フォームからの情報を一度更新
     if @user.update(params_users) == false
       flash[:error] = "入力に誤りがあります"
-      @recipes = current_user.recipes.page(params[:page]).per(6)
-      render :show
     else
       @user.calorie = User.intake_nutorition(@user.height, @user.weight, @user.sex, @user.age, @user.level)
       @user.protein = User.intake_protein(@user.weight)
@@ -18,21 +15,14 @@ class UsersController < ApplicationController
       @user.carbohydrate = User.intake_carbo(@user.protein, @user.fat, @user.calorie)
       if @user.update(params_users)
         flash[:notice] = "情報を更新しました"
-        redirect_back(fallback_location: root_path)
       else flash[:error] = "入力に誤りがあります"
-           @recipes = current_user.recipes
-           set_user
-           render :show
       end
     end
   end
 
   def unsubscribe
-    current_user.destroy
+    @user.destroy
     redirect_to root_path
-  end
-
-  def withdraw
   end
 
   private
@@ -43,5 +33,7 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+    @recipes = @user.recipes.page(params[:page]).per(6)
   end
+
 end

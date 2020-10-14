@@ -11,7 +11,6 @@ class RecipesController < ApplicationController
     # 画像認識
     if recipe.save
       tags = Vision.get_image_data(recipe.image)
-      #recipe.tags.destroy_all
       tags.each do |tag|
         recipe.tags.create(name: tag)
       end
