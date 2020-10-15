@@ -1,8 +1,8 @@
 class MaterialsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_material, only: [:index]
 
   def index
-    set_material
   end
 
   def create
@@ -26,16 +26,16 @@ class MaterialsController < ApplicationController
       @addmaterial.user_id = current_user.id
       @addmaterial.calorie = Material.calorie_fit(@addmaterial.fat, @addmaterial.protein, @addmaterial.carbohydrate)
       @addmaterial.save
-      set_material
       flash[:notice] = "材料を登録しました"
+      set_material
     end
   end
 
   def destroy
     material = Material.find_by(id: params[:id], genre_id: params[:genre_id])
     material.destroy
-    set_material
     flash[:notice] = "削除しました"
+    set_material
   end
 
   def search

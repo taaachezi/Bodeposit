@@ -1,6 +1,4 @@
-<% if current_user.eats.blank? %>
-	<p>摂取したアイテムはありません</p>
-<% else %>
+<% if current_user.eats.count >= 1 %>
 	<table class="table">
 		<thead>
 			<tr>

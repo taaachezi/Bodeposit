@@ -13,9 +13,11 @@ class GenresController < ApplicationController
       set_genre
     elsif @addgenre.save == false
       flash[:error] = "空欄です"
+      set_genre
     else
       @addgenre.save
       flash[:notice] = "登録しました"
+      set_genre
     end
   end
 
@@ -28,6 +30,7 @@ class GenresController < ApplicationController
 
   def destroy
     @genre.destroy
+    set_genre
     flash[:notice] = "削除しました"
   end
 
