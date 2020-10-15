@@ -1,5 +1,6 @@
 class EatsController < ApplicationController
   before_action :authenticate_user!
+  after_action :set_calorie
   def create
     # recipeを摂取する
     if params["recipe_id"]
@@ -17,7 +18,6 @@ class EatsController < ApplicationController
     # materialを摂取する
       @eat = current_user.eats.new(params_eat)
       if params[:eat][:material_id].empty? || params[:eat][:quantity].empty?
-        set_calorie
         flash[:error] = "材料または数量が選択されていません"
       else
         @eat.material_id = @eat.material.id
@@ -26,7 +26,6 @@ class EatsController < ApplicationController
         @eat.carbohydrate = @eat.material.carbohydrate * @eat.quantity / 100
         @eat.calorie = Material.calorie_fit(@eat.fat, @eat.protein, @eat.carbohydrate)
         @eat.save
-        set_calorie
       end
     end
   end
@@ -35,7 +34,6 @@ class EatsController < ApplicationController
     eat = Eat.find_by(id: params[:id])
     eat.destroy
     @eat = current_user.eats.new
-    set_calorie
   end
 
   private
