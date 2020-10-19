@@ -84,11 +84,10 @@ class RecipesController < ApplicationController
 
   def update
     if @recipe.update(params_recipe)
-      # vision_api
+      @recipe.tags.destroy_all
       tags = Vision.get_image_data(@recipe.image)
       tags.each do |tag|
       # タグを一度削除し再度作成
-        @recipe.tags.destroy_all
         @recipe.tags.create(name: tag)
       end
       redirect_to new_recipe_recipe_material_path(recipe_id: @recipe.id)

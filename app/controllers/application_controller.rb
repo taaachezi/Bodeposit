@@ -14,6 +14,20 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  def set_calorie
+    @eat_calorie = 0
+    @eat_protein = 0
+    @eat_carbo = 0
+    @eat_fat = 0
+    @eats = current_user.eats
+    @eats.each do |eat|
+      @eat_calorie += eat.calorie.to_f
+      @eat_protein += eat.protein.to_f
+      @eat_carbo += eat.carbohydrate.to_f
+      @eat_fat += eat.fat.to_f
+    end
+  end
+
   protected
 
   def configure_permitted_parameters

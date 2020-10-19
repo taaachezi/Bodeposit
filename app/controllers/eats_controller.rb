@@ -25,6 +25,7 @@ class EatsController < ApplicationController
         @eat.fat = @eat.material.fat * @eat.quantity / 100
         @eat.carbohydrate = @eat.material.carbohydrate * @eat.quantity / 100
         @eat.calorie = Material.calorie_fit(@eat.fat, @eat.protein, @eat.carbohydrate)
+        byebug
         @eat.save
         set_calorie
       end
@@ -44,17 +45,4 @@ class EatsController < ApplicationController
     params.require(:eat).permit(:material_id, :protein, :fat, :carbohydrate, :calorie, :quantity)
   end
 
-  def set_calorie
-    @eat_calorie = 0
-    @eat_protein = 0
-    @eat_carbo = 0
-    @eat_fat = 0
-    @eats = current_user.eats.page(params[:page]).per(5)
-    @eats.each do |eat|
-      @eat_calorie += eat.calorie.to_f
-      @eat_protein += eat.protein.to_f
-      @eat_carbo += eat.carbohydrate.to_f
-      @eat_fat += eat.fat.to_f
-    end
-  end
 end
