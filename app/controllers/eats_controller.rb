@@ -25,7 +25,6 @@ class EatsController < ApplicationController
         @eat.fat = @eat.material.fat * @eat.quantity / 100
         @eat.carbohydrate = @eat.material.carbohydrate * @eat.quantity / 100
         @eat.calorie = Material.calorie_fit(@eat.fat, @eat.protein, @eat.carbohydrate)
-        byebug
         @eat.save
         set_calorie
       end
