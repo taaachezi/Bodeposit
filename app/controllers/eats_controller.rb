@@ -6,10 +6,10 @@ class EatsController < ApplicationController
       recipe = Recipe.find(params[:recipe_id])
       eat = current_user.eats.new
       eat.recipe_id = recipe.id
-      eat.protein = recipe.protein.to_f
-      eat.fat = recipe.fat.to_f
-      eat.carbohydrate = recipe.carbohydrate.to_f
-      eat.calorie = recipe.calorie.to_f
+      eat.protein = recipe.protein
+      eat.fat = recipe.fat
+      eat.carbohydrate = recipe.carbohydrate
+      eat.calorie = recipe.calorie
       eat.save
       flash[:notice] = "#{recipe.name}を摂取しました"
       redirect_to user_top_path(current_user.id)
