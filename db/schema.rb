@@ -12,6 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2020_10_14_093017) do
 
+  create_table "chats", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "room_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "eats", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "material_id"
@@ -82,6 +90,13 @@ ActiveRecord::Schema.define(version: 2020_10_14_093017) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "score", precision: 5, scale: 3
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "customer_id"
+    t.bigint "supporter_id"
   end
 
   create_table "tags", force: :cascade do |t|
