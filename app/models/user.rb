@@ -2,7 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: %i[google_oauth2]
 
   acts_as_paranoid
 
@@ -17,11 +18,6 @@ class User < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :email
-    validates :height
-    validates :weight
-    validates :level
-    validates :age
-    validates :sex
   end
 
   enum level: {
@@ -34,6 +30,15 @@ class User < ApplicationRecord
     true: 0,
     false: 1,
   }
+
+# sns認証　クラスメソッド
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.name = auth.info.name
+      user.password = Devise.friendly_token[0,20]
+    end
+  end
 
   # 消費カロリー計算
   def self.intake_nutorition(height, weight, sex, age, level)
