@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_14_093017) do
+ActiveRecord::Schema.define(version: 2020_10_22_085730) do
 
   create_table "eats", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -98,11 +98,6 @@ ActiveRecord::Schema.define(version: 2020_10_14_093017) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name", null: false
-    t.integer "height", null: false
-    t.integer "weight", null: false
-    t.integer "level", default: 0, null: false
-    t.integer "sex", default: 0, null: false
-    t.integer "age", null: false
     t.datetime "deleted_at"
     t.float "fat"
     t.float "carbohydrate"
@@ -111,6 +106,13 @@ ActiveRecord::Schema.define(version: 2020_10_14_093017) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
+    t.string "provider"
+    t.string "uid"
+    t.integer "height", default: 0
+    t.integer "weight", default: 0
+    t.integer "level", default: 0
+    t.integer "sex", default: 0
+    t.integer "age", default: 0
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
