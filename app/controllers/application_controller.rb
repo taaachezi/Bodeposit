@@ -15,17 +15,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_calorie
-    @eat_calorie = 0
-    @eat_protein = 0
-    @eat_carbo = 0
-    @eat_fat = 0
+    @eat_calorie = current_user.eats.sum(:calorie).to_f.round(1)
+    @eat_protein = current_user.eats.sum(:protein).to_f.round(1)
+    @eat_carbo = current_user.eats.sum(:carbohydrate).to_f.round(1)
+    @eat_fat = current_user.eats.sum(:fat).to_f.round(1)
     @eats = current_user.eats
-    @eats.each do |eat|
-      @eat_calorie += eat.calorie.to_f
-      @eat_protein += eat.protein.to_f
-      @eat_carbo += eat.carbohydrate.to_f
-      @eat_fat += eat.fat.to_f
-    end
   end
 
   protected

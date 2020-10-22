@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_14_093017) do
+ActiveRecord::Schema.define(version: 2020_10_21_041123) do
 
   create_table "eats", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -52,6 +52,14 @@ ActiveRecord::Schema.define(version: 2020_10_14_093017) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recipe_materials", force: :cascade do |t|
     t.bigint "recipe_id", null: false
     t.bigint "material_id", null: false
@@ -84,9 +92,21 @@ ActiveRecord::Schema.define(version: 2020_10_14_093017) do
     t.decimal "score", precision: 5, scale: 3
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.bigint "recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_rooms", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
