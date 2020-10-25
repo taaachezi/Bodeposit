@@ -22,10 +22,10 @@ class GenresController < ApplicationController
   end
 
   def update
-      genre = Genre.find(params[:id])
-      genre.update(status: params[:genre][:status])
-      set_genre
-      flash[:notice] = "変更しました"
+    genre = Genre.find(params[:id])
+    genre.update(status: params[:genre][:status])
+    set_genre
+    flash[:notice] = "変更しました"
   end
 
   def destroy

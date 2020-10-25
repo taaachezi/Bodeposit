@@ -61,5 +61,4 @@ class RecipeMaterialsController < ApplicationController
       @sum_calorie += recipe_material.quantity * recipe_material.material.calorie / 100
     end
   end
-
 end

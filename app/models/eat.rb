@@ -4,9 +4,9 @@ class Eat < ApplicationRecord
   belongs_to :recipe, optional: true
 
   with_options presence: true do
-  	validates :fat
-  	validates :carbohydrate
-  	validates :protein
-  	validates :calorie
+    validates :fat
+    validates :carbohydrate
+    validates :protein
+    validates :calorie
   end
 end

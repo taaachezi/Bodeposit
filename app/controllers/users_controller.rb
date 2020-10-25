@@ -35,5 +35,4 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @recipes = @user.recipes.page(params[:page]).per(6)
   end
-
 end
