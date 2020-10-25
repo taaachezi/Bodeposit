@@ -16,5 +16,4 @@ class TopController < ApplicationController
     set_calorie
     @recipes = Recipe.order("average_rate DESC").limit(3)
   end
-  
 end

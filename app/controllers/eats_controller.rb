@@ -14,7 +14,7 @@ class EatsController < ApplicationController
       flash[:notice] = "#{recipe.name}を摂取しました"
       redirect_to user_top_path(current_user.id)
     else
-    # materialを摂取する
+      # materialを摂取する
       @eat = current_user.eats.new(params_eat)
       if params[:eat][:material_id].empty? || params[:eat][:quantity].empty?
         flash[:error] = "材料または数量が選択されていません"
@@ -43,5 +43,4 @@ class EatsController < ApplicationController
   def params_eat
     params.require(:eat).permit(:material_id, :protein, :fat, :carbohydrate, :calorie, :quantity)
   end
-
 end
