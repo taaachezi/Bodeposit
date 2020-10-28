@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_22_085730) do
+ActiveRecord::Schema.define(version: 2020_10_27_110906) do
+
+  create_table "chat_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "chat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "eats", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -53,9 +65,10 @@ ActiveRecord::Schema.define(version: 2020_10_22_085730) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.string "body", null: false
     t.bigint "user_id", null: false
-    t.bigint "room_id", null: false
+    t.bigint "chat_id", null: false
+    t.string "question"
+    t.string "answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -90,11 +103,6 @@ ActiveRecord::Schema.define(version: 2020_10_22_085730) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "score", precision: 5, scale: 3
-  end
-
-  create_table "rooms", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|

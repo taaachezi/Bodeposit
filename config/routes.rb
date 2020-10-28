@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       patch :unsubscribe
     end
     resources :eats, only: [:create, :destroy]
+    resource :messages, only: [:create]
   end
 
   resource :genres, only: [:new, :create, :update, :destroy] do
@@ -31,6 +32,8 @@ Rails.application.routes.draw do
     resource :reviews, only: [:create, :destroy]
     resources :recipe_materials, only: [:new, :create, :destroy]
   end
+
+  resources :chats, only: [:show, :create]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
