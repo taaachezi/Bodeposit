@@ -9,14 +9,7 @@
 		 		<%= f.submit"送信", class: "btn btn-outline-primary" %>
 	 	<% end %>
 	</div>
-	<div class="row">
-		<% @messages.each do |message| %>
-			<div clsss="col-4 offset-8 justify-content-right">
-				<%= message.question %>
-			</div>
-			<div class="col-4 offset-8 justify-content-left text-danger">
-				<%= message.answer %>
-			</div>
-		<% end %>
+	<div class="row" id="message">
+		<%= render "messages/index", messages: @messages %>
 	</div>
 </div>
