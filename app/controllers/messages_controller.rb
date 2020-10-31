@@ -9,7 +9,6 @@ class MessagesController < ApplicationController
 		end
 		@message.save
 		@messages = Message.where(chat_id: @message.chat_id)
-		# ajaxにする
 	end
 	private
 	def message_params

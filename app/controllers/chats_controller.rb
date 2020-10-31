@@ -14,12 +14,6 @@ class ChatsController < ApplicationController
 			ChatUser.create(user_id: current_user.id, chat_id: @chat.id)
 			ChatUser.create(user_id: 6, chat_id: @chat.id)
 		end
-		# if current_user.id == 6
-		# 	chats = user.messages.pluck(:chat_id)
-		# else 
-		# 	chats = current_user.messages.pluck(:chat_id)
-		# end
-		# chat = chats.first
 		@messages = Message.where(chat_id: @chat)
 		@message = Message.new(chat_id: @chat, user_id: current_user.id)
 	end

@@ -8,10 +8,11 @@
 					<th>メールアドレス</th>
 					<th>性別</th>
 					<th>会員ステータス</th>
+					<th>問合せ最新日時</th>
 				</tr>
 			</thead>
 			<tbody>
-				<% @users.each do |user| %>
+				<% @users.where.not(name: "管理者").each do |user| %>
 					<tr>
 						<td><%= link_to user.name, chat_path(user.id) %></td>
 						<td><%= user.email %></td>
@@ -28,6 +29,19 @@
 								有効会員
 							<% end %>
 						</td>
+						<% user.messages.each do |message| %>
+							<% if message.created_at == user.messages.first.created_at  %>
+								<% if user.messages.first.created_at == Date.today %>
+									<td>
+										<%= link_to message.created_at.strftime('%m/%d %H:%M'), chat_path(user.id) %>
+									</td>
+								<% else %>
+									<td>
+										<%= message.created_at.strftime('%m/%d %H:%M') %>
+									</td>
+								<% end %>
+							<% end %>
+						<% end %>
 					</tr>
 				<% end %>
 			</tbody>

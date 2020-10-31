@@ -1,8 +1,24 @@
+<!-- できれば日付毎にループ処理したい -->
 <% messages.each do |message| %>
-	<div clsss="col-4 offset-8 justify-content-right">
-		<%= message.question %>
-	</div>
-	<div class="col-4 offset-8 justify-content-left text-danger">
-		<%= message.answer %>
-	</div>
+	<% if message.question.present? %>
+		<div class="row">
+			<div class="w-25 message message-question rounded  p-1 mb-2 shadow text-break">
+				<%= message.question %>
+			</div>
+			<div class="col-2">
+				<%= l message.created_at %>
+			</div>
+		</div>
+	<% end %>
+
+	<% if message.answer.present? %>
+		<div class="row justify-content-end">
+			<div class="w-25 message message-answer rounded  p-1 mb-2 shadow text-break">
+				<%= message.answer %>
+			</div>
+			<div class="col-2">
+				<%= l message.created_at %>
+			</div>
+		</div>
+	<% end %>
 <% end %>
