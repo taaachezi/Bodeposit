@@ -8,8 +8,7 @@ class MessagesController < ApplicationController
 			@message.chat_id = params[:chat_id]
 		end
 		@message.save
-		# ajaxにする
-		redirect_to user_top_path(current_user.id)
+		@messages = Message.where(chat_id: @message.chat_id)
 	end
 	private
 	def message_params

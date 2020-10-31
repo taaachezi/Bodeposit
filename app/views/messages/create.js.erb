@@ -1,0 +1,3 @@
+$("#message_answer").val("");
+$("#message_question").val("");
+$("#message").html("<%= escape_javascript(render 'index', messages: @messages) %>");

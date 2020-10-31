@@ -164,7 +164,14 @@ input, select {
 .user-calorie__table {
 	transition: 1s;
 }
-
+.message {
+	background-color: rgba(aqua,0.2);
+	background-blend-mode: lighten;
+}
+.message-answer {
+	background-color: rgba(red,0.2);
+	background-blend-mode: lighten;
+}
 .pace {
   -webkit-pointer-events: none;
   pointer-events: none;

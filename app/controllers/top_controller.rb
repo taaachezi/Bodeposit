@@ -11,7 +11,7 @@ class TopController < ApplicationController
     if params[:genre_id].present?
       @genre = Genre.find(params[:genre_id])
     end
-    @users = User.all
+    @users = User.includes(:messages).order("messages.created_at DESC")
     @eat = current_user.eats.new
     set_calorie
     @recipes = Recipe.order("average_rate DESC").limit(3)

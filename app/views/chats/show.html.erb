@@ -1,22 +1,17 @@
 <div class="container">
-	<div class="row">
-		<%= form_with(model: @message, url: user_messages_path(user_id: current_user.id, chat_id: @chat), method: :post) do |f| %>
-			<% if current_user.id != 6 %>
-				<%= f.text_field :question %>
-		 	<% else %>
-		 		<%= f.text_field :answer %>
-		 	<% end %>
-		 		<%= f.submit"送信", class: "btn btn-outline-primary" %>
-	 	<% end %>
+	<div id="message">
+		<%= render "messages/index", messages: @messages %>
 	</div>
-	<div class="row">
-		<% @messages.each do |message| %>
-			<div clsss="col-4 offset-8 justify-content-right">
-				<%= message.question %>
-			</div>
-			<div class="col-4 offset-8 justify-content-left text-danger">
-				<%= message.answer %>
-			</div>
-		<% end %>
+	<div class="row justify-content-end ">
+		<div class="col-12">
+		<%= form_with(model: @message, url: user_messages_path(user_id: current_user.id, chat_id: @chat), method: :post ) do |f| %>
+			<% if current_user.id != 6 %>
+				<%= f.text_field :question, class: "col-10" %>
+		 	<% else %>
+		 		<%= f.text_field :answer, class: "col-10" %>
+		 	<% end %>
+		 		<%= f.submit"送信", class: "col-1 btn btn-outline-primary" %>
+	 	<% end %>
+	 </div>
 	</div>
 </div>
