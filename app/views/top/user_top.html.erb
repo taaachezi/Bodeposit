@@ -30,8 +30,8 @@
 							<% end %>
 						</td>
 						<% user.messages.each do |message| %>
-							<% if message.created_at == user.messages.first.created_at  %>
-								<% if user.messages.first.created_at == Date.today %>
+							<% if message.created_at == user.messages.first.created_at %>
+								<% if message.created_at.strftime("%m/%d") == Date.today.strftime("%m/%d") %>
 									<td>
 										<%= link_to message.created_at.strftime('%m/%d %H:%M'), chat_path(user.id) %>
 									</td>
