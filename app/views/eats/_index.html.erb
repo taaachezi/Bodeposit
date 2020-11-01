@@ -8,6 +8,8 @@
 				<th>炭水化物(g)</th>
 				<th>脂質(g)</th>
 				<th>数量(g)</th>
+				<th><%= link_to "全削除",  destroy_all_user_eats_path(user_id: current_user.id), method: :delete, data: {confirm: "全て削除しますか？"}, remote: true, class: "btn btn-danger" %>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,10 +41,10 @@
 <% end %>
 
 <% if flash.any? %>
-        <script type="text/javascript">
-          <% flash.each do |key, value| %>
-            <% type = key.to_s.gsub('alert', 'error') %>
-            toastr.<%= type %>('<%= value %>')
-          <% end %>
-        </script>
-      <% end %>
+	<script type="text/javascript">
+	  <% flash.each do |key, value| %>
+	    <% type = key.to_s.gsub('alert', 'error') %>
+	    toastr.<%= type %>('<%= value %>')
+	  <% end %>
+	</script>
+<% end %>
