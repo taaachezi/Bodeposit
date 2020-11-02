@@ -15,7 +15,11 @@ Rails.application.routes.draw do
       get :withdraw
       patch :unsubscribe
     end
-    resources :eats, only: [:create, :destroy]
+    resources :eats, only: [:create, :destroy] do
+      collection do
+        delete :destroy_all
+      end
+    end
     resource :messages, only: [:create]
   end
 

@@ -38,6 +38,12 @@ class EatsController < ApplicationController
     set_calorie
   end
 
+  def destroy_all
+    current_user.eats.destroy_all
+    @eat = current_user.eats.new
+    set_calorie
+  end
+
   private
 
   def params_eat
