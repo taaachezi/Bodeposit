@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   # recipe_material/new.html ジャンル選択後のurlに対応
   get '/recipes/:recipe_id/recipe_materials' => "recipe_materials#new"
 
+  resources :events
+  
   resources :users, only: [:show, :update] do
     member do
       get :withdraw

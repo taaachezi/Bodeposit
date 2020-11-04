@@ -44,6 +44,7 @@ class EatsController < ApplicationController
     set_calorie
   end
 
+
   private
 
   def params_eat

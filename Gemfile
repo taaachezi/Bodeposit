@@ -88,6 +88,8 @@ gem 'devise-i18n'
 gem 'whenever', require: false
 gem 'bootstrap4-kaminari-views'
 gem 'rubocop-airbnb'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 group :production do
   gem 'mysql2', '~>0.4.4'
 end
