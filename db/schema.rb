@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_03_082249) do
+ActiveRecord::Schema.define(version: 2020_10_27_110906) do
 
   create_table "chat_users", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -33,15 +33,6 @@ ActiveRecord::Schema.define(version: 2020_11_03_082249) do
     t.float "calorie", null: false
     t.integer "quantity"
     t.integer "recipe_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.string "title"
-    t.string "body"
-    t.datetime "start_date"
-    t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
