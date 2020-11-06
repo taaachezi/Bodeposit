@@ -13,7 +13,8 @@ class TopController < ApplicationController
     end
     @users = User.includes(:messages).order("messages.created_at DESC")
     @eat = current_user.eats.new
-    set_calorie
+    set_calorie(Date.today.in_time_zone.all_day)
+    @yesterday = set_calorie(Date.today.in_time_zone.all_day)
     @recipes = Recipe.order("average_rate DESC").limit(3)
   end
 end

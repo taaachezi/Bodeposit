@@ -14,13 +14,13 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
-  def set_calorie
-    search_today = Date.today.in_time_zone.all_day
-    @eat_calorie = current_user.eats.where(created_at: search_today).sum(:calorie).to_f.round(1)
-    @eat_protein = current_user.eats.where(created_at: search_today).sum(:protein).to_f.round(1)
-    @eat_carbo = current_user.eats.where(created_at: search_today).sum(:carbohydrate).to_f.round(1)
-    @eat_fat = current_user.eats.where(created_at: search_today).sum(:fat).to_f.round(1)
-    @eats = current_user.eats.where(created_at: search_today)
+  def set_calorie(day)
+    search_day = day
+    @eat_calorie = current_user.eats.where(created_at: search_day).sum(:calorie).to_f.round(1)
+    @eat_protein = current_user.eats.where(created_at: search_day).sum(:protein).to_f.round(1)
+    @eat_carbo = current_user.eats.where(created_at: search_day).sum(:carbohydrate).to_f.round(1)
+    @eat_fat = current_user.eats.where(created_at: search_day).sum(:fat).to_f.round(1)
+    @eats = current_user.eats.where(created_at: search_day)
   end
 
   protected

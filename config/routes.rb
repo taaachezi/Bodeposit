@@ -10,8 +10,6 @@ Rails.application.routes.draw do
   # recipe_material/new.html ジャンル選択後のurlに対応
   get '/recipes/:recipe_id/recipe_materials' => "recipe_materials#new"
 
-  resources :events
-  
   resources :users, only: [:show, :update] do
     member do
       get :withdraw
@@ -22,6 +20,7 @@ Rails.application.routes.draw do
         delete :destroy_all
       end
     end
+    resources :events
     resource :messages, only: [:create]
   end
 
