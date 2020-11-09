@@ -76,9 +76,9 @@
 				<% else %>
 					<%= f.collection_select :material_id, current_user.materials.order("name DESC"), :id, :name, include_blank: "材料選択" %>
 				<% end %>
-			<%= f.label :"数量" %>
-			<%= f.text_field :quantity, autofocus: true %>g
-			<%= f.submit "Eat!", class: "button rounded-pill ml-4" %>
+				<%= f.label :"数量" %>
+				<%= f.text_field :quantity, autofocus: true %>g
+				<%= f.submit "Eat!", class: "button rounded-pill ml-4" %>
 			<% end %>
 		</div>
 
@@ -87,7 +87,25 @@
 		</div>
 
 		<div class="eat__history">
-			<!-- 履歴表示させる -->
+			<div class="col-12 text-center">
+				<h3>〜過去１週間の摂取カロリー</h3>
+			</div>
+			<table class="table table-inverse">
+				<tr class="text-center">
+					<th class="w-25">日付</th>
+					<th>摂取カロリー</th>
+				</tr>
+				<% day_count = 0 %>
+				<% ago = -1 %>
+				<% while day_count <= 6 do %>
+				<tr class="text-center">
+						<td><%= (Date.today + ago).strftime("%m/%d(%a)") %></td>
+						<td><%= current_user.eats.where(created_at: (Date.today + ago).in_time_zone.all_day).sum(:calorie).to_f.round(1) %>kcal</td>
+				</tr>
+				<% day_count += 1 %>
+				<% ago += -1 %>
+				<% end %>
+			</table>
 		</div>
 
 		<div class="col-12 text-center">
