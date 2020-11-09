@@ -1,4 +1,4 @@
-<% if current_user.eats.where(created_at: Date.today).count >= 1 %>
+<% if current_user.eats.where(created_at: Date.today.in_time_zone.all_day).count >= 1 %>
 	<table class="table">
 		<thead>
 			<tr>
