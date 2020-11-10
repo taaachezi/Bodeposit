@@ -98,12 +98,12 @@
 				<% day_count = 0 %>
 				<% ago = -1 %>
 				<% while day_count <= 6 do %>
-				<tr class="text-center">
-						<td><%= (Date.today + ago).strftime("%m/%d(%a)") %></td>
-						<td><%= current_user.eats.where(created_at: (Date.today + ago).in_time_zone.all_day).sum(:calorie).to_f.round(1) %>kcal</td>
-				</tr>
-				<% day_count += 1 %>
-				<% ago += -1 %>
+					<tr class="text-center">
+							<td><%= (Date.today + ago).strftime("%m/%d(%a)") %></td>
+							<td><%= current_user.eats.where(created_at: (Date.today + ago).in_time_zone.all_day).sum(:calorie).to_f.round(1) %>kcal</td>
+					</tr>
+					<% day_count += 1 %>
+					<% ago += -1 %>
 				<% end %>
 			</table>
 		</div>
