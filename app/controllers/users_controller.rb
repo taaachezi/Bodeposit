@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user
+  before_action -> {
+    set_user
+    check_user(params[:id])
+  }
   after_action :set_user
 
   def show

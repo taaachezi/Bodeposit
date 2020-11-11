@@ -1,4 +1,7 @@
 class RecipesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:show, :index]
+  before_action -> {
+    check_user(params[:user_id])}, except: [:show, :index]
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
   def new

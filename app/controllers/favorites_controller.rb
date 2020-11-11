@@ -1,5 +1,8 @@
 class FavoritesController < ApplicationController
-  before_action :set_recipe
+  before_action -> {
+    set_recipe
+    check_user(params[:user_id])
+  }
 
   def create
     favorite = current_user.favorites.new

@@ -1,6 +1,8 @@
 class GenresController < ApplicationController
-  before_action :set_genre
-  before_action :authenticate_user!
+  before_action -> {
+    set_genre
+  }
+
   def new
   end
 

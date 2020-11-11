@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # devise
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!
 
   def after_sign_up_path_for(resource)
     user_top_path(current_user.id)
@@ -12,6 +13,13 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(resource)
     root_path
+  end
+
+  def check_user(user)
+    unless current_user.id == user.to_i
+      redirect_back(fallback_location: root_path)
+      flash[:error] = "不正なアクセスです"
+    end
   end
 
   def set_calorie(day)

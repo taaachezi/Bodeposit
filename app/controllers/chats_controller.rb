@@ -1,4 +1,8 @@
 class ChatsController < ApplicationController
+	before_action -> {
+		check_user(params[:id])
+	}
+
 	def show
 		user = User.find(params[:id])
 		chat_user = ChatUser.pluck(:user_id)

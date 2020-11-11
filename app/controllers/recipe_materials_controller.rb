@@ -1,5 +1,4 @@
 class RecipeMaterialsController < ApplicationController
-  before_action :authenticate_user!
   def new
     @recipe_material = RecipeMaterial.new
     set_recipe_material

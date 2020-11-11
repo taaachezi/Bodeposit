@@ -1,5 +1,8 @@
 class EatsController < ApplicationController
-  before_action :authenticate_user!
+  before_action -> {
+    check_user(params[:user_id])
+  }
+
   def create
     # recipeを摂取する
     if params["recipe_id"]
