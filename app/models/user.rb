@@ -5,6 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[google_oauth2]
 
+  after_create :send_mail_create
+  def send_mail_create
+    NotificationMailer.send_mail(self).deliver_now
+  end
+
   acts_as_paranoid
 
   has_many :eats, dependent: :destroy
@@ -40,6 +45,7 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.password = Devise.friendly_token[0,20]
     end
+
   end
 
   # 消費カロリー計算
