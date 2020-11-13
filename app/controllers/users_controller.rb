@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def unsubscribe
-    @user.destroy
+    @user.really_destroy!
     redirect_to root_path
   end
 
