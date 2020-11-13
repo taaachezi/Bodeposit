@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :update] do
     member do
       get :withdraw
-      patch :unsubscribe
+      delete :unsubscribe
     end
     resources :eats, only: [:create, :destroy] do
       collection do

@@ -3,13 +3,12 @@ class UsersController < ApplicationController
     set_user
     check_user(params[:id])
   }
-  after_action :set_user
 
   def show
   end
 
   def update
-    if @user.update(params_users) == false
+    if  @user.update(params_users) == false
       flash[:error] = "入力に誤りがあります"
     else
       @user.calorie = User.intake_nutorition(@user.height, @user.weight, @user.sex, @user.age, @user.level)

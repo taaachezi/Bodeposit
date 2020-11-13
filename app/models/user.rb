@@ -25,6 +25,9 @@ class User < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :email
+    validates :height
+    validates :weight
+    validates :age
   end
 
   enum level: {
