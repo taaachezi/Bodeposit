@@ -47,7 +47,6 @@ class EatsController < ApplicationController
     set_calorie(Date.today.in_time_zone.all_day)
   end
 
-
   private
 
   def params_eat

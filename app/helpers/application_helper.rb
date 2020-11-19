@@ -61,5 +61,4 @@ module ApplicationHelper
     target_carbo_slim = user_carbo - eat_carbo
     target_carbo_slim.to_f.round(1)
   end
-
 end

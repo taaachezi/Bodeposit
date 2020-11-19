@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    omniauth_callbacks: "users/omniauth_callbacks"
+    omniauth_callbacks: "users/omniauth_callbacks",
   }
-  
+
   root 'top#top'
   get 'user_top/:id' => 'top#user_top', as: "user_top"
   get 'how_use' => 'top#how_use', as: "how_use"
