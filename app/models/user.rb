@@ -21,6 +21,8 @@ class User < ApplicationRecord
   has_many :favorite_recipes, through: :favorites, source: :recipe
   has_many :messages, dependent: :destroy
   has_many :chat_users, dependent: :destroy
+  has_many :talks, dependent: :destroy
+  has_many :user_groups, dependent: :destroy
 
   with_options presence: true do
     validates :name

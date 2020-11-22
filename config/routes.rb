@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get :withdraw
       delete :unsubscribe
     end
+    resources :talks, only: [:create, :index]
     resources :eats, only: [:create, :destroy] do
       collection do
         delete :destroy_all
@@ -37,6 +38,7 @@ Rails.application.routes.draw do
     resources :recipe_materials, only: [:new, :create, :destroy]
   end
 
+  resources :groups
   resources :chats, only: [:show, :create]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
