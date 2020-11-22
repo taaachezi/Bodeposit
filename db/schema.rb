@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_110906) do
+ActiveRecord::Schema.define(version: 2020_11_22_103922) do
 
   create_table "chat_users", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -48,6 +48,12 @@ ActiveRecord::Schema.define(version: 2020_10_27_110906) do
     t.bigint "user_id", null: false
     t.string "name", null: false
     t.boolean "status", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -108,6 +114,21 @@ ActiveRecord::Schema.define(version: 2020_10_27_110906) do
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.bigint "recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "talks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "body"
+    t.bigint "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_groups", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
