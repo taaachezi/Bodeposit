@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i(google_oauth2)
-
+         
+  # user.create後メール送信
   after_create :send_mail_create
   def send_mail_create
     NotificationMailer.send_mail(self).deliver_now
