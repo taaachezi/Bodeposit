@@ -5,6 +5,7 @@
 
 		<div class="eat__target shadow-lg">
 			<h2 class="text-center pt-3">〜　増量　〜</h2>
+			
 			<% if weight_gain_calorie(current_user.calorie) < eat_calorie %>
 				<h1 class="pt-2 pb-4 text-center text-danger">食べ過ぎです！</h1>
 			<% else %>
@@ -15,21 +16,21 @@
 				<div class="gain__target text-center">
 					<h4>目標摂取<span class="ml-5"><%= weight_gain_calorie(current_user.calorie) %>kcal</span></h4>
 
-					<% if  eat_protein > target_protein(eat_protein, current_user.protein) %>
+					<% if  eat_protein > current_user.protein %>
 						<p class="text-danger">
 					<% else %>
 						<p class="">
 					<% end %>
 						たんぱく質　<%= target_protein(eat_protein, current_user.protein)  %>g </p>
 
-					<% if eat_carbo > target_carbo_gain(eat_carbo, current_user.calorie, current_user.fat, current_user.protein) %>
+					<% if eat_carbo > weight_gain_carbo(current_user.calorie, current_user.fat, current_user.protein) %>
 						<p class="text-danger">
 					<% else %>
 						<p class="">
 					<% end %>
 					炭水化物　<%= target_carbo_gain(eat_carbo, current_user.calorie, current_user.fat, current_user.protein)  %>g</p>
 
-					<% if eat_fat > target_fat(eat_fat, current_user.fat) %>
+					<% if eat_fat > current_user.fat %>
 						<p class="text-danger">
 					<% else %>
 						<p class="">
@@ -49,9 +50,27 @@
 			<% end %>
 				<div class="gain__target text-center">
 					<h4>目標摂取<span class="ml-5"><%= weight_slim_calorie(current_user.calorie) %>kcal</span></h4>
-					<p class="">たんぱく質　<%= target_protein(eat_protein, current_user.protein)  %>g</p>
-					<p class="">炭水化物　<%= target_carbo_slim(eat_carbo, current_user.calorie, current_user.fat, current_user.protein)  %>g</p>
-					<p class="">脂質 <%= target_fat(eat_fat, current_user.fat) %>g</p>
+
+					<% if  eat_protein > current_user.protein %>
+						<p class="text-danger">
+					<% else %>
+						<p class="">
+					<% end %>
+					たんぱく質　<%= target_protein(eat_protein, current_user.protein)  %>g</p>
+
+					<% if eat_carbo > weight_slim_carbo(current_user.calorie, current_user.fat, current_user.protein) %>
+						<p class="text-danger">
+					<% else %>
+						<p class="">
+					<% end %>
+						炭水化物　<%= target_carbo_slim(eat_carbo, current_user.calorie, current_user.fat, current_user.protein)  %>g</p>
+
+					<% if eat_fat > current_user.fat %>
+						<p class="text-danger">
+					<% else %>
+						<p class="">
+					<% end %>
+						脂質 <%= target_fat(eat_fat, current_user.fat) %>g</p>
 				</div>
 		</div>
 	<% end %>
