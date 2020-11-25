@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  get 'talks/create'
+  get 'talks/destroy'
+  get 'user_groups/create'
+  get 'user_groups/destroy'
+  get 'groups/new'
+  get 'groups/create'
+  get 'groups/show'
+  get 'groups/index'
+  get 'groups/update'
+  get 'groups/destroy'
+  get 'groups/new'
+  get 'groups/create'
+  get 'groups/show'
+  get 'groups/index'
+  get 'groups/delere'
+  get 'groups/update'
   devise_for :users, controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
   }
@@ -15,6 +31,8 @@ Rails.application.routes.draw do
       get :withdraw
       delete :unsubscribe
     end
+    resources :groups
+    resource :user_groups
     resources :talks, only: [:create, :index]
     resources :eats, only: [:create, :destroy] do
       collection do
@@ -38,7 +56,6 @@ Rails.application.routes.draw do
     resources :recipe_materials, only: [:new, :create, :destroy]
   end
 
-  resources :groups
   resources :chats, only: [:show, :create]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
