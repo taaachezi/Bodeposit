@@ -1,4 +1,4 @@
-module ApplicationHelper
+  module ApplicationHelper
   def recipe_material_calorie(calorie, quantity)
     recipe_material_calorie = calorie * quantity / 100
     recipe_material_calorie.to_f.round(1)
