@@ -1,20 +1,4 @@
 Rails.application.routes.draw do
-  get 'talks/create'
-  get 'talks/destroy'
-  get 'user_groups/create'
-  get 'user_groups/destroy'
-  get 'groups/new'
-  get 'groups/create'
-  get 'groups/show'
-  get 'groups/index'
-  get 'groups/update'
-  get 'groups/destroy'
-  get 'groups/new'
-  get 'groups/create'
-  get 'groups/show'
-  get 'groups/index'
-  get 'groups/delere'
-  get 'groups/update'
   devise_for :users, controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
   }
