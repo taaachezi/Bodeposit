@@ -19,6 +19,8 @@ class ChatsController < ApplicationController
       ChatUser.create(user_id: 6, chat_id: @chat.id)
     end
     @messages = Message.where(chat_id: @chat)
+    # メッセージの日付別表示
+    @message_day = @messages.pluck(:created_at)
     @message = Message.new(chat_id: @chat, user_id: current_user.id)
   end
 end
