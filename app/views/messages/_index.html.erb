@@ -1,24 +1,43 @@
-<!-- できれば日付毎にループ処理したい -->
-<% messages.each do |message| %>
-	<% if message.question.present? %>
-		<div class="row">
-			<div class="w-25 message message-question rounded  p-1 mb-2 shadow text-break">
-				<%= message.question %>
-			</div>
-			<div class="col-2">
-				<%= l message.created_at %>
-			</div>
+<!-- 最初のメッセージ作成日付設定 -->
+<% set_day = messages.first.created_at.to_date %>
+<!-- 作成日時が最後のレコードの作成日時と同じになるまで繰り返し処理 -->
+<% while set_day <= messages.last.created_at.to_date do %>
+<!-- 取り出したレコードの日付が前のレコードの日付と同じだった場合、日付を表示しない nilを初期値として最初の日付を表示させる-->
+	<% before_message = nil %>
+	<% messages.each do |message| %>
+	<!-- messageの作成日時が設定日時と同じ且つ、前のレコードと同じ日付でなければ日付を表示させる -->
+		<% if message.created_at.to_date == set_day && message.created_at.to_date != before_message %>
+		<div class="row justify-content-center m-3 rounded">
+			<%= set_day %>
 		</div>
-	<% end %>
+		<% end %>
+	<!-- 作成日時が設定日時と同じ場合そのメッセージを表示 -->
+		<% if message.created_at.to_date == set_day %>
+			<% if message.answer.present? %>
+				<div class="row justify-content-start">
+					<div class="w-25 message message-answer rounded  p-1 mb-2 shadow text-break">
+						<%= message.answer %>
+					</div>
+					<div class="col-2">
+						<%= message.created_at.strftime("%H:%M") %>
+					</div>
+				</div>
+			<% end %>
 
-	<% if message.answer.present? %>
-		<div class="row justify-content-end">
-			<div class="w-25 message message-answer rounded  p-1 mb-2 shadow text-break">
-				<%= message.answer %>
-			</div>
-			<div class="col-2">
-				<%= l message.created_at %>
-			</div>
-		</div>
+			<% if message.question.present? %>
+				<div class="row justify-content-end">
+					<div class="w-25 message message-question rounded  p-1 mb-2 shadow text-break">
+						<%= message.question %>
+					</div>
+					<div class="col-2">
+						<%= message.created_at.strftime("%H:%M") %>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+		<!-- 次のレコードの作成日時と前回の作成日時を比較するため今回表示したmessageを格納 -->
+		<% before_message = message.created_at.to_date %>
 	<% end %>
+	<!-- 設定日時を翌日に更新 -->
+	<% set_day += 1 %>
 <% end %>

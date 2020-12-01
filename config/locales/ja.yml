@@ -1,4 +1,5 @@
 ja:
   time:
     formats:
+      short: "%m/%d (%a)"
       default: "%m/%d %H:%M"
