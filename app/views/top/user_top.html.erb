@@ -14,7 +14,13 @@
 			<tbody>
 				<% @users.where.not(name: "管理者").each do |user| %>
 					<tr>
-						<td><%= link_to user.name, chat_path(user.id) %></td>
+						<td>
+							<% if user.messages.blank? %>
+								<%= user.name %>
+							<% else %>
+								<%= link_to user.name, chat_path(user.id) %>
+							<% end %>
+						</td>
 						<td><%= user.email %></td>
 						<td><% if user.sex == "true" %>
 							   男
