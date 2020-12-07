@@ -83,9 +83,6 @@ class RecipesController < ApplicationController
     @data = { "たんぱく質" => @recipe.protein.round(1), "脂質" => @recipe.fat.round(1), "炭水化物" => @recipe.carbohydrate.round(1) }
   end
 
-  def edit
-  end
-
   def update
     if @recipe.update(params_recipe)
       @recipe.tags.destroy_all

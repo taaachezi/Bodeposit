@@ -1,9 +1,6 @@
 class MaterialsController < ApplicationController
   before_action :set_material, only: [:index]
 
-  def index
-  end
-
   def create
     @addmaterial = Material.new(params_material)
     add_name = params[:material][:name]

@@ -2,10 +2,7 @@ class GenresController < ApplicationController
   before_action -> {
     set_genre
   }
-
-  def new
-  end
-
+  
   def create
     @addgenre = Genre.new(params_genre)
     @addgenre.user_id = current_user.id
