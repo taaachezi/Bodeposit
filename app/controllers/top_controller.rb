@@ -1,6 +1,7 @@
 class TopController < ApplicationController
   skip_before_action :authenticate_user!, except: [:user_top]
   before_action -> { check_user(params[:id]) }, only: [:user_top]
+  
   def top
   end
 
